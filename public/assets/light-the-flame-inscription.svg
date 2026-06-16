@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 116" role="img" aria-label="Light The Flame">
+  <defs>
+    <filter id="stoneCarve" x="-12%" y="-70%" width="124%" height="240%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018 0.21" numOctaves="3" seed="19" result="grain"/>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="1.9" xChannelSelector="R" yChannelSelector="G" result="distorted"/>
+      <feGaussianBlur in="distorted" stdDeviation="0.18" result="softened"/>
+      <feMerge>
+        <feMergeNode in="softened"/>
+      </feMerge>
+    </filter>
+
+    <filter id="innerFire" x="-18%" y="-95%" width="136%" height="290%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.032 0.17" numOctaves="2" seed="31" result="flicker"/>
+      <feDisplacementMap in="SourceGraphic" in2="flicker" scale="1.2" result="uneven"/>
+      <feGaussianBlur in="uneven" stdDeviation="1.15" result="smallGlow"/>
+      <feGaussianBlur in="uneven" stdDeviation="4.8" result="wideGlow"/>
+      <feMerge>
+        <feMergeNode in="wideGlow"/>
+        <feMergeNode in="smallGlow"/>
+        <feMergeNode in="uneven"/>
+      </feMerge>
+    </filter>
+
+    <filter id="stoneDust" x="-8%" y="-40%" width="116%" height="180%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.06 0.45" numOctaves="2" seed="9" result="dust"/>
+      <feColorMatrix in="dust" type="matrix" values="
+        0 0 0 0 0.95
+        0 0 0 0 0.55
+        0 0 0 0 0.16
+        0 0 0 0.22 0" result="amberDust"/>
+      <feComposite in="amberDust" in2="SourceGraphic" operator="in"/>
+    </filter>
+
+    <linearGradient id="fireText" x1="0" y1="18" x2="0" y2="92" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffe5a7" stop-opacity="0.78"/>
+      <stop offset="0.43" stop-color="#d4862f" stop-opacity="0.72"/>
+      <stop offset="0.78" stop-color="#8b451b" stop-opacity="0.52"/>
+      <stop offset="1" stop-color="#28150b" stop-opacity="0.46"/>
+    </linearGradient>
+
+    <text id="inscription" x="410" y="73"
+      text-anchor="middle"
+      font-family="Georgia, 'Times New Roman', serif"
+      font-size="50"
+      font-weight="900"
+      letter-spacing="13"
+      textLength="710"
+      lengthAdjust="spacingAndGlyphs">LIGHT THE FLAME</text>
+  </defs>
+
+  <rect width="820" height="116" fill="transparent"/>
+
+  <use href="#inscription"
+    transform="translate(0 2.2)"
+    fill="#020101"
+    opacity="0.82"
+    filter="url(#stoneCarve)"/>
+  <use href="#inscription"
+    transform="translate(0 -1.1)"
+    fill="#f4c474"
+    opacity="0.13"
+    filter="url(#stoneCarve)"/>
+
+  <use href="#inscription"
+    fill="#b35b1d"
+    opacity="0.38"
+    filter="url(#innerFire)"/>
+  <use href="#inscription"
+    fill="url(#fireText)"
+    opacity="0.78"
+    filter="url(#stoneCarve)"/>
+  <use href="#inscription"
+    fill="#ffbf55"
+    opacity="0.22"
+    filter="url(#stoneDust)"/>
+
+  <path d="M78 57 C178 53 247 61 345 56 S579 51 742 58"
+    fill="none"
+    stroke="#e0943e"
+    stroke-width="0.7"
+    stroke-opacity="0.11"/>
+  <path d="M116 79 C222 82 326 76 407 80 S612 84 707 78"
+    fill="none"
+    stroke="#090604"
+    stroke-width="1.2"
+    stroke-opacity="0.36"/>
+</svg>

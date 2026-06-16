@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fortune Shrine</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shrine-shell">
+      <div class="night-sky" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </div>
+      <div class="flame-presence" id="flamePresence" aria-hidden="true">
+        <span class="flame-presence-aura"></span>
+        <span class="flame-presence-core"></span>
+        <span class="flame-presence-floor"></span>
+      </div>
+
+      <header class="shrine-header">
+        <span>Fortune Shrine</span>
+        <span class="shrine-header-actions">
+          <button class="ambient-toggle" id="ambientToggle" type="button" aria-pressed="false">Silence</button>
+          <span id="phaseLabel">The Threshold</span>
+        </span>
+      </header>
+
+      <section class="hero-stage" id="heroStage" aria-labelledby="hero-title">
+        <p class="eyebrow">A Digital Shrine Before Uncertainty</p>
+        <h1 id="hero-title">Before stepping into the unknown,<br />receive a blessing.</h1>
+
+        <div class="sacred-scene" id="sacredScene" aria-label="Door Of The Unknown">
+          <div class="door-of-unknown" id="doorOfUnknown" aria-hidden="true">
+            <span class="door-panel left"></span>
+            <span class="door-panel right"></span>
+            <span class="door-shadow"></span>
+          </div>
+          <div class="sacred-flame" id="sacredFlame" aria-hidden="true">
+            <span class="flame-aura"></span>
+            <span class="flame-back"></span>
+            <span class="flame-front"></span>
+            <span class="flame-base"></span>
+          </div>
+          <div class="ritual-particles hidden" id="ritualParticles" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <button class="primary-button" id="offeringButton" type="button" data-label="Light The Flame">
+          <span class="inscription-text">Light The Flame</span>
+        </button>
+        <p class="microcopy">You are not buying words. You are lighting the flame.</p>
+      </section>
+
+      <section class="offering-page hidden" id="offeringPage" aria-label="Offering selection">
+        <p class="eyebrow">Light The Flame</p>
+        <h2>Make an offering.</h2>
+        <p class="section-copy">Choose the flame you carry. The blessing follows the offering.</p>
+
+        <div class="offering-grid" id="offeringGrid">
+          <button type="button" class="offering-choice active" data-offering="traveler" data-name="Traveler's Offering" data-meaning="A small flame for the journey." data-price="5 USDC">
+            <span class="offering-symbol">I</span>
+            <strong>Traveler's Offering</strong>
+            <small>Traveler's flame</small>
+            <em>A small flame for the journey.</em>
+            <span>5 USDC</span>
+          </button>
+          <button type="button" class="offering-choice" data-offering="keeper" data-name="Keeper's Offering" data-meaning="A steady light through the night." data-price="15 USDC">
+            <span class="offering-symbol">II</span>
+            <strong>Keeper's Offering</strong>
+            <small>Keeper's flame</small>
+            <em>A steady light through the night.</em>
+            <span>15 USDC</span>
+          </button>
+          <button type="button" class="offering-choice" data-offering="sacred" data-name="Sacred Offering" data-meaning="A blessing carried forward." data-price="35 USDC">
+            <span class="offering-symbol">III</span>
+            <strong>Sacred Offering</strong>
+            <small>Sacred flame</small>
+            <em>A blessing carried forward.</em>
+            <span>35 USDC</span>
+          </button>
+          <button type="button" class="offering-choice" data-offering="eternal" data-name="Eternal Offering" data-meaning="A light for those who follow." data-price="88 USDC">
+            <span class="offering-symbol">IV</span>
+            <strong>Eternal Offering</strong>
+            <small>Eternal flame</small>
+            <em>A light for those who follow.</em>
+            <span>88 USDC</span>
+          </button>
+        </div>
+
+        <button class="primary-button" id="continuePaymentButton" type="button">Offer to the Flame</button>
+      </section>
+
+      <section class="ritual-status hidden" id="ritualStatus" aria-live="polite">
+        <p class="eyebrow">The offering is received.</p>
+        <h2>The Eternal Flame grows brighter.</h2>
+        <p id="ritualMessage">The door opens slowly. The Shrine keeps silence.</p>
+        <button class="primary-button hidden" id="confirmOfferingButton" type="button">Confirm Offering</button>
+        <button class="secondary-button hidden" id="returnFromVerificationButton" type="button">Return to Shrine</button>
+      </section>
+
+      <section class="oracle-card hidden" id="oracleCard" aria-live="polite">
+        <div class="blessing-text">
+          <p class="witness-line" id="recognition"></p>
+          <p class="blessing-line" id="blessing"></p>
+          <p class="echo-line" id="oracle"></p>
+        </div>
+        <button class="secondary-button hidden" id="continueButton" type="button">Continue Journey</button>
+      </section>
+
+      <section class="completion hidden" id="completion" aria-live="polite">
+        <p class="eyebrow">Journey Continued</p>
+      </section>
+    </main>
+
+    <div class="payment-modal hidden" id="paymentModal" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
+      <section class="payment-card">
+        <p class="eyebrow">Offering</p>
+        <h2 id="paymentTitle">Traveler's Offering</h2>
+        <p id="paymentMeaning">A small flame for the journey.</p>
+        <p class="payment-invocation" id="paymentInvocation">May this flame accompany your steps through the unknown.</p>
+        <div class="payment-amount">
+          <span>Offering Mark</span>
+          <strong id="paymentPrice">5 USDC</strong>
+        </div>
+        <div class="offering-method" aria-label="Offering method">
+          <div class="offering-qr">
+            <img id="paymentQrImage" src="/assets/solana-wallet-recipient-qr.png" alt="Solana Pay QR code" />
+            <small id="paymentQrLabel">Scan recipient address</small>
+          </div>
+          <div class="payment-brief">
+            <strong>Solana</strong>
+            <strong>USDC only</strong>
+          </div>
+          <div class="payment-recipient">
+            <span>Recipient</span>
+            <code id="paymentRecipient">HMmUVQx6ToGQa8Fnd6aicHhpF1ti9QrzqNNC8187Y4s1</code>
+          </div>
+          <details class="offering-details">
+            <summary>Verification details</summary>
+            <div>
+              <span>Accepted USDC Mint</span>
+              <code id="paymentMint">EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v</code>
+            </div>
+            <div>
+              <span>Reference</span>
+              <code id="paymentReference">Created when the offering begins.</code>
+            </div>
+          </details>
+          <p>Scan and send. The Shrine will listen for the offering.</p>
+        </div>
+        <div class="payment-actions">
+          <button class="secondary-button" id="cancelPaymentButton" type="button">Step Back</button>
+          <button class="primary-button" id="walletPayButton" type="button">Pay With Wallet</button>
+          <button class="manual-confirm-button" id="completePaymentButton" type="button">I Have Sent It</button>
+        </div>
+      </section>
+    </div>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,1197 @@
+:root {
+  color-scheme: dark;
+  --bg: #06070b;
+  --text: #f5eedf;
+  --muted: rgba(235, 222, 198, 0.68);
+  --gold: #d9b86f;
+  --gold-soft: #f1deb2;
+  --ember: #f2a23a;
+  --line: rgba(241, 222, 178, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+}
+
+button {
+  font: inherit;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.shrine-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 24px clamp(18px, 4vw, 42px) 70px;
+  background:
+    linear-gradient(180deg, rgba(2, 3, 7, 0.74), rgba(2, 3, 7, 0.28) 42%, rgba(2, 3, 7, 0.82) 100%),
+    radial-gradient(circle at 50% 18%, rgba(0, 0, 0, 0.34), transparent 34%),
+    radial-gradient(circle at 50% 80%, rgba(242, 162, 58, 0.08), transparent 34%),
+    url("/assets/fortune-shrine-temple-v05.png") center center / cover no-repeat,
+    #020307;
+}
+
+.night-sky,
+.night-sky span {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  display: block;
+}
+
+.night-sky span {
+  opacity: 0.075;
+  background-repeat: repeat;
+}
+
+.night-sky span:first-child {
+  background-image:
+    radial-gradient(circle, rgba(242, 162, 58, 0.7) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(241, 222, 178, 0.32) 0 1px, transparent 1.4px);
+  background-position: 0 0, 68px 90px;
+  background-size: 180px 220px, 260px 240px;
+}
+
+.night-sky span:last-child {
+  opacity: 0.045;
+  background-image: radial-gradient(circle, rgba(242, 162, 58, 0.52) 0 1px, transparent 1.7px);
+  background-position: 90px 40px;
+  background-size: 320px 360px;
+}
+
+.flame-presence {
+  --presence-aura-opacity: 0.18;
+  --presence-core-opacity: 0.2;
+  --presence-floor-opacity: 0.14;
+  --presence-scale: 1;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: min(72vh, 650px);
+  width: min(34vw, 430px);
+  height: min(24vw, 250px);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(var(--presence-scale));
+  transition: transform 1500ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.flame-presence-aura,
+.flame-presence-core,
+.flame-presence-floor {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.flame-presence-aura {
+  inset: 12% 22% 18%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 162, 58, 0.58), transparent 62%);
+  filter: blur(20px);
+  opacity: var(--presence-aura-opacity);
+  transition: opacity 1500ms ease;
+}
+
+.flame-presence-core {
+  left: 50%;
+  bottom: 42%;
+  width: 56px;
+  height: 78px;
+  border-radius: 50% 50% 44% 44%;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 239, 186, 0.78), transparent 22%),
+    radial-gradient(ellipse at 50% 64%, rgba(242, 142, 35, 0.7), transparent 70%);
+  filter: blur(5px) drop-shadow(0 0 24px rgba(242, 162, 58, 0.36));
+  opacity: var(--presence-core-opacity);
+  transform: translateX(-50%);
+  transition: opacity 1400ms ease, transform 1400ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.flame-presence-floor {
+  left: 50%;
+  bottom: 16%;
+  width: 78%;
+  height: 34%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 50%, rgba(217, 126, 42, 0.3), transparent 66%);
+  filter: blur(18px);
+  opacity: var(--presence-floor-opacity);
+  transform: translateX(-50%);
+  transition: opacity 1600ms ease, transform 1600ms ease;
+}
+
+.flame-presence.listening {
+  --presence-aura-opacity: 0.32;
+  --presence-core-opacity: 0.34;
+  --presence-floor-opacity: 0.22;
+  --presence-scale: 1.08;
+}
+
+.flame-presence.listening .flame-presence-core {
+  transform: translateX(-50%) translateY(-7px) scaleY(1.12);
+}
+
+.flame-ember {
+  position: absolute;
+  left: calc(50% + var(--ember-x));
+  bottom: 46%;
+  width: var(--ember-size);
+  height: var(--ember-size);
+  border-radius: 50%;
+  background: rgba(255, 210, 132, 0.76);
+  box-shadow: 0 0 8px rgba(242, 162, 58, 0.42);
+  opacity: 0;
+  transform: translate3d(0, 0, 0);
+  animation: ember-rise var(--ember-duration) ease-out forwards;
+}
+
+.shrine-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  max-width: 1120px;
+  margin: 0 auto;
+  color: rgba(241, 222, 178, 0.52);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.shrine-header-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.ambient-toggle {
+  border: 0;
+  padding: 0;
+  color: rgba(241, 222, 178, 0.34);
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  background: transparent;
+  cursor: pointer;
+  transition: color 900ms ease, text-shadow 900ms ease;
+}
+
+.ambient-toggle[aria-pressed="true"] {
+  color: rgba(241, 222, 178, 0.48);
+  text-shadow: 0 0 10px rgba(242, 162, 58, 0.1);
+}
+
+.ambient-toggle:hover,
+.ambient-toggle:focus-visible {
+  color: rgba(241, 222, 178, 0.64);
+  outline: none;
+}
+
+.hero-stage,
+.offering-page,
+.ritual-status,
+.oracle-card,
+.completion {
+  position: relative;
+  z-index: 2;
+  max-width: 940px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-stage {
+  display: block;
+  min-height: calc(100vh - 118px);
+  padding-top: clamp(22px, 5.2vh, 58px);
+  max-width: 680px;
+}
+
+.hero-stage.compact {
+  padding-top: 34px;
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  color: rgba(241, 222, 178, 0.62);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.hero-stage > .eyebrow,
+.hero-stage > .microcopy {
+  display: none;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+}
+
+h1 {
+  margin: 0 auto 10px;
+  max-width: 390px;
+  color: rgba(255, 250, 240, 0.38);
+  font-size: clamp(0.82rem, 1.9vw, 1.5rem);
+  letter-spacing: 0;
+  line-height: 1.12;
+  text-shadow:
+    0 2px 14px rgba(0, 0, 0, 0.9),
+    0 0 10px rgba(217, 184, 111, 0.025);
+}
+
+h2 {
+  margin-bottom: 12px;
+  color: #fff8e7;
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+.section-copy,
+.microcopy,
+.ritual-status p,
+.payment-card p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.sacred-scene {
+  --scene-light-opacity: 0;
+  --scene-light-scale: 0.72;
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(340px, 54vw, 480px);
+  max-width: 680px;
+  margin: 0 auto 28px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(217, 184, 111, 0.12), transparent 32%),
+    rgba(0, 0, 0, 0.2);
+  box-shadow: 0 42px 110px rgba(0, 0, 0, 0.54), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px);
+  transition: border-color 900ms ease, box-shadow 900ms ease, background 900ms ease;
+}
+
+.hero-stage > .sacred-scene {
+  display: none;
+}
+
+.sacred-scene::after {
+  position: absolute;
+  inset: 2%;
+  z-index: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 58%, rgba(255, 233, 178, 0.34), transparent 22%),
+    radial-gradient(circle at 50% 44%, rgba(242, 162, 58, 0.22), transparent 46%);
+  filter: blur(22px);
+  opacity: var(--scene-light-opacity);
+  pointer-events: none;
+  transform: scale(var(--scene-light-scale));
+  transition: opacity 900ms ease, transform 900ms ease;
+  content: "";
+}
+
+.sacred-scene.received {
+  border-color: rgba(241, 222, 178, 0.32);
+  background:
+    radial-gradient(circle at 50% 36%, rgba(255, 218, 135, 0.16), transparent 38%),
+    radial-gradient(circle at 50% 70%, rgba(242, 162, 58, 0.1), transparent 50%),
+    rgba(0, 0, 0, 0.18);
+  box-shadow:
+    0 42px 110px rgba(0, 0, 0, 0.54),
+    0 0 82px rgba(217, 184, 111, 0.14),
+    inset 0 0 72px rgba(242, 162, 58, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.door-of-unknown {
+  position: absolute;
+  bottom: 84px;
+  left: 50%;
+  width: min(68vw, 350px);
+  height: min(64vw, 370px);
+  max-height: 76%;
+  transform: translateX(-50%);
+  perspective: 900px;
+}
+
+.door-panel {
+  position: absolute;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
+  border: 1px solid rgba(241, 222, 178, 0.2);
+  background:
+    linear-gradient(90deg, rgba(255, 228, 158, 0.08), transparent 22%),
+    linear-gradient(180deg, rgba(38, 30, 23, 0.88), rgba(10, 8, 10, 0.94));
+  box-shadow: inset 0 0 38px rgba(0, 0, 0, 0.72), 0 0 34px rgba(217, 184, 111, 0.06);
+  transition: transform 2400ms cubic-bezier(0.16, 0.84, 0.2, 1);
+}
+
+.door-panel.left {
+  left: 0;
+  border-radius: 999px 0 0 0;
+  transform-origin: left center;
+}
+
+.door-panel.right {
+  right: 0;
+  border-radius: 0 999px 0 0;
+  transform-origin: right center;
+}
+
+.door-of-unknown.open .door-panel.left {
+  transform: rotateY(-42deg);
+}
+
+.door-of-unknown.open .door-panel.right {
+  transform: rotateY(42deg);
+}
+
+.door-shadow {
+  position: absolute;
+  inset: 5% 12% 0;
+  border-radius: 999px 999px 0 0;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(242, 190, 98, 0.14), transparent 28%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.86));
+}
+
+.sacred-flame {
+  --flame-aura-opacity: 0.55;
+  --flame-aura-scale: 1;
+  --flame-brightness: 1;
+  --flame-saturation: 1;
+  --flame-rise: 0px;
+  --flame-lean: 0deg;
+  --flame-back-scale: 1;
+  --flame-front-scale: 1;
+  --flame-base-opacity: 0.78;
+  --flame-base-scale: 1;
+  position: relative;
+  z-index: 4;
+  width: 138px;
+  height: 178px;
+  transform: translateY(58px);
+  transition: transform 1200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.flame-aura,
+.flame-back,
+.flame-front,
+.flame-base {
+  position: absolute;
+  display: block;
+}
+
+.flame-aura {
+  inset: -42px -48px -16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217, 184, 111, 0.22), transparent 64%);
+  filter: blur(16px);
+  opacity: var(--flame-aura-opacity);
+  transform: scale(var(--flame-aura-scale));
+  transition: opacity 1600ms ease, transform 1600ms ease;
+}
+
+.flame-back,
+.flame-front {
+  left: 50%;
+  bottom: 38px;
+  border-radius: 50% 50% 45% 45%;
+  transform:
+    translateX(-50%)
+    translateY(var(--flame-rise))
+    rotate(calc(4deg + var(--flame-lean)));
+  transform-origin: center bottom;
+  transition: filter 1400ms ease, transform 1400ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.flame-back {
+  width: 82px;
+  height: 118px;
+  background:
+    radial-gradient(circle at 50% 28%, #fff8ce 0 10%, transparent 18%),
+    radial-gradient(ellipse at 50% 68%, rgba(241, 162, 58, 0.94), rgba(156, 78, 24, 0.24) 68%, transparent 74%);
+  filter:
+    brightness(var(--flame-brightness))
+    saturate(var(--flame-saturation))
+    drop-shadow(0 0 28px rgba(242, 162, 58, 0.58));
+  transform:
+    translateX(-50%)
+    translateY(var(--flame-rise))
+    rotate(calc(4deg + var(--flame-lean)))
+    scale(var(--flame-back-scale));
+}
+
+.sacred-flame.lit .flame-back {
+  filter:
+    brightness(var(--flame-brightness))
+    saturate(var(--flame-saturation))
+    drop-shadow(0 0 34px rgba(242, 162, 58, 0.68))
+    drop-shadow(0 0 58px rgba(217, 184, 111, 0.18));
+}
+
+.flame-front {
+  width: 46px;
+  height: 78px;
+  bottom: 44px;
+  background: radial-gradient(ellipse at 50% 55%, #fff4b8, #e8a846 58%, transparent 72%);
+  filter:
+    brightness(var(--flame-brightness))
+    saturate(var(--flame-saturation));
+  transform:
+    translateX(-50%)
+    translateY(var(--flame-rise))
+    rotate(calc(2deg + var(--flame-lean)))
+    scale(var(--flame-front-scale));
+}
+
+.sacred-flame.lit .flame-front {
+  filter:
+    brightness(var(--flame-brightness))
+    saturate(var(--flame-saturation))
+    drop-shadow(0 0 22px rgba(255, 226, 151, 0.42));
+}
+
+.flame-base {
+  left: 50%;
+  bottom: 18px;
+  width: 138px;
+  height: 34px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(241, 222, 178, 0.24), transparent 58%),
+    linear-gradient(90deg, transparent, rgba(217, 184, 111, 0.44), transparent);
+  opacity: var(--flame-base-opacity);
+  transition: opacity 900ms ease, transform 900ms ease, filter 900ms ease;
+}
+
+.sacred-flame.lit .flame-base {
+  filter: drop-shadow(0 0 28px rgba(241, 194, 105, 0.44));
+  transform: translateX(-50%) scaleX(var(--flame-base-scale));
+}
+
+.ritual-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.ritual-particles span {
+  position: absolute;
+  left: 50%;
+  bottom: 128px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(241, 222, 178, 0.58);
+  box-shadow: 0 0 10px rgba(241, 222, 178, 0.4);
+  animation: particle-rise 4.8s ease-in infinite;
+}
+
+.ritual-particles span:nth-child(1) { margin-left: -82px; animation-delay: 0s; }
+.ritual-particles span:nth-child(2) { margin-left: -52px; animation-delay: 0.2s; }
+.ritual-particles span:nth-child(3) { margin-left: -24px; animation-delay: 0.5s; }
+.ritual-particles span:nth-child(4) { margin-left: 8px; animation-delay: 0.1s; }
+
+.primary-button,
+.secondary-button {
+  min-height: 52px;
+  border-radius: 999px;
+  padding: 0 26px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: transform 180ms ease, opacity 180ms ease, border-color 180ms ease;
+}
+
+.primary-button {
+  border: 1px solid rgba(241, 222, 178, 0.68);
+  color: #1b1207;
+  background:
+    radial-gradient(circle at 50% 0%, #fff7d8, transparent 34%),
+    linear-gradient(180deg, #efd89c, #c99848);
+  box-shadow: 0 0 24px rgba(217, 184, 111, 0.2), 0 16px 48px rgba(0, 0, 0, 0.32);
+}
+
+#offeringButton {
+  --inscription-mask: url("/assets/light-the-flame-text-mask.svg") center center / contain no-repeat;
+  position: absolute;
+  left: 50%;
+  top: min(calc(72vh + 39px), 679px);
+  justify-self: center;
+  width: clamp(190px, 28vw, 292px);
+  min-height: clamp(26px, 3.9vw, 42px);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: transparent;
+  background:
+    radial-gradient(ellipse at 50% 58%, rgba(0, 0, 0, 0.38), transparent 72%),
+    radial-gradient(ellipse at 50% 54%, rgba(162, 78, 22, 0.03), transparent 66%);
+  box-shadow: none;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(0.86rem, 1.72vw, 1.42rem);
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  opacity: 0.82;
+  isolation: isolate;
+  filter: saturate(0.86) brightness(0.88) contrast(1.08);
+  mix-blend-mode: soft-light;
+  transition: opacity 900ms ease, filter 900ms ease, transform 900ms ease;
+}
+
+#offeringButton .inscription-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.hero-stage.compact #offeringButton {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(8px);
+}
+
+#offeringButton::after {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 23% 45%, rgba(255, 226, 151, 0.54), transparent 13%),
+    radial-gradient(circle at 52% 58%, rgba(244, 141, 45, 0.44), transparent 16%),
+    radial-gradient(circle at 78% 38%, rgba(255, 197, 85, 0.38), transparent 12%),
+    linear-gradient(180deg, rgba(255, 226, 151, 0.42), rgba(207, 103, 27, 0.36) 48%, rgba(78, 37, 16, 0.22)),
+    repeating-linear-gradient(98deg, transparent 0 12px, rgba(0, 0, 0, 0.48) 13px 15px);
+  filter:
+    drop-shadow(0 0 1px rgba(255, 198, 96, 0.24))
+    drop-shadow(0 0 4px rgba(197, 82, 20, 0.1));
+  mask: var(--inscription-mask);
+  -webkit-mask: var(--inscription-mask);
+  mix-blend-mode: screen;
+  opacity: 0.46;
+  pointer-events: none;
+  transform: translateY(-0.5px);
+  transition: opacity 900ms ease, filter 900ms ease, transform 1200ms ease;
+  content: "";
+}
+
+#offeringButton::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.96), rgba(0, 0, 0, 0.78)),
+    radial-gradient(circle at 44% 58%, rgba(0, 0, 0, 0.98), transparent 36%);
+  filter:
+    blur(0.35px)
+    drop-shadow(0 -1px 0 rgba(255, 198, 103, 0.16))
+    drop-shadow(0 2px 0 rgba(0, 0, 0, 0.98))
+    drop-shadow(1px 0 0 rgba(0, 0, 0, 0.8))
+    drop-shadow(-1px 0 0 rgba(0, 0, 0, 0.62));
+  mask: var(--inscription-mask);
+  -webkit-mask: var(--inscription-mask);
+  mix-blend-mode: multiply;
+  opacity: 0.98;
+  pointer-events: none;
+  transform: translateY(1.6px);
+  content: "";
+}
+
+#offeringButton:hover {
+  background:
+    radial-gradient(ellipse at 50% 58%, rgba(0, 0, 0, 0.32), transparent 72%),
+    radial-gradient(ellipse at 50% 54%, rgba(162, 78, 22, 0.045), transparent 66%);
+  opacity: 0.92;
+  filter: saturate(0.94) brightness(0.98) contrast(1.1);
+  transform: translateX(-50%) translateY(-1px);
+}
+
+#offeringButton:disabled {
+  opacity: 0.68;
+  transform: translateX(-50%);
+}
+
+#offeringButton.activating::after {
+  opacity: 0.72;
+  filter:
+    drop-shadow(0 0 2px rgba(255, 198, 96, 0.42))
+    drop-shadow(0 0 9px rgba(197, 82, 20, 0.22));
+  transform: translateY(-0.5px);
+}
+
+#offeringButton.activating {
+  filter: saturate(1) brightness(1.04) contrast(1.08);
+}
+
+.secondary-button {
+  border: 1px solid rgba(241, 222, 178, 0.28);
+  color: rgba(245, 237, 220, 0.82);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-1px);
+}
+
+.primary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.offering-page,
+.ritual-status,
+.oracle-card,
+.completion {
+  margin-top: 34px;
+}
+
+.offering-page {
+  max-width: 820px;
+}
+
+.offering-page h2 {
+  color: rgba(255, 248, 231, 0.78);
+  font-size: clamp(1.55rem, 3.6vw, 2.7rem);
+}
+
+.offering-page .section-copy {
+  max-width: 420px;
+  margin: 0 auto;
+  color: rgba(235, 222, 198, 0.52);
+}
+
+.offering-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 26px auto 22px;
+  max-width: 760px;
+}
+
+.offering-choice {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  min-height: 148px;
+  column-gap: 14px;
+  row-gap: 7px;
+  border: 1px solid rgba(241, 222, 178, 0.11);
+  border-left-color: rgba(242, 162, 58, 0.18);
+  border-radius: 8px;
+  padding: 18px 18px 16px;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(242, 162, 58, 0.05), transparent 44%),
+    linear-gradient(180deg, rgba(8, 7, 6, 0.46), rgba(5, 4, 4, 0.28));
+  transition: border-color 200ms ease, transform 200ms ease, background 200ms ease;
+}
+
+.offering-choice:hover,
+.offering-choice.active {
+  border-color: rgba(241, 222, 178, 0.24);
+  border-left-color: rgba(242, 162, 58, 0.38);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(242, 162, 58, 0.075), transparent 46%),
+    linear-gradient(180deg, rgba(14, 10, 7, 0.52), rgba(6, 5, 5, 0.32));
+  transform: translateY(-1px);
+}
+
+.offering-symbol {
+  display: grid;
+  grid-row: 1 / 5;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid rgba(241, 222, 178, 0.18);
+  border-radius: 50%;
+  color: rgba(241, 222, 178, 0.42);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.66rem;
+}
+
+.offering-choice strong {
+  font-family: Georgia, "Times New Roman", serif;
+  color: rgba(255, 248, 231, 0.82);
+  font-size: 1.08rem;
+  font-weight: 500;
+}
+
+.offering-choice small {
+  color: rgba(241, 222, 178, 0.42);
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+}
+
+.offering-choice em {
+  color: rgba(235, 222, 198, 0.58);
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.offering-choice > span:last-child {
+  justify-self: end;
+  align-self: end;
+  color: rgba(241, 222, 178, 0.26);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.offering-page #continuePaymentButton {
+  min-height: 42px;
+  padding: 0 22px;
+  border-color: rgba(241, 222, 178, 0.24);
+  color: rgba(245, 237, 220, 0.72);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(242, 162, 58, 0.1), transparent 38%),
+    rgba(0, 0, 0, 0.24);
+  box-shadow: 0 0 18px rgba(217, 184, 111, 0.08), 0 12px 34px rgba(0, 0, 0, 0.24);
+}
+
+.payment-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: clamp(8px, 2vh, 14px);
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+.payment-card {
+  width: min(100%, 424px);
+  max-height: min(96vh, 720px);
+  overflow-y: auto;
+  border: 1px solid rgba(241, 222, 178, 0.14);
+  border-radius: 8px;
+  padding: 14px 20px 0;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(242, 162, 58, 0.06), transparent 42%),
+    rgba(9, 8, 7, 0.96);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.68);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(241, 222, 178, 0.22) rgba(255, 255, 255, 0.02);
+}
+
+.payment-card h2,
+.payment-card p {
+  text-align: left;
+}
+
+.payment-card h2 {
+  color: rgba(255, 248, 231, 0.82);
+  font-size: clamp(1.42rem, 3.5vw, 2.05rem);
+  line-height: 0.98;
+}
+
+.payment-card .payment-invocation {
+  display: none;
+  margin: 8px 0 0;
+  color: rgba(241, 222, 178, 0.5);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  line-height: 1.48;
+}
+
+.payment-amount {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 10px 0 8px;
+  border-top: 1px solid rgba(241, 222, 178, 0.08);
+  border-bottom: 1px solid rgba(241, 222, 178, 0.06);
+  padding: 8px 0;
+  background: transparent;
+  text-align: left;
+}
+
+.payment-amount span {
+  display: inline-block;
+  color: rgba(235, 222, 198, 0.38);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.payment-amount strong {
+  display: inline-block;
+  margin-top: 0;
+  color: rgba(241, 222, 178, 0.42);
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
+.offering-method {
+  display: grid;
+  gap: 6px;
+  margin: 0 0 6px;
+  border-top: 1px solid rgba(241, 222, 178, 0.065);
+  border-bottom: 1px solid rgba(241, 222, 178, 0.05);
+  padding: 8px 0;
+  text-align: left;
+}
+
+.offering-qr {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  margin-bottom: 0;
+}
+
+.offering-qr img {
+  display: block;
+  width: 146px;
+  height: 146px;
+  border: 0;
+  border-radius: 8px;
+  object-fit: cover;
+  opacity: 0.9;
+  filter: sepia(0.12) brightness(0.9) contrast(1.05);
+  background: #efe3c8;
+  outline: 1px solid rgba(241, 222, 178, 0.28);
+  outline-offset: -1px;
+  transition: opacity 480ms ease, filter 480ms ease;
+}
+
+.offering-qr img.loading {
+  opacity: 0.46;
+  filter: sepia(0.2) brightness(0.76) contrast(0.9);
+}
+
+.offering-qr small {
+  color: rgba(235, 222, 198, 0.34);
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.payment-brief {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: rgba(241, 222, 178, 0.5);
+}
+
+.payment-brief strong {
+  position: relative;
+  font-size: 0.7rem;
+}
+
+.payment-brief strong + strong::before {
+  position: absolute;
+  left: -8px;
+  color: rgba(241, 222, 178, 0.26);
+  content: "/";
+}
+
+.offering-method div {
+  display: grid;
+  gap: 3px;
+}
+
+.offering-method span {
+  color: rgba(235, 222, 198, 0.34);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.offering-method strong,
+.offering-method code {
+  color: rgba(241, 222, 178, 0.58);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.offering-method code {
+  display: block;
+  max-width: 100%;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.61rem;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+.offering-details {
+  display: grid;
+  gap: 4px;
+  border-top: 1px solid rgba(241, 222, 178, 0.055);
+  padding-top: 5px;
+}
+
+.offering-details summary {
+  color: rgba(235, 222, 198, 0.42);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.offering-details[open] {
+  gap: 10px;
+}
+
+.offering-method p {
+  margin: 0;
+  color: rgba(235, 222, 198, 0.42);
+  font-size: 0.68rem;
+  line-height: 1.3;
+}
+
+.payment-actions {
+  position: sticky;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0 -20px;
+  padding: 10px 20px 12px;
+  border-top: 1px solid rgba(241, 222, 178, 0.08);
+  background:
+    linear-gradient(180deg, rgba(9, 8, 7, 0.76), rgba(9, 8, 7, 0.98) 34%),
+    rgba(9, 8, 7, 0.96);
+}
+
+.payment-actions .primary-button,
+.payment-actions .secondary-button {
+  min-height: 40px;
+  border-color: rgba(241, 222, 178, 0.2);
+  box-shadow: 0 0 14px rgba(217, 184, 111, 0.06), 0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+.payment-actions .secondary-button {
+  color: rgba(245, 237, 220, 0.56);
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.payment-actions .primary-button {
+  color: rgba(26, 16, 7, 0.88);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 247, 216, 0.58), transparent 32%),
+    linear-gradient(180deg, rgba(239, 216, 156, 0.82), rgba(201, 152, 72, 0.78));
+}
+
+.manual-confirm-button {
+  grid-column: 1 / -1;
+  min-height: 28px;
+  border: 0;
+  padding: 0;
+  color: rgba(235, 222, 198, 0.36);
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: color 180ms ease, opacity 180ms ease;
+}
+
+.manual-confirm-button:hover {
+  color: rgba(241, 222, 178, 0.58);
+}
+
+.manual-confirm-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.blessing-text {
+  max-width: 720px;
+  margin: 26px auto 0;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.18;
+}
+
+.blessing-text p {
+  margin-bottom: 28px;
+}
+
+.witness-line {
+  color: rgba(245, 238, 223, 0.72);
+  font-size: clamp(1.35rem, 3.2vw, 2.35rem);
+}
+
+.blessing-line {
+  color: var(--gold-soft);
+  font-size: clamp(2.45rem, 6.6vw, 5.7rem);
+  letter-spacing: -0.045em;
+  line-height: 1.03;
+}
+
+.echo-line {
+  color: rgba(245, 238, 223, 0.48);
+  font-size: clamp(1.05rem, 2.1vw, 1.7rem);
+  line-height: 1.5;
+}
+
+.oracle-card .secondary-button {
+  margin-top: 12px;
+}
+
+.oracle-card .blessing-text p {
+  opacity: 0;
+  filter: blur(7px);
+  transform: translateY(20px);
+  transition:
+    opacity 780ms cubic-bezier(0.19, 1, 0.22, 1),
+    filter 780ms cubic-bezier(0.19, 1, 0.22, 1),
+    transform 780ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.oracle-card .blessing-text p.line-emerging {
+  opacity: 0.42;
+  filter: blur(4px);
+  transform: translateY(11px);
+}
+
+.oracle-card .blessing-text p.line-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+@keyframes stars-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-90px, 90px, 0); }
+}
+
+@keyframes particle-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.7);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(18px, -230px, 0) scale(0.15);
+  }
+}
+
+@keyframes ember-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.72);
+  }
+  18% {
+    opacity: var(--ember-opacity);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--ember-drift), -78px, 0) scale(0.28);
+  }
+}
+
+@media (max-width: 720px) {
+  .shrine-header {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+  }
+
+  .offering-grid,
+  .payment-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-card {
+    width: min(100%, 520px);
+    max-height: 94vh;
+    padding: 18px 18px 0;
+  }
+
+  .payment-card .eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .payment-card h2 {
+    font-size: clamp(1.85rem, 10vw, 2.55rem);
+  }
+
+  .payment-card .payment-invocation {
+    font-size: 0.95rem;
+  }
+
+  .payment-actions {
+    margin: 0 -18px;
+    padding: 12px 18px 16px;
+  }
+
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+  }
+
+  .sacred-scene {
+    min-height: 330px;
+  }
+
+  .flame-presence {
+    top: 70vh;
+    width: 58vw;
+    height: 36vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

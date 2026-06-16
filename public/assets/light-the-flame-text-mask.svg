@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 116">
+  <defs>
+    <filter id="wornStoneMask" x="-8%" y="-55%" width="116%" height="210%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03 0.28" numOctaves="4" seed="41" result="stoneNoise"/>
+      <feDisplacementMap in="SourceGraphic" in2="stoneNoise" scale="3.1" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
+    <mask id="weatherDamage">
+      <rect width="820" height="116" fill="white"/>
+      <path d="M82 49 C146 43 212 56 271 49 S422 39 511 51 S644 60 739 47" stroke="black" stroke-width="4.2" stroke-linecap="round" opacity="0.34" fill="none"/>
+      <path d="M111 72 C210 78 283 65 382 73 S578 82 718 69" stroke="black" stroke-width="3.2" stroke-linecap="round" opacity="0.38" fill="none"/>
+      <path d="M96 58 C164 62 236 54 301 61 S452 68 538 57 S650 52 746 62" stroke="black" stroke-width="2.2" stroke-linecap="round" opacity="0.44" fill="none"/>
+      <path d="M135 36 C222 31 290 43 370 38 S540 30 695 40" stroke="black" stroke-width="1.7" stroke-linecap="round" opacity="0.36" fill="none"/>
+      <path d="M174 23 L164 88 M489 18 L501 91 M662 32 L651 77" stroke="black" stroke-width="2.4" stroke-linecap="round" opacity="0.36"/>
+      <path d="M338 20 L326 96 M731 38 L716 84" stroke="black" stroke-width="2.1" stroke-linecap="round" opacity="0.4"/>
+      <circle cx="240" cy="52" r="5" fill="black" opacity="0.42"/>
+      <circle cx="407" cy="76" r="4.5" fill="black" opacity="0.34"/>
+      <circle cx="592" cy="42" r="5.4" fill="black" opacity="0.36"/>
+      <circle cx="153" cy="66" r="4.4" fill="black" opacity="0.36"/>
+      <circle cx="520" cy="52" r="5.2" fill="black" opacity="0.38"/>
+      <circle cx="675" cy="70" r="4.2" fill="black" opacity="0.34"/>
+      <rect x="308" y="34" width="28" height="6" rx="3" fill="black" opacity="0.35" transform="rotate(-8 308 34)"/>
+      <rect x="544" y="67" width="34" height="6" rx="3" fill="black" opacity="0.38" transform="rotate(7 544 67)"/>
+      <rect x="698" y="53" width="24" height="5" rx="3" fill="black" opacity="0.32" transform="rotate(-11 698 53)"/>
+      <rect x="206" y="42" width="42" height="5" rx="3" fill="black" opacity="0.3" transform="rotate(5 206 42)"/>
+      <rect x="382" y="58" width="31" height="7" rx="3.5" fill="black" opacity="0.34" transform="rotate(-6 382 58)"/>
+      <rect x="610" y="34" width="38" height="5" rx="3" fill="black" opacity="0.31" transform="rotate(9 610 34)"/>
+    </mask>
+
+    <text id="inscriptionText" x="410" y="73"
+      text-anchor="middle"
+      font-family="Georgia, 'Times New Roman', serif"
+      font-size="50"
+      font-weight="900"
+      letter-spacing="18"
+      textLength="744"
+      lengthAdjust="spacingAndGlyphs">LIGHT THE FLAME</text>
+  </defs>
+
+  <rect width="820" height="116" fill="none"/>
+  <g filter="url(#wornStoneMask)" mask="url(#weatherDamage)" fill="white">
+    <use href="#inscriptionText"/>
+  </g>
+</svg>
