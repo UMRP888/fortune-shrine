@@ -9,6 +9,7 @@ const publicDir = path.join(__dirname, "public");
 const dataDir = path.join(__dirname, "data");
 const memoryLogPath = path.join(dataDir, "shrine-memory-log.jsonl");
 const port = Number(process.env.PORT || 4188);
+const host = process.env.HOST || (process.env.PORT ? "0.0.0.0" : "127.0.0.1");
 const solanaRpcUrls = [
   process.env.SOLANA_RPC_URL,
   ...(process.env.SOLANA_RPC_FALLBACK_URLS || "").split(","),
@@ -774,6 +775,6 @@ const server = http.createServer(async (request, response) => {
   }
 });
 
-server.listen(port, "127.0.0.1", () => {
-  console.log(`Fortune Shrine running at http://127.0.0.1:${port}`);
+server.listen(port, host, () => {
+  console.log(`Fortune Shrine running at http://${host}:${port}`);
 });
