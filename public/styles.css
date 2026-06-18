@@ -216,13 +216,14 @@ button {
 
 .hero-stage {
   display: block;
-  min-height: calc(100vh - 118px);
+  min-height: calc(100vh - 82px);
   padding-top: clamp(22px, 5.2vh, 58px);
-  max-width: 680px;
+  max-width: 760px;
 }
 
 .hero-stage.compact {
-  padding-top: 34px;
+  min-height: 120px;
+  padding-top: 24px;
 }
 
 .eyebrow {
@@ -232,11 +233,6 @@ button {
   font-weight: 800;
   letter-spacing: 0.34em;
   text-transform: uppercase;
-}
-
-.hero-stage > .eyebrow,
-.hero-stage > .microcopy {
-  display: none;
 }
 
 h1,
@@ -252,15 +248,15 @@ h2 {
 }
 
 h1 {
-  margin: 0 auto 10px;
-  max-width: 390px;
-  color: rgba(255, 250, 240, 0.38);
-  font-size: clamp(0.82rem, 1.9vw, 1.5rem);
-  letter-spacing: 0;
-  line-height: 1.12;
+  margin: 0 auto 16px;
+  max-width: 620px;
+  color: rgba(255, 250, 240, 0.92);
+  font-size: clamp(2.15rem, 5.4vw, 4.4rem);
+  letter-spacing: -0.045em;
+  line-height: 0.98;
   text-shadow:
     0 2px 14px rgba(0, 0, 0, 0.9),
-    0 0 10px rgba(217, 184, 111, 0.025);
+    0 0 26px rgba(217, 184, 111, 0.08);
 }
 
 h2 {
@@ -547,120 +543,130 @@ h2 {
   box-shadow: 0 0 24px rgba(217, 184, 111, 0.2), 0 16px 48px rgba(0, 0, 0, 0.32);
 }
 
-#offeringButton {
-  --inscription-mask: url("/assets/light-the-flame-text-mask.svg") center center / contain no-repeat;
-  position: absolute;
-  left: 50%;
-  top: min(calc(72vh + 39px), 679px);
-  justify-self: center;
-  width: clamp(190px, 28vw, 292px);
-  min-height: clamp(26px, 3.9vw, 42px);
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  color: transparent;
-  background:
-    radial-gradient(ellipse at 50% 58%, rgba(0, 0, 0, 0.38), transparent 72%),
-    radial-gradient(ellipse at 50% 54%, rgba(162, 78, 22, 0.03), transparent 66%);
-  box-shadow: none;
+.hero-intro {
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.hero-subheadline {
+  max-width: 520px;
+  margin: 0 auto 24px;
+  color: rgba(235, 222, 198, 0.72);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(0.86rem, 1.72vw, 1.42rem);
-  font-weight: 900;
-  letter-spacing: 0.22em;
-  white-space: nowrap;
-  transform: translateX(-50%);
-  opacity: 0.82;
-  isolation: isolate;
-  filter: saturate(0.86) brightness(0.88) contrast(1.08);
-  mix-blend-mode: soft-light;
-  transition: opacity 900ms ease, filter 900ms ease, transform 900ms ease;
+  font-size: clamp(1rem, 2.1vw, 1.25rem);
+  line-height: 1.55;
 }
 
-#offeringButton .inscription-text {
+#offeringButton {
+  min-width: 220px;
+  border-color: rgba(241, 222, 178, 0.46);
+  color: rgba(255, 248, 231, 0.9);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(242, 162, 58, 0.16), transparent 42%),
+    rgba(8, 6, 5, 0.72);
+  box-shadow: 0 0 32px rgba(217, 184, 111, 0.1), 0 18px 54px rgba(0, 0, 0, 0.38);
+}
+
+.hero-boundary {
+  margin: 14px auto 0;
+  color: rgba(235, 222, 198, 0.46);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.ritual-preview {
+  margin: clamp(390px, 54vh, 570px) auto 0;
+  padding: 34px 0 0;
+  border-top: 1px solid rgba(241, 222, 178, 0.12);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.ritual-preview h2 {
+  margin-bottom: 14px;
+  color: rgba(255, 248, 231, 0.82);
+  font-size: clamp(1.7rem, 4vw, 2.7rem);
+}
+
+.ritual-preview-copy {
+  max-width: 560px;
+  margin: 0 auto;
+  color: rgba(235, 222, 198, 0.56);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.ritual-path {
+  display: grid;
+  gap: 0;
+  max-width: 520px;
+  margin: 30px auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ritual-path li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 18px;
+  min-height: 116px;
+  align-items: start;
+  text-align: left;
+}
+
+.ritual-path li:not(:last-child)::after {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
+  left: 16px;
+  bottom: 16px;
+  color: rgba(241, 222, 178, 0.34);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  line-height: 1;
+  content: "↓";
 }
 
-.hero-stage.compact #offeringButton {
+.ritual-step-number {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(241, 222, 178, 0.18);
+  border-radius: 50%;
+  color: rgba(241, 222, 178, 0.48);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-indent: 0.18em;
+}
+
+.ritual-step-copy {
+  padding-top: 3px;
+}
+
+.ritual-step-copy strong {
+  display: block;
+  color: rgba(255, 248, 231, 0.82);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.12rem;
+  font-weight: 500;
+}
+
+.ritual-step-copy p {
+  max-width: 390px;
+  margin: 7px 0 0;
+  color: rgba(235, 222, 198, 0.48);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.hero-stage.compact .hero-intro,
+.hero-stage.compact .ritual-preview {
   opacity: 0;
   pointer-events: none;
-  transform: translateX(-50%) translateY(8px);
+  transform: translateY(-12px);
 }
 
-#offeringButton::after {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background:
-    radial-gradient(circle at 23% 45%, rgba(255, 226, 151, 0.54), transparent 13%),
-    radial-gradient(circle at 52% 58%, rgba(244, 141, 45, 0.44), transparent 16%),
-    radial-gradient(circle at 78% 38%, rgba(255, 197, 85, 0.38), transparent 12%),
-    linear-gradient(180deg, rgba(255, 226, 151, 0.42), rgba(207, 103, 27, 0.36) 48%, rgba(78, 37, 16, 0.22)),
-    repeating-linear-gradient(98deg, transparent 0 12px, rgba(0, 0, 0, 0.48) 13px 15px);
-  filter:
-    drop-shadow(0 0 1px rgba(255, 198, 96, 0.24))
-    drop-shadow(0 0 4px rgba(197, 82, 20, 0.1));
-  mask: var(--inscription-mask);
-  -webkit-mask: var(--inscription-mask);
-  mix-blend-mode: screen;
-  opacity: 0.46;
-  pointer-events: none;
-  transform: translateY(-0.5px);
-  transition: opacity 900ms ease, filter 900ms ease, transform 1200ms ease;
-  content: "";
-}
-
-#offeringButton::before {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.96), rgba(0, 0, 0, 0.78)),
-    radial-gradient(circle at 44% 58%, rgba(0, 0, 0, 0.98), transparent 36%);
-  filter:
-    blur(0.35px)
-    drop-shadow(0 -1px 0 rgba(255, 198, 103, 0.16))
-    drop-shadow(0 2px 0 rgba(0, 0, 0, 0.98))
-    drop-shadow(1px 0 0 rgba(0, 0, 0, 0.8))
-    drop-shadow(-1px 0 0 rgba(0, 0, 0, 0.62));
-  mask: var(--inscription-mask);
-  -webkit-mask: var(--inscription-mask);
-  mix-blend-mode: multiply;
-  opacity: 0.98;
-  pointer-events: none;
-  transform: translateY(1.6px);
-  content: "";
-}
-
-#offeringButton:hover {
-  background:
-    radial-gradient(ellipse at 50% 58%, rgba(0, 0, 0, 0.32), transparent 72%),
-    radial-gradient(ellipse at 50% 54%, rgba(162, 78, 22, 0.045), transparent 66%);
-  opacity: 0.92;
-  filter: saturate(0.94) brightness(0.98) contrast(1.1);
-  transform: translateX(-50%) translateY(-1px);
-}
-
-#offeringButton:disabled {
-  opacity: 0.68;
-  transform: translateX(-50%);
-}
-
-#offeringButton.activating::after {
-  opacity: 0.72;
-  filter:
-    drop-shadow(0 0 2px rgba(255, 198, 96, 0.42))
-    drop-shadow(0 0 9px rgba(197, 82, 20, 0.22));
-  transform: translateY(-0.5px);
-}
-
-#offeringButton.activating {
-  filter: saturate(1) brightness(1.04) contrast(1.08);
+.hero-stage.compact .ritual-preview {
+  display: none;
 }
 
 .secondary-button {
@@ -1102,6 +1108,321 @@ h2 {
   transform: translateY(0);
 }
 
+/* Temple visual pass */
+.shrine-shell::before,
+.shrine-shell::after {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+}
+
+.shrine-shell::before {
+  z-index: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.42), transparent 24%, transparent 76%, rgba(0, 0, 0, 0.42)),
+    radial-gradient(ellipse at 50% 68%, transparent 0 16%, rgba(0, 0, 0, 0.24) 48%, rgba(0, 0, 0, 0.64) 100%);
+}
+
+.shrine-shell::after {
+  z-index: 1;
+  opacity: 0.16;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 3px, rgba(255, 255, 255, 0.012) 4px),
+    radial-gradient(circle at 50% 68%, rgba(238, 142, 47, 0.16), transparent 24%);
+  mix-blend-mode: soft-light;
+}
+
+.hero-intro {
+  position: relative;
+  z-index: 3;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.hero-intro::after {
+  display: block;
+  width: 42px;
+  height: 1px;
+  margin: 26px auto 0;
+  background: linear-gradient(90deg, transparent, rgba(241, 222, 178, 0.42), transparent);
+  content: "";
+}
+
+#offeringButton {
+  min-height: 56px;
+  padding-inline: 34px;
+  backdrop-filter: blur(6px);
+  transition:
+    transform 500ms cubic-bezier(0.19, 1, 0.22, 1),
+    border-color 500ms ease,
+    color 500ms ease,
+    box-shadow 700ms ease,
+    background 700ms ease;
+}
+
+#offeringButton:hover,
+#offeringButton:focus-visible {
+  border-color: rgba(255, 229, 169, 0.72);
+  color: #fff5dc;
+  outline: none;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(242, 162, 58, 0.24), transparent 46%),
+    rgba(16, 10, 6, 0.78);
+  box-shadow:
+    0 0 42px rgba(222, 139, 44, 0.17),
+    0 20px 62px rgba(0, 0, 0, 0.48);
+}
+
+.hero-stage.compact {
+  min-height: 0;
+  padding-top: 0;
+}
+
+.hero-stage.compact .hero-intro {
+  display: none;
+}
+
+.offering-page {
+  width: min(100%, 860px);
+  margin-top: clamp(54px, 9vh, 96px);
+  padding: clamp(28px, 5vw, 54px);
+  border: 1px solid rgba(224, 186, 118, 0.12);
+  border-radius: 26px 26px 10px 10px;
+  background:
+    linear-gradient(180deg, rgba(20, 14, 10, 0.66), rgba(7, 6, 6, 0.46)),
+    radial-gradient(circle at 50% 0%, rgba(215, 128, 39, 0.1), transparent 42%);
+  box-shadow:
+    0 36px 100px rgba(0, 0, 0, 0.5),
+    inset 0 1px rgba(255, 244, 216, 0.035),
+    inset 0 0 80px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(8px);
+}
+
+.offering-page::before {
+  display: block;
+  width: 54px;
+  height: 1px;
+  margin: 0 auto 26px;
+  background: linear-gradient(90deg, transparent, rgba(230, 165, 79, 0.72), transparent);
+  box-shadow: 0 0 18px rgba(230, 145, 48, 0.3);
+  content: "";
+}
+
+.offering-page h2 {
+  margin-bottom: 14px;
+  color: rgba(255, 247, 228, 0.94);
+  font-size: clamp(2.15rem, 5vw, 3.4rem);
+}
+
+.offering-page .section-copy {
+  max-width: 470px;
+  color: rgba(235, 222, 198, 0.62);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+}
+
+.offering-grid {
+  gap: 16px;
+  margin-block: 36px 30px;
+}
+
+.offering-choice {
+  position: relative;
+  min-height: 174px;
+  column-gap: 18px;
+  row-gap: 8px;
+  overflow: hidden;
+  border-color: rgba(230, 204, 157, 0.12);
+  border-radius: 4px 18px 4px 18px;
+  padding: 24px 24px 20px;
+  background:
+    linear-gradient(135deg, rgba(31, 22, 16, 0.68), rgba(7, 7, 7, 0.72)),
+    radial-gradient(circle at 88% 12%, rgba(224, 132, 40, 0.07), transparent 32%);
+  box-shadow:
+    inset 0 1px rgba(255, 240, 207, 0.025),
+    inset 0 0 46px rgba(0, 0, 0, 0.32),
+    0 18px 40px rgba(0, 0, 0, 0.18);
+  isolation: isolate;
+  transition:
+    border-color 500ms ease,
+    transform 500ms cubic-bezier(0.19, 1, 0.22, 1),
+    background 600ms ease,
+    box-shadow 600ms ease;
+}
+
+.offering-choice::after {
+  position: absolute;
+  inset: 8px;
+  z-index: -1;
+  border: 1px solid rgba(241, 222, 178, 0.035);
+  border-radius: 2px 13px 2px 13px;
+  pointer-events: none;
+  content: "";
+}
+
+.offering-choice:hover {
+  border-color: rgba(230, 194, 129, 0.3);
+  background:
+    linear-gradient(135deg, rgba(40, 28, 18, 0.76), rgba(9, 8, 7, 0.76)),
+    radial-gradient(circle at 88% 12%, rgba(224, 132, 40, 0.13), transparent 34%);
+  box-shadow:
+    inset 0 1px rgba(255, 240, 207, 0.04),
+    inset 0 0 46px rgba(0, 0, 0, 0.28),
+    0 22px 48px rgba(0, 0, 0, 0.26);
+}
+
+.offering-choice.active {
+  border-color: rgba(235, 189, 113, 0.52);
+  background:
+    linear-gradient(135deg, rgba(52, 34, 18, 0.84), rgba(11, 9, 7, 0.82)),
+    radial-gradient(circle at 88% 12%, rgba(242, 155, 53, 0.2), transparent 36%);
+  box-shadow:
+    inset 3px 0 rgba(226, 148, 52, 0.62),
+    inset 0 1px rgba(255, 240, 207, 0.07),
+    0 0 34px rgba(213, 126, 35, 0.1),
+    0 24px 54px rgba(0, 0, 0, 0.32);
+  transform: translateY(-2px);
+}
+
+.offering-symbol {
+  width: 34px;
+  height: 34px;
+  border-color: rgba(230, 195, 132, 0.2);
+  color: rgba(241, 222, 178, 0.56);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.offering-choice.active .offering-symbol {
+  border-color: rgba(238, 184, 98, 0.58);
+  color: rgba(255, 224, 166, 0.92);
+  box-shadow: 0 0 22px rgba(223, 140, 43, 0.16);
+}
+
+.offering-choice strong {
+  color: rgba(255, 246, 226, 0.9);
+  font-size: 1.3rem;
+  line-height: 1.12;
+}
+
+.offering-choice small {
+  color: rgba(222, 175, 100, 0.5);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.offering-choice em {
+  max-width: 300px;
+  color: rgba(235, 222, 198, 0.64);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.95rem;
+}
+
+.offering-choice > span:last-child {
+  color: rgba(226, 187, 121, 0.48);
+}
+
+.offering-page #continuePaymentButton {
+  min-height: 54px;
+  min-width: 240px;
+  border-color: rgba(224, 174, 95, 0.42);
+  color: rgba(255, 239, 207, 0.9);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(242, 162, 58, 0.17), transparent 42%),
+    linear-gradient(180deg, rgba(31, 20, 12, 0.82), rgba(10, 8, 7, 0.86));
+  box-shadow:
+    0 0 30px rgba(217, 139, 47, 0.1),
+    0 18px 42px rgba(0, 0, 0, 0.32);
+}
+
+.ritual-status,
+.oracle-card {
+  width: min(100%, 820px);
+  margin-top: clamp(70px, 13vh, 130px);
+}
+
+.ritual-status {
+  padding: clamp(34px, 7vw, 72px) clamp(22px, 6vw, 62px);
+  border-top: 1px solid rgba(234, 196, 127, 0.14);
+  border-bottom: 1px solid rgba(234, 196, 127, 0.08);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(218, 128, 39, 0.08), transparent 48%),
+    linear-gradient(90deg, transparent, rgba(12, 9, 7, 0.56), transparent);
+}
+
+.oracle-card {
+  position: relative;
+  padding: clamp(58px, 9vw, 96px) clamp(22px, 8vw, 84px) clamp(48px, 8vw, 82px);
+  border: 1px solid rgba(231, 198, 139, 0.12);
+  border-radius: 36px 36px 10px 10px;
+  background:
+    radial-gradient(circle at 50% 22%, rgba(242, 160, 62, 0.1), transparent 38%),
+    linear-gradient(180deg, rgba(18, 12, 8, 0.68), rgba(5, 5, 5, 0.54));
+  box-shadow:
+    0 42px 120px rgba(0, 0, 0, 0.54),
+    inset 0 1px rgba(255, 244, 219, 0.04),
+    inset 0 0 90px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(9px);
+}
+
+.oracle-card::before {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(236, 174, 85, 0.72), transparent);
+  box-shadow: 0 0 20px rgba(234, 145, 42, 0.34);
+  transform: translateX(-50%);
+  content: "";
+}
+
+.blessing-text {
+  max-width: 650px;
+  margin-top: 0;
+  line-height: 1.32;
+}
+
+.blessing-text p {
+  text-wrap: balance;
+}
+
+.witness-line {
+  margin-bottom: clamp(30px, 5vw, 44px) !important;
+  color: rgba(245, 238, 223, 0.66);
+  font-size: clamp(1.12rem, 2.5vw, 1.65rem);
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.blessing-line {
+  margin-bottom: clamp(34px, 6vw, 54px) !important;
+  color: #f3dba8;
+  font-size: clamp(2.15rem, 6vw, 4.8rem);
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  text-shadow:
+    0 0 24px rgba(232, 163, 75, 0.12),
+    0 2px 18px rgba(0, 0, 0, 0.64);
+}
+
+.echo-line {
+  max-width: 540px;
+  margin-right: auto;
+  margin-left: auto;
+  color: rgba(245, 238, 223, 0.46);
+  font-size: clamp(0.98rem, 2vw, 1.28rem);
+  line-height: 1.7;
+}
+
+.oracle-card .secondary-button {
+  width: auto;
+  min-width: 210px;
+  margin-top: 24px;
+}
+
 @keyframes stars-drift {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-90px, 90px, 0); }
@@ -1136,14 +1457,86 @@ h2 {
 }
 
 @media (max-width: 720px) {
+  .shrine-shell {
+    padding: 20px 18px 52px;
+    background-position: center top;
+  }
+
   .shrine-header {
     font-size: 0.58rem;
     letter-spacing: 0.2em;
   }
 
+  .hero-stage {
+    padding-top: clamp(32px, 6vh, 54px);
+  }
+
+  h1 {
+    max-width: 350px;
+    font-size: clamp(2.45rem, 12vw, 3.55rem);
+    line-height: 0.96;
+  }
+
+  .hero-subheadline {
+    max-width: 330px;
+    margin-bottom: 28px;
+    font-size: 1.04rem;
+    line-height: 1.58;
+  }
+
+  .hero-boundary {
+    max-width: 280px;
+    line-height: 1.5;
+  }
+
   .offering-grid,
   .payment-actions {
     grid-template-columns: 1fr;
+  }
+
+  .offering-page {
+    margin-top: 42px;
+    padding: 30px 14px 26px;
+    border-right-color: rgba(224, 186, 118, 0.07);
+    border-left-color: rgba(224, 186, 118, 0.07);
+    border-radius: 22px 22px 6px 6px;
+  }
+
+  .offering-page::before {
+    margin-bottom: 22px;
+  }
+
+  .offering-page h2 {
+    font-size: clamp(2.2rem, 11vw, 3rem);
+  }
+
+  .offering-page .section-copy {
+    max-width: 320px;
+    font-size: 0.96rem;
+  }
+
+  .offering-grid {
+    gap: 14px;
+    margin-block: 30px 26px;
+  }
+
+  .offering-choice {
+    min-height: 156px;
+    column-gap: 14px;
+    padding: 21px 18px 18px;
+    border-radius: 4px 15px 4px 15px;
+  }
+
+  .offering-choice strong {
+    font-size: 1.2rem;
+  }
+
+  .offering-choice em {
+    font-size: 0.9rem;
+  }
+
+  .offering-page #continuePaymentButton {
+    width: min(100%, 310px);
   }
 
   .payment-card {
@@ -1174,14 +1567,77 @@ h2 {
     width: 100%;
   }
 
+  #offeringButton {
+    width: min(100%, 300px);
+  }
+
+  .ritual-preview {
+    margin-top: clamp(330px, 46vh, 430px);
+  }
+
+  .ritual-preview-copy {
+    font-size: 0.92rem;
+  }
+
+  .ritual-path {
+    max-width: 390px;
+  }
+
+  .ritual-path li {
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 14px;
+    min-height: 116px;
+  }
+
+  .ritual-path li:not(:last-child)::after {
+    left: 14px;
+  }
+
   .sacred-scene {
     min-height: 330px;
   }
 
   .flame-presence {
-    top: 70vh;
-    width: 58vw;
-    height: 36vw;
+    top: min(67vh, 570px);
+    width: 72vw;
+    height: 44vw;
+  }
+
+  .ritual-status,
+  .oracle-card {
+    margin-top: 48px;
+  }
+
+  .ritual-status {
+    padding: 48px 18px;
+  }
+
+  .oracle-card {
+    padding: 64px 18px 46px;
+    border-right-color: rgba(231, 198, 139, 0.07);
+    border-left-color: rgba(231, 198, 139, 0.07);
+    border-radius: 24px 24px 6px 6px;
+  }
+
+  .oracle-card::before {
+    top: 28px;
+  }
+
+  .witness-line {
+    font-size: 1.08rem;
+  }
+
+  .blessing-line {
+    font-size: clamp(2.1rem, 10vw, 3.15rem);
+  }
+
+  .echo-line {
+    max-width: 310px;
+    font-size: 0.98rem;
+  }
+
+  .oracle-card .secondary-button {
+    width: min(100%, 280px);
   }
 }
 

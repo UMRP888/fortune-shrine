@@ -339,6 +339,7 @@ const RECENT_ORACLE_STORAGE_KEY = "fortune-shrine-recent-oracle-v1";
 const PENDING_PAYMENT_STORAGE_KEY = "fortune-shrine-pending-payment-v1";
 const PENDING_PAYMENT_MAX_AGE_MS = 35 * 60 * 1000;
 const BLESSING_CORPUS_URL = "/assets/blessing-corpus-v1.md";
+const trackedPaymentSuccesses = new Set();
 const recentOracleFallback = {
   recognition: [],
   blessing: [],
@@ -414,6 +415,20 @@ const ambientPresence = {
   enabled: false,
   initialized: false
 };
+
+function trackShrineEvent(eventName, details = {}) {
+  const event = {
+    event: eventName,
+    shrine_event: eventName,
+    timestamp: new Date().toISOString(),
+    ...details
+  };
+
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(event);
+  window.dispatchEvent(new CustomEvent("fortune-shrine:analytics", { detail: event }));
+  console.info("[shrine-event]", JSON.stringify(event));
+}
 
 function createNoiseBuffer(audioContext, duration = 2) {
   const length = Math.floor(audioContext.sampleRate * duration);
@@ -1021,6 +1036,10 @@ function revealOracle(storedReading = null) {
   ritualStatus.classList.add("hidden");
   ritualParticles.classList.add("hidden");
   oracleCard.classList.remove("hidden");
+  trackShrineEvent("Blessing Revealed", {
+    payment_intent_id: currentPaymentIntent?.id || null,
+    offering: currentPaymentIntent?.offeringId || null
+  });
   void oracleCard.offsetWidth;
   oracleCard.classList.add("revealing");
   followRitual(oracleCard, "center", { delay: 620, duration: 2100 });
@@ -1408,6 +1427,16 @@ function recoverPendingPayment() {
 function releaseBlessingAfterVerification() {
   if (blessingReleaseInProgress) return;
   blessingReleaseInProgress = true;
+  const paymentEventKey = currentPaymentIntent?.id || "manual-verification";
+  if (!trackedPaymentSuccesses.has(paymentEventKey)) {
+    trackedPaymentSuccesses.add(paymentEventKey);
+    trackShrineEvent("Payment Success", {
+      payment_intent_id: currentPaymentIntent?.id || null,
+      offering: currentPaymentIntent?.offeringId || null,
+      amount: currentPaymentIntent?.receivedAmount || currentPaymentIntent?.amount || null,
+      token: currentPaymentIntent?.token || null
+    });
+  }
   window.clearTimeout(paymentPollTimer);
   confirmOfferingButton.classList.add("hidden");
   returnFromVerificationButton.classList.add("hidden");
@@ -1458,6 +1487,7 @@ function pollPaymentIntent() {
 
 offeringButton.addEventListener("click", () => {
   if (offeringButton.disabled) return;
+  trackShrineEvent("CTA Click", { cta: "Receive a Blessing" });
   awakenAmbientPresence();
   offeringButton.disabled = true;
   offeringButton.classList.add("activating");
@@ -1517,6 +1547,12 @@ continuePaymentButton.addEventListener("click", async () => {
       offeringId: selectedOffering.dataset.offering,
       storedAt: Date.now()
     };
+    trackShrineEvent("Payment Started", {
+      payment_intent_id: intent.id,
+      offering: selectedOffering.dataset.offering,
+      amount: intent.amount,
+      token: intent.token
+    });
     paymentTitle.textContent = intent.offeringName;
     paymentMeaning.textContent = selectedOffering.dataset.meaning;
     paymentInvocation.textContent = `May this flame accompany ${selectedOffering.dataset.offering === "traveler" ? "your steps through the unknown." : selectedOffering.dataset.offering === "keeper" ? "your keeping through the long night." : selectedOffering.dataset.offering === "sacred" ? "the blessing you carry forward." : "those who arrive after you."}`;
@@ -1636,6 +1672,7 @@ ambientToggle.addEventListener("click", () => {
 });
 
 loadBlessingCorpus();
+trackShrineEvent("Homepage View", { path: window.location.pathname });
 setAmbientToggleLabel();
 scheduleLivingFlame();
 scheduleEmber();

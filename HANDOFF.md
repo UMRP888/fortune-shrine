@@ -1,6 +1,6 @@
 # Fortune Shrine Handoff
 
-Last updated: 2026-06-15
+Last updated: 2026-06-18
 
 This file is for a future Codex session or collaborator who has no memory of the previous conversation.
 
@@ -310,6 +310,39 @@ Attach a Railway Volume at `/data` before relying on the engine database across 
 X search requires `X_BEARER_TOKEN`.
 
 Reddit search should use `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`, and `REDDIT_USER_AGENT`.
+
+## Distribution Engine Beta Verification
+
+Beta verification is now the active distribution priority.
+
+Implemented:
+
+- searches run one keyword at a time
+- every search run records raw, duplicate, created, qualified, pending,
+  approved, and rejected counts
+- search targets carry a source run ID
+- `GET /api/distribution/analytics` returns per-run and per-keyword audit data
+- the default keyword set now focuses on crypto, trading, prediction markets,
+  poker, and high-risk decisions
+
+Documents:
+
+```text
+docs/DISTRIBUTION_ENGINE_BETA_TEST.md
+docs/RISK_COMMUNITY_KEYWORDS_V1.md
+```
+
+Verification boundary as of 2026-06-18:
+
+- unit and mocked connector tests pass
+- X live search is blocked because `X_BEARER_TOKEN` is not configured
+- Reddit live search is blocked because OAuth is not configured and the public
+  fallback cannot currently reach Reddit
+- Railway's deployed `/api/distribution/status` returned `404`, so the deployed
+  service does not yet contain this Beta revision
+- no real external target has been discovered or saved yet
+- the two local targets are manual test records and must not be counted as live
+  discoveries
 
 ## Blessing Corpus Domains
 

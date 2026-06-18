@@ -2,16 +2,74 @@ import crypto from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 
+const RISK_COMMUNITY_KEYWORDS_V1 = {
+  crypto: [
+    "got liquidated",
+    "just got liquidated",
+    "almost liquidated",
+    "revenge trading",
+    "revenge trade",
+    "about to ape in",
+    "overleveraged",
+    "trying to win it back",
+    "lost everything crypto",
+    "can't sleep crypto"
+  ],
+  trading: [
+    "blew my account",
+    "blew up my account",
+    "failed my funded account",
+    "revenge traded",
+    "overtraded today",
+    "can't stop overtrading",
+    "risking too much",
+    "trading with rent money",
+    "chasing my losses",
+    "one more trade"
+  ],
+  predictionMarkets: [
+    "all in polymarket",
+    "prediction market loss",
+    "nervous about resolution",
+    "can't stop checking the odds",
+    "my position is underwater",
+    "waiting for the market to resolve"
+  ],
+  poker: [
+    "poker downswing",
+    "on tilt poker",
+    "lost my bankroll",
+    "trying to win it back poker",
+    "one more buy in",
+    "busted the tournament",
+    "playing scared poker"
+  ],
+  highRiskDecisions: [
+    "everything on the line",
+    "can't sleep over this",
+    "terrified about tomorrow",
+    "I may lose everything",
+    "I don't trust myself right now",
+    "I need to slow down",
+    "I can't stop checking",
+    "I know I'm being reckless",
+    "talk me out of it"
+  ]
+};
+
 const DEFAULT_KEYWORDS = [
-  "wish me luck",
-  "pray for me",
-  "all in",
-  "need luck",
-  "hope this works",
-  "tomorrow is a big day",
-  "interview tomorrow",
-  "final exam tomorrow",
-  "please pray"
+  "got liquidated",
+  "revenge trading",
+  "overleveraged",
+  "trying to win it back",
+  "blew my account",
+  "overtraded today",
+  "chasing my losses",
+  "all in polymarket",
+  "nervous about resolution",
+  "poker downswing",
+  "on tilt poker",
+  "I need to slow down"
 ];
 
 const SIGNALS = {
@@ -214,6 +272,7 @@ export class DistributionEngine {
     redditUserAgent = ""
   }) {
     this.dataPath = path.join(dataDir, "targets.json");
+    this.searchRunsPath = path.join(dataDir, "search-runs.json");
     this.xBearerToken = xBearerToken;
     this.redditClientId = redditClientId;
     this.redditClientSecret = redditClientSecret;
@@ -221,10 +280,15 @@ export class DistributionEngine {
     this.redditAccessToken = null;
     this.redditAccessTokenExpiresAt = 0;
     this.queue = Promise.resolve();
+    this.searchRunsQueue = Promise.resolve();
   }
 
   async load() {
     return readJsonFile(this.dataPath, { version: "0.2", targets: [] });
+  }
+
+  async loadSearchRuns() {
+    return readJsonFile(this.searchRunsPath, { version: "beta-0.1", runs: [] });
   }
 
   async mutate(mutator) {
@@ -292,6 +356,128 @@ export class DistributionEngine {
     });
   }
 
+  async importSearchPosts(posts, { platform, keyword, runId }) {
+    return this.mutate((database) => {
+      const fingerprints = new Set(database.targets.map((target) => target.fingerprint));
+      const created = [];
+      let duplicateCount = 0;
+
+      for (const rawPost of posts.slice(0, 250)) {
+        const post = cleanPost({ ...rawPost, keyword });
+        const fingerprint = targetFingerprint(post);
+        if (fingerprints.has(fingerprint)) {
+          duplicateCount += 1;
+          continue;
+        }
+
+        const scored = scorePost(post.content);
+        const id = crypto.randomUUID();
+        const target = {
+          id,
+          ...post,
+          fingerprint,
+          source: `${platform}-search`,
+          sourceRunId: runId,
+          score: scored.score,
+          scoreDimensions: scored.dimensions,
+          matchedSignals: scored.matchedSignals,
+          theme: scored.theme,
+          suggestedReply: generateSuggestedReply(post.content, id),
+          decision: "pending",
+          sent: false,
+          sentAt: null,
+          interaction: {
+            likes: 0,
+            replies: 0,
+            reposts: 0,
+            profileVisits: 0,
+            linkClicks: 0
+          },
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+        database.targets.push(target);
+        fingerprints.add(fingerprint);
+        created.push(target);
+      }
+
+      return { created, duplicateCount };
+    });
+  }
+
+  async recordSearchRun(run) {
+    this.searchRunsQueue = this.searchRunsQueue.then(async () => {
+      const database = await this.loadSearchRuns();
+      database.runs.push(run);
+      if (database.runs.length > 5000) database.runs = database.runs.slice(-5000);
+      await writeJsonFile(this.searchRunsPath, database);
+      return run;
+    });
+    return this.searchRunsQueue;
+  }
+
+  async searchAnalytics() {
+    const [targetsDatabase, runsDatabase] = await Promise.all([
+      this.load(),
+      this.loadSearchRuns()
+    ]);
+    const targetsByRun = new Map();
+
+    for (const target of targetsDatabase.targets) {
+      if (!target.sourceRunId) continue;
+      const targets = targetsByRun.get(target.sourceRunId) || [];
+      targets.push(target);
+      targetsByRun.set(target.sourceRunId, targets);
+    }
+
+    const runs = runsDatabase.runs.map((run) => {
+      const targets = targetsByRun.get(run.id) || [];
+      return {
+        ...run,
+        pendingCount: targets.filter((target) => target.decision === "pending").length,
+        approvedCount: targets.filter((target) => target.decision === "approved").length,
+        rejectedCount: targets.filter((target) => target.decision === "rejected").length
+      };
+    });
+
+    const aggregate = new Map();
+    for (const run of runs) {
+      const key = `${run.platform}|${run.keyword}`;
+      const current = aggregate.get(key) || {
+        platform: run.platform,
+        keyword: run.keyword,
+        runCount: 0,
+        successfulRunCount: 0,
+        rawResultCount: 0,
+        duplicateCount: 0,
+        createdCount: 0,
+        qualifiedCount: 0,
+        pendingCount: 0,
+        approvedCount: 0,
+        rejectedCount: 0
+      };
+      current.runCount += 1;
+      if (run.status === "completed") current.successfulRunCount += 1;
+      current.rawResultCount += run.rawResultCount || 0;
+      current.duplicateCount += run.duplicateCount || 0;
+      current.createdCount += run.createdCount || 0;
+      current.qualifiedCount += run.qualifiedCount || 0;
+      current.pendingCount += run.pendingCount || 0;
+      current.approvedCount += run.approvedCount || 0;
+      current.rejectedCount += run.rejectedCount || 0;
+      aggregate.set(key, current);
+    }
+
+    return {
+      version: "beta-0.1",
+      generatedAt: new Date().toISOString(),
+      aggregate: [...aggregate.values()].sort((a, b) =>
+        a.platform.localeCompare(b.platform) || a.keyword.localeCompare(b.keyword)
+      ),
+      runs: runs.sort((a, b) => b.startedAt.localeCompare(a.startedAt))
+    };
+  }
+
   async decide(ids, decision) {
     if (!["approved", "rejected", "pending"].includes(decision)) {
       throw new Error("Invalid decision.");
@@ -341,25 +527,79 @@ export class DistributionEngine {
       .slice(0, 12);
     if (!cleanKeywords.length) throw new Error("At least one keyword is required.");
 
-    let posts;
-    if (platform === "x") posts = await this.searchX(cleanKeywords, limit);
-    else if (platform === "reddit") posts = await this.searchReddit(cleanKeywords, limit);
-    else throw new Error("Platform must be x or reddit.");
+    if (!["x", "reddit"].includes(platform)) throw new Error("Platform must be x or reddit.");
 
-    return this.importPosts(posts, `${platform}-search`);
+    const created = [];
+    const runs = [];
+    for (const keyword of cleanKeywords) {
+      const id = crypto.randomUUID();
+      const startedAt = new Date().toISOString();
+      try {
+        const result = platform === "x"
+          ? await this.searchX(keyword, limit)
+          : await this.searchReddit(keyword, limit);
+        const imported = await this.importSearchPosts(result.posts, { platform, keyword, runId: id });
+        const run = {
+          id,
+          platform,
+          keyword,
+          query: result.query,
+          startedAt,
+          completedAt: new Date().toISOString(),
+          status: "completed",
+          requestedLimit: result.requestedLimit,
+          httpStatus: result.httpStatus,
+          rawResultCount: result.rawResultCount,
+          parsedCount: result.posts.length,
+          duplicateCount: imported.duplicateCount,
+          createdCount: imported.created.length,
+          qualifiedCount: imported.created.filter((target) => target.score >= 70).length,
+          paginationToken: result.paginationToken || null,
+          error: null
+        };
+        await this.recordSearchRun(run);
+        created.push(...imported.created);
+        runs.push(run);
+      } catch (error) {
+        const run = {
+          id,
+          platform,
+          keyword,
+          query: error.query || null,
+          startedAt,
+          completedAt: new Date().toISOString(),
+          status: "failed",
+          requestedLimit: Number(limit) || 25,
+          httpStatus: Number(error.httpStatus) || null,
+          rawResultCount: 0,
+          parsedCount: 0,
+          duplicateCount: 0,
+          createdCount: 0,
+          qualifiedCount: 0,
+          paginationToken: null,
+          error: error.message
+        };
+        await this.recordSearchRun(run);
+        runs.push(run);
+      }
+    }
+
+    return { created, runs };
   }
 
-  async searchX(keywords, limit) {
+  async searchX(keyword, limit) {
+    const query = `"${keyword.replaceAll('"', "")}" -is:retweet lang:en`;
     if (!this.xBearerToken) {
       const error = new Error("X search is not configured. Set X_BEARER_TOKEN in Railway.");
       error.code = "NOT_CONFIGURED";
+      error.query = query;
       throw error;
     }
 
-    const query = `(${keywords.map((keyword) => `"${keyword.replaceAll('"', "")}"`).join(" OR ")}) -is:retweet lang:en`;
+    const requestedLimit = Math.min(100, Math.max(10, Number(limit) || 25));
     const params = new URLSearchParams({
       query,
-      max_results: String(Math.min(100, Math.max(10, Number(limit) || 25))),
+      max_results: String(requestedLimit),
       "tweet.fields": "created_at,author_id",
       expansions: "author_id",
       "user.fields": "username"
@@ -370,13 +610,20 @@ export class DistributionEngine {
         headers: { Authorization: `Bearer ${this.xBearerToken}` }
       });
     } catch {
-      throw new Error("X search could not reach the X API.");
+      const error = new Error("X search could not reach the X API.");
+      error.query = query;
+      throw error;
     }
-    if (!response.ok) throw new Error(`X search failed with ${response.status}.`);
+    if (!response.ok) {
+      const error = new Error(`X search failed with ${response.status}.`);
+      error.httpStatus = response.status;
+      error.query = query;
+      throw error;
+    }
 
     const payload = await response.json();
     const users = new Map((payload.includes?.users || []).map((user) => [user.id, user]));
-    return (payload.data || []).map((post) => {
+    const posts = (payload.data || []).map((post) => {
       const user = users.get(post.author_id);
       return {
         platform: "x",
@@ -385,9 +632,17 @@ export class DistributionEngine {
         postUrl: user?.username ? `https://x.com/${user.username}/status/${post.id}` : null,
         content: post.text,
         timestamp: post.created_at,
-        keyword: keywords.find((keyword) => post.text.toLowerCase().includes(keyword.toLowerCase())) || null
+        keyword
       };
     });
+    return {
+      query,
+      requestedLimit,
+      httpStatus: response.status,
+      rawResultCount: Number(payload.meta?.result_count ?? posts.length),
+      paginationToken: payload.meta?.next_token || null,
+      posts
+    };
   }
 
   async getRedditAccessToken() {
@@ -418,13 +673,14 @@ export class DistributionEngine {
     return this.redditAccessToken;
   }
 
-  async searchReddit(keywords, limit) {
-    const query = keywords.map((keyword) => `"${keyword.replaceAll('"', "")}"`).join(" OR ");
+  async searchReddit(keyword, limit) {
+    const query = `"${keyword.replaceAll('"', "")}"`;
+    const requestedLimit = Math.min(100, Math.max(1, Number(limit) || 25));
     const params = new URLSearchParams({
       q: query,
       sort: "new",
       type: "link",
-      limit: String(Math.min(100, Math.max(1, Number(limit) || 25))),
+      limit: String(requestedLimit),
       raw_json: "1"
     });
     const accessToken = await this.getRedditAccessToken();
@@ -441,25 +697,38 @@ export class DistributionEngine {
         }
       });
     } catch {
-      throw new Error("Reddit search could not reach Reddit. Configure Reddit OAuth or try again later.");
+      const error = new Error("Reddit search could not reach Reddit. Configure Reddit OAuth or try again later.");
+      error.query = query;
+      throw error;
     }
     if (!response.ok) {
       const error = new Error(`Reddit search failed with ${response.status}. Reddit OAuth may be required.`);
       error.code = "PLATFORM_BLOCKED";
+      error.httpStatus = response.status;
+      error.query = query;
       throw error;
     }
 
     const payload = await response.json();
-    return (payload.data?.children || []).map(({ data }) => ({
+    const children = payload.data?.children || [];
+    const posts = children.map(({ data }) => ({
       platform: "reddit",
       username: data.author,
       profileUrl: data.author ? `https://www.reddit.com/user/${data.author}/` : null,
       postUrl: data.permalink ? `https://www.reddit.com${data.permalink}` : null,
       content: [data.title, data.selftext].filter(Boolean).join("\n"),
       timestamp: new Date(Number(data.created_utc) * 1000).toISOString(),
-      keyword: keywords.find((keyword) => `${data.title} ${data.selftext}`.toLowerCase().includes(keyword.toLowerCase())) || null
+      keyword
     }));
+    return {
+      query,
+      requestedLimit,
+      httpStatus: response.status,
+      rawResultCount: children.length,
+      paginationToken: payload.data?.after || null,
+      posts
+    };
   }
 }
 
-export { DEFAULT_KEYWORDS };
+export { DEFAULT_KEYWORDS, RISK_COMMUNITY_KEYWORDS_V1 };

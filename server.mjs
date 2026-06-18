@@ -542,12 +542,13 @@ const server = http.createServer(async (request, response) => {
       if (request.method === "GET" && url.pathname === "/api/distribution/status") {
         const targets = await distributionEngine.list();
         sendJson(response, 200, {
-          version: "alpha-0.2",
+          version: "beta-0.1",
           total: targets.length,
           qualified: targets.filter((target) => target.score >= 70).length,
           xConfigured: Boolean(process.env.X_BEARER_TOKEN),
           redditConfigured: Boolean(process.env.REDDIT_CLIENT_ID && process.env.REDDIT_CLIENT_SECRET),
           redditPublicFallback: true,
+          searchAuditEnabled: true,
           keywords: DEFAULT_KEYWORDS
         });
         return;
@@ -572,6 +573,12 @@ const server = http.createServer(async (request, response) => {
         return;
       }
 
+      if (request.method === "GET" && url.pathname === "/api/distribution/analytics") {
+        const analytics = await distributionEngine.searchAnalytics();
+        sendJson(response, 200, analytics);
+        return;
+      }
+
       if (request.method === "POST" && url.pathname === "/api/distribution/import") {
         const body = await readJson(request);
         const created = await distributionEngine.importPosts(body.posts, "manual");
@@ -581,12 +588,12 @@ const server = http.createServer(async (request, response) => {
 
       if (request.method === "POST" && url.pathname === "/api/distribution/search") {
         const body = await readJson(request);
-        const created = await distributionEngine.search({
+        const result = await distributionEngine.search({
           platform: String(body.platform || "").toLowerCase(),
           keywords: body.keywords || DEFAULT_KEYWORDS,
           limit: body.limit || 60
         });
-        sendJson(response, 201, { created });
+        sendJson(response, 201, result);
         return;
       }
 
