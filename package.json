@@ -8,7 +8,8 @@
     "build": "next build",
     "next:start": "next start -H 127.0.0.1 -p 4188",
     "start": "node server.mjs",
-    "legacy:start": "node server.mjs"
+    "legacy:start": "node server.mjs",
+    "test:distribution": "node scripts/test-distribution-engine.mjs"
   },
   "dependencies": {
     "next": "^15.3.3",

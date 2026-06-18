@@ -6,4 +6,5 @@ build/
 .env.*
 *.log
 data/*.jsonl
+data/distribution/
 .DS_Store

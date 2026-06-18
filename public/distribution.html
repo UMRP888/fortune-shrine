@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fortune Shrine Distribution Alpha+</title>
+    <link rel="stylesheet" href="/distribution.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="kicker">Fortune Shrine</p>
+        <h1>Distribution Alpha+</h1>
+      </div>
+      <div class="top-actions">
+        <span id="connectionState">Locked</span>
+        <button class="icon-button" id="refreshButton" type="button" title="Refresh" aria-label="Refresh">↻</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="auth-panel" id="authPanel">
+        <label for="adminToken">Admin token</label>
+        <div class="auth-row">
+          <input id="adminToken" type="password" autocomplete="current-password" />
+          <button id="unlockButton" type="button">Unlock</button>
+        </div>
+        <p>Stored only in this browser tab. Public visitors cannot read the target database.</p>
+      </section>
+
+      <div id="workspace" class="hidden">
+        <section class="metrics" aria-label="Discovery metrics">
+          <article><span>Discovered</span><strong id="totalCount">0</strong></article>
+          <article><span>Qualified 70+</span><strong id="qualifiedCount">0</strong></article>
+          <article><span>Approved</span><strong id="approvedCount">0</strong></article>
+          <article><span>Sent</span><strong id="sentCount">0</strong></article>
+        </section>
+
+        <section class="controls">
+          <div class="control-group">
+            <label for="platformFilter">View</label>
+            <select id="platformFilter">
+              <option value="all">All platforms</option>
+              <option value="x">X</option>
+              <option value="reddit">Reddit</option>
+            </select>
+            <select id="decisionFilter">
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+              <option value="all">All decisions</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <button id="searchRedditButton" type="button">Search Reddit</button>
+            <button id="searchXButton" type="button">Search X</button>
+            <button id="importButton" type="button">Import posts</button>
+            <button id="exportButton" type="button">Export JSON</button>
+          </div>
+        </section>
+
+        <section class="batch-bar">
+          <label><input id="selectAll" type="checkbox" /> Select visible</label>
+          <span id="selectedCount">0 selected</span>
+          <button id="approveSelected" type="button">Approve</button>
+          <button id="rejectSelected" class="quiet" type="button">Reject</button>
+        </section>
+
+        <section class="target-list" id="targetList" aria-live="polite"></section>
+        <p class="empty hidden" id="emptyState">No matching targets in this view.</p>
+      </div>
+    </main>
+
+    <dialog id="importDialog">
+      <form method="dialog">
+        <header>
+          <h2>Import public posts</h2>
+          <button class="icon-button" value="cancel" aria-label="Close">×</button>
+        </header>
+        <p>Paste a JSON array with platform, username, postUrl, content, timestamp, and keyword.</p>
+        <textarea id="importText" spellcheck="false">[
+  {
+    "platform": "x",
+    "username": "example",
+    "postUrl": "https://x.com/example/status/1",
+    "content": "I have an interview tomorrow. Wish me luck.",
+    "timestamp": "2026-06-17T12:00:00.000Z",
+    "keyword": "wish me luck"
+  }
+]</textarea>
+        <footer>
+          <button value="cancel" class="quiet">Cancel</button>
+          <button id="submitImport" value="default">Import</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <div class="toast hidden" id="toast" role="status"></div>
+    <script src="/distribution.js" type="module"></script>
+  </body>
+</html>

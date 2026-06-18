@@ -270,6 +270,47 @@ Potential first promotion paths after launch:
 3. Crypto/meme coin Telegram or Discord groups only after observing group rules.
 4. Reddit only if access is restored and rules allow posting.
 
+## Distribution Engine Alpha+
+
+The repository now includes an isolated semi-automatic discovery system:
+
+```text
+http://127.0.0.1:4188/distribution
+```
+
+Files:
+
+```text
+distribution-engine.mjs
+public/distribution.html
+public/distribution.css
+public/distribution.js
+docs/DISTRIBUTION_ENGINE_ALPHA.md
+scripts/test-distribution-engine.mjs
+```
+
+The engine:
+
+- imports or searches public X/Reddit posts
+- scores uncertainty, emotional intensity, directness, and personal stakes
+- keeps 70+ targets in the default review queue
+- generates a constitutional blessing reply
+- requires human approval
+- does not automatically send messages
+
+Production requirements:
+
+```text
+DISTRIBUTION_ADMIN_TOKEN
+DISTRIBUTION_DATA_DIR=/data/distribution
+```
+
+Attach a Railway Volume at `/data` before relying on the engine database across redeploys.
+
+X search requires `X_BEARER_TOKEN`.
+
+Reddit search should use `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`, and `REDDIT_USER_AGENT`.
+
 ## Blessing Corpus Domains
 
 Start with:

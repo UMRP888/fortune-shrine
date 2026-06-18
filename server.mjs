@@ -3,6 +3,7 @@ import { appendFile, mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
+import { DEFAULT_KEYWORDS, DistributionEngine } from "./distribution-engine.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(__dirname, "public");
@@ -10,6 +11,14 @@ const dataDir = path.join(__dirname, "data");
 const memoryLogPath = path.join(dataDir, "shrine-memory-log.jsonl");
 const port = Number(process.env.PORT || 4188);
 const host = process.env.HOST || (process.env.PORT ? "0.0.0.0" : "127.0.0.1");
+const distributionAdminToken = String(process.env.DISTRIBUTION_ADMIN_TOKEN || "").trim();
+const distributionEngine = new DistributionEngine({
+  dataDir: process.env.DISTRIBUTION_DATA_DIR || path.join(dataDir, "distribution"),
+  xBearerToken: process.env.X_BEARER_TOKEN || "",
+  redditClientId: process.env.REDDIT_CLIENT_ID || "",
+  redditClientSecret: process.env.REDDIT_CLIENT_SECRET || "",
+  redditUserAgent: process.env.REDDIT_USER_AGENT || ""
+});
 const solanaRpcUrls = [
   process.env.SOLANA_RPC_URL,
   ...(process.env.SOLANA_RPC_FALLBACK_URLS || "").split(","),
@@ -39,6 +48,7 @@ const types = new Map([
   [".js", "text/javascript; charset=utf-8"],
   [".json", "application/json; charset=utf-8"],
   [".md", "text/markdown; charset=utf-8"],
+  [".csv", "text/csv; charset=utf-8"],
   [".png", "image/png"],
   [".svg", "image/svg+xml; charset=utf-8"]
 ]);
@@ -66,6 +76,36 @@ function isLocalRequest(request, url) {
     || remoteAddress === "127.0.0.1"
     || remoteAddress === "::1"
     || remoteAddress === "::ffff:127.0.0.1";
+}
+
+function secureTokenMatches(provided, expected) {
+  if (!provided || !expected) return false;
+  const providedBuffer = Buffer.from(provided);
+  const expectedBuffer = Buffer.from(expected);
+  return providedBuffer.length === expectedBuffer.length
+    && crypto.timingSafeEqual(providedBuffer, expectedBuffer);
+}
+
+function isDistributionAuthorized(request, url) {
+  if (!distributionAdminToken) return isLocalRequest(request, url);
+  return secureTokenMatches(
+      String(request.headers["x-admin-token"] || "").trim(),
+      distributionAdminToken
+    );
+}
+
+function requireDistributionAuthorization(request, response, url) {
+  if (!distributionAdminToken && !isLocalRequest(request, url)) {
+    sendJson(response, 503, {
+      error: "Distribution engine is locked. Set DISTRIBUTION_ADMIN_TOKEN."
+    });
+    return false;
+  }
+  if (!isDistributionAuthorized(request, url)) {
+    sendJson(response, 401, { error: "Invalid admin token." });
+    return false;
+  }
+  return true;
 }
 
 const base58Alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
@@ -496,6 +536,88 @@ const server = http.createServer(async (request, response) => {
   try {
     const url = new URL(request.url || "/", `http://${request.headers.host}`);
 
+    if (url.pathname.startsWith("/api/distribution/")) {
+      if (!requireDistributionAuthorization(request, response, url)) return;
+
+      if (request.method === "GET" && url.pathname === "/api/distribution/status") {
+        const targets = await distributionEngine.list();
+        sendJson(response, 200, {
+          version: "alpha-0.2",
+          total: targets.length,
+          qualified: targets.filter((target) => target.score >= 70).length,
+          xConfigured: Boolean(process.env.X_BEARER_TOKEN),
+          redditConfigured: Boolean(process.env.REDDIT_CLIENT_ID && process.env.REDDIT_CLIENT_SECRET),
+          redditPublicFallback: true,
+          keywords: DEFAULT_KEYWORDS
+        });
+        return;
+      }
+
+      if (request.method === "GET" && url.pathname === "/api/distribution/targets") {
+        const minScore = Math.max(0, Number(url.searchParams.get("minScore") || 0));
+        const decision = url.searchParams.get("decision") || "all";
+        const platform = url.searchParams.get("platform") || "all";
+        const targets = await distributionEngine.list({ minScore, decision, platform });
+        sendJson(response, 200, { targets });
+        return;
+      }
+
+      if (request.method === "GET" && url.pathname === "/api/distribution/export") {
+        const targets = await distributionEngine.list();
+        sendJson(response, 200, {
+          version: "alpha-0.2",
+          exportedAt: new Date().toISOString(),
+          targets
+        });
+        return;
+      }
+
+      if (request.method === "POST" && url.pathname === "/api/distribution/import") {
+        const body = await readJson(request);
+        const created = await distributionEngine.importPosts(body.posts, "manual");
+        sendJson(response, 201, { created });
+        return;
+      }
+
+      if (request.method === "POST" && url.pathname === "/api/distribution/search") {
+        const body = await readJson(request);
+        const created = await distributionEngine.search({
+          platform: String(body.platform || "").toLowerCase(),
+          keywords: body.keywords || DEFAULT_KEYWORDS,
+          limit: body.limit || 60
+        });
+        sendJson(response, 201, { created });
+        return;
+      }
+
+      if (request.method === "POST" && url.pathname === "/api/distribution/decisions") {
+        const body = await readJson(request);
+        const ids = Array.isArray(body.ids) ? body.ids.map(String).slice(0, 250) : [];
+        if (!ids.length) {
+          sendJson(response, 400, { error: "At least one target id is required." });
+          return;
+        }
+        const updated = await distributionEngine.decide(ids, String(body.decision || ""));
+        sendJson(response, 200, { updated });
+        return;
+      }
+
+      const targetMatch = url.pathname.match(/^\/api\/distribution\/targets\/([^/]+)$/);
+      if (request.method === "PATCH" && targetMatch) {
+        const body = await readJson(request);
+        const updated = await distributionEngine.updateTarget(targetMatch[1], body);
+        if (!updated) {
+          sendJson(response, 404, { error: "Target not found." });
+          return;
+        }
+        sendJson(response, 200, { updated });
+        return;
+      }
+
+      sendJson(response, 404, { error: "Distribution route not found." });
+      return;
+    }
+
     if (request.method === "POST" && url.pathname === "/api/payment-intents") {
       const body = await readJson(request);
       const intent = createPaymentIntent(body.offeringId);
@@ -753,7 +875,11 @@ const server = http.createServer(async (request, response) => {
       return;
     }
 
-    const requestedPath = url.pathname === "/" ? "/index.html" : url.pathname;
+    const requestedPath = url.pathname === "/"
+      ? "/index.html"
+      : url.pathname === "/distribution"
+        ? "/distribution.html"
+        : url.pathname;
     const safePath = path.normalize(decodeURIComponent(requestedPath)).replace(/^(\.\.[/\\])+/, "");
     const filePath = path.join(publicDir, safePath);
 
@@ -770,6 +896,16 @@ const server = http.createServer(async (request, response) => {
     });
     response.end(body);
   } catch (error) {
+    if (String(request.url || "").startsWith("/api/distribution/")) {
+      console.warn("[distribution-error]", {
+        path: request.url,
+        error: error.message
+      });
+      sendJson(response, error.code === "NOT_CONFIGURED" ? 503 : 502, {
+        error: error.message
+      });
+      return;
+    }
     response.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
     response.end("Not found");
   }
