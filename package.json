@@ -9,7 +9,11 @@
     "next:start": "next start -H 127.0.0.1 -p 4188",
     "start": "node server.mjs",
     "legacy:start": "node server.mjs",
-    "test:distribution": "node scripts/test-distribution-engine.mjs"
+    "test:distribution": "node scripts/test-distribution-engine.mjs",
+    "telegram:login": "node scripts/telegram-discovery/run.mjs --login-only",
+    "telegram:discover": "node scripts/telegram-discovery/run.mjs --once",
+    "telegram:watch": "node scripts/telegram-discovery/run.mjs --watch",
+    "test:telegram-discovery": "node --test scripts/telegram-discovery/test.mjs"
   },
   "dependencies": {
     "next": "^15.3.3",
@@ -18,6 +22,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.8",
+    "playwright": "^1.57.0",
     "tailwindcss": "^4.1.8"
   },
   "engines": {
