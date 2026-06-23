@@ -1,6 +1,6 @@
 # Fortune Shrine Handoff
 
-Last updated: 2026-06-18
+Last updated: 2026-06-23
 
 This file is for a future Codex session or collaborator who has no memory of the previous conversation.
 
@@ -343,6 +343,253 @@ Verification boundary as of 2026-06-18:
 - no real external target has been discovered or saved yet
 - the two local targets are manual test records and must not be counted as live
   discoveries
+
+## Shrine Search Delivery Contract
+
+The activation phrase is:
+
+```text
+Run Shrine Search!
+```
+
+Every completed run must do all of the following:
+
+1. Search and verify the current candidates.
+2. Generate three context-aware reply drafts per candidate.
+3. Replace the active sender queue at:
+
+```text
+scripts/distribution/v07/data/queue.json
+```
+
+4. Verify the live local endpoint:
+
+```text
+http://127.0.0.1:4191/queue.json
+```
+
+5. Confirm that the returned count and usernames match the new run.
+6. Tell the operator to refresh:
+
+```text
+http://127.0.0.1:4191/
+```
+
+Do not claim that Shrine Search is complete when candidates were only printed in
+chat. The queue page is the required deliverable.
+
+### Freshness hard limit
+
+- 0–15 minutes: S
+- 15–30 minutes: A
+- 30–60 minutes: B
+- 60–120 minutes: C
+- More than 120 minutes: excluded from the active sending queue
+- Older posts may be retained only as research material.
+- Never use stale posts to fill a candidate quota.
+- If no qualified fresh candidates are available, publish an empty queue.
+
+## Shrine Watch V1.0
+
+The active community-intelligence protocol is recorded at:
+
+```text
+docs/SHRINE_WATCH_V1.md
+```
+
+Priority observation communities:
+
+- S: Hyperliquid Discord
+- A: GMX Telegram
+- A: Gains Network / gTrade Telegram
+- A: Bitget English Telegram, high observed human activity but noisy
+- B: Bybit English, under evaluation
+- B: Binance English, pending membership approval
+
+The Shrine observes human uncertainty, not market direction.
+No autonomous posting, private-message collection, identity deception, or
+permission bypass is allowed.
+
+## Telegram Discovery Engine V1 Lite
+
+Status as of 2026-06-23:
+
+```text
+Locally runnable and validated with a real Telegram login.
+```
+
+The recovery reference is:
+
+```text
+Telegram-Discovery-V1-Canon.md
+```
+
+### Purpose
+
+The engine does not search for market opinions. It searches for people who are
+waiting for an answer, anxious, uncertain, hopeful, or explicitly asking for
+luck or prayer.
+
+It is a local, read-only review tool:
+
+```text
+Telegram Web
+-> standalone Playwright
+-> four-group allowlist
+-> keyword retrieval
+-> Human Uncertainty Detector
+-> constitutional reply suggestion
+-> local JSON
+-> human review and manual sending
+```
+
+It never sends, replies, reacts, joins a group, or operates the Telegram account
+beyond read-only search.
+
+### Active Telegram scope
+
+Only these four groups are in V1 Lite:
+
+- GMX
+- Gains Network / gTrade
+- Bitget English
+- Bybit English
+
+Do not add Discord, X, Reddit, Farcaster, new Telegram groups, or new platforms
+while V1 Lite validation is active.
+
+### Files
+
+```text
+scripts/telegram-discovery/config.mjs
+scripts/telegram-discovery/collector.mjs
+scripts/telegram-discovery/signal-engine.mjs
+scripts/telegram-discovery/lib.mjs
+scripts/telegram-discovery/run.mjs
+scripts/telegram-discovery/run.sh
+scripts/telegram-discovery/test.mjs
+scripts/telegram-discovery/README.md
+```
+
+### Install and login
+
+```bash
+cd "/Users/lixiaole/Documents/Fortune Shrine"
+npm install
+npx playwright install chromium
+scripts/telegram-discovery/run.sh --login-only
+```
+
+Complete Telegram login manually in the dedicated Chromium window. The
+persistent session is stored locally at:
+
+```text
+scripts/telegram-discovery/state/browser-profile/
+```
+
+This directory contains sensitive account session data. It is ignored by Git
+and must never be copied, committed, or shared.
+
+### Run
+
+One cycle:
+
+```bash
+scripts/telegram-discovery/run.sh --once --headless
+```
+
+Continuous ten-minute loop:
+
+```bash
+scripts/telegram-discovery/run.sh --watch --headless
+```
+
+Stop the loop with `Ctrl+C`.
+
+### Output
+
+```text
+scripts/telegram-discovery/output/latest.json
+scripts/telegram-discovery/output/results.json
+scripts/telegram-discovery/output/run-<timestamp>.json
+```
+
+- `latest.json`: latest completed cycle
+- `results.json`: deduplicated local archive
+- `run-<timestamp>.json`: immutable record of one cycle
+
+The output and browser profile directories are intentionally ignored by Git.
+
+### Verified behavior
+
+The following have been validated against the real Telegram account:
+
+- standalone Chromium launches
+- Telegram login persists
+- the four-group allowlist works
+- Telegram search results can be read
+- group, author, message, time, and message ID can be extracted
+- Human Uncertainty Detector scores real messages
+- constitutional reply suggestions are generated
+- JSON files are written
+- the ten-minute loop runs without overlapping cycles
+- the system runs without Codex Browser
+
+Latest reference run on 2026-06-23:
+
+```text
+Raw matches: 225
+Qualified at score >= 0.70: 124
+Prayer: 34
+Hope without explicit prayer: 79
+Direct waiting: 5
+Direct anxiety: 4
+Strong personal-risk matches: 0
+```
+
+The category counts are detector labels and may overlap except that the
+reported Hope count excludes explicit Prayer.
+
+### Current findings
+
+- Bitget English had the highest observed uncertainty density.
+- Bybit English produced fewer but still valid waiting and wish-for-luck cases.
+- GMX and Gains Network produced no qualified result in the latest search run;
+  this is not proof that the communities have no uncertainty signals.
+- Explicit `pray for me` and `wish me luck` are the clearest Shrine-fit states.
+- Personal waiting for rewards, results, approval, or another consequential
+  answer is also a strong signal.
+- Ordinary social hope, market narration, educational analysis, and generic
+  coordination must remain below the review threshold.
+
+### Known issues
+
+1. `watchStartHour`, `watchEndHour`, and `watchTimeZone` exist in configuration,
+   but `run.mjs` does not enforce the 21:00–01:00 window. `--watch` currently
+   runs all day until manually stopped.
+2. Telegram search returns historical results as well as recent messages.
+   Telegram display timestamps such as `Mon`, `Jun 19`, and `01:49` are not yet
+   normalized to absolute timestamps.
+3. There is no freshness filter. Old high-scoring messages can appear beside
+   current ones.
+4. Telegram Web DOM changes can break selectors in `collector.mjs`.
+5. Search collection is bounded by the visible Telegram search results and the
+   configured per-keyword limit. It is not a complete export.
+6. Login expiration requires rerunning `--login-only`.
+7. The engine creates suggestions only. Every reply remains a human decision
+   and must be sent manually in Telegram.
+
+### Current tests
+
+```bash
+node --test scripts/telegram-discovery/test.mjs
+```
+
+As of 2026-06-23:
+
+```text
+16 tests passing
+```
 
 ## Blessing Corpus Domains
 

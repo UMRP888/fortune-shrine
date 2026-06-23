@@ -5,6 +5,20 @@ import {
 import { normalizeText } from "./lib.mjs";
 
 const FIRST_PERSON_PATTERN = /\b(i|i'm|im|i am|me|my|we|we're|our)\b/i;
+const EXPLICIT_BLESSING_REQUESTS = ["wish me luck", "pray for me"];
+const SOFT_HOPE_SIGNALS = ["good luck", "pray", "fingers crossed", "hope"];
+const STRONG_RISK_SIGNALS = ["all in", "liquidation"];
+const RESULT_WAITING_PATTERN = /\b(waiting|wait)\b.{0,32}\b(result|results|outcome|decision|approval|reward|rewards)\b/i;
+const PERSONAL_LIQUIDATION_PATTERN = /\b(i|i'm|im|i am|me|my|we|our)\b.{0,40}\bliquidat(?:ed|ion)\b|\bliquidat(?:ed|ion)\b.{0,40}\b(i|me|my|we|our)\b/i;
+const PERSONAL_EMOTION_PATTERN = /\b(i'm|i am|i feel|i get|i got|i've been|we're|we are|we feel)\b.{0,28}\b(nervous|anxious|worried|uncertain|afraid|scared|stressed|uneasy)\b|\b(make|makes|made|has|got)\s+me\b.{0,20}\b(nervous|anxious|worried|uncertain|afraid|scared|stressed|uneasy)\b|\bmy\b.{0,20}\b(anxiety|worry|fear|nerves)\b/i;
+const EMOTION_VARIANT_PATTERN = /\b(nervous|anxious|worried|uncertain|afraid|scared|stressed|uneasy|fingers crossed)\b/i;
+const PERSONAL_WAITING_PATTERN = /\b(i(?:'m| am|'ll| will)?|we(?:'re| are|'ll| will)?|my|our)\b.{0,40}\b(still\s+waiting|waiting|wait)\b|\b(still\s+waiting|waiting|wait)\b.{0,40}\b(my|our)\b/i;
+const SOCIAL_WAITING_PATTERN = /\b(waiting|wait)\s+(for\s+)?(you|your answer|your reply|him|her|them)\b/i;
+const SOCIAL_HOPE_PATTERN = /\bhope\b.{0,28}\b(you(?:'re| are)? fine|you slept well|you are well|you'?re doing well|weather|visit|not married)\b/i;
+const MARKET_NARRATION_PATTERN = /\b(market|markets|investors|traders|retail|portfolio|liquidity|policy|bitcoin|btc|ethereum|eth|price|pump|bullish|bearish|inflation|crisis)\b.{0,80}\b(nervous|uncertain|waiting|hope|fingers crossed)\b|\b(nervous|uncertain|waiting|hope|fingers crossed)\b.{0,80}\b(market|markets|investors|traders|retail|portfolio|liquidity|policy|bitcoin|btc|ethereum|eth|price|pump|bullish|bearish|inflation|crisis)\b/i;
+const EDUCATIONAL_PATTERN = /\b(risk management|diversification|discipline|research|strategy|analysis|conditions|environment|cycles|regimes|nervous system|market participants|investors get nervous|uncertain markets?|uncertain periods?)\b/i;
+const SOCIAL_EMOTION_PATTERN = /\byou\b.{0,20}\b(make|made)\s+me\b.{0,20}\b(excited|nervous|anxious|worried)\b/i;
+const SHORT_REACTION_PATTERN = /^(nervous|anxious|worried|uncertain)\s+(with|about)\s+what\??$/i;
 
 const REPLIES = {
   blessingRequest: [
@@ -29,9 +43,13 @@ const REPLIES = {
   ]
 };
 
+function phrasePattern(phrase) {
+  const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(^|[^a-z0-9])${escaped}($|[^a-z0-9])`, "i");
+}
+
 function includesAny(text, phrases) {
-  const lower = text.toLocaleLowerCase();
-  return phrases.filter((phrase) => lower.includes(phrase));
+  return phrases.filter((phrase) => phrasePattern(phrase).test(text));
 }
 
 function stableIndex(value, length) {
@@ -60,22 +78,69 @@ export function classifySignal(message) {
     lowSignal: includesAny(text, SIGNALS.lowSignal)
   };
   const firstPerson = FIRST_PERSON_PATTERN.test(text);
-  let score = 0.08;
+  const explicitBlessingRequest = includesAny(text, EXPLICIT_BLESSING_REQUESTS);
+  const softHope = includesAny(text, SOFT_HOPE_SIGNALS)
+    .filter((phrase) => !explicitBlessingRequest.includes(phrase));
+  const strongRisk = includesAny(text, STRONG_RISK_SIGNALS);
+  const waitingForResult = RESULT_WAITING_PATTERN.test(text);
+  const personalLiquidation = PERSONAL_LIQUIDATION_PATTERN.test(text);
+  const personalEmotion = PERSONAL_EMOTION_PATTERN.test(text);
+  const emotionVariant = EMOTION_VARIANT_PATTERN.test(text);
+  const personalWaiting = PERSONAL_WAITING_PATTERN.test(text);
+  const socialWaiting = SOCIAL_WAITING_PATTERN.test(text);
+  const socialHope = SOCIAL_HOPE_PATTERN.test(text);
+  const marketNarration = MARKET_NARRATION_PATTERN.test(text);
+  const educational = EDUCATIONAL_PATTERN.test(text);
+  const socialEmotion = SOCIAL_EMOTION_PATTERN.test(text);
+  const shortReaction = SHORT_REACTION_PATTERN.test(text);
+  const emotionalUncertainty = matched.uncertainty.filter(
+    (phrase) => phrase !== "hope"
+  );
+  const genericMarketExposure = matched.exposure.filter(
+    (phrase) => !strongRisk.includes(phrase)
+  );
+  let score = 0.18;
 
-  if (matched.blessingRequest.length) score += 0.48;
-  if (matched.uncertainty.length) score += 0.28;
-  if (matched.exposure.length) score += 0.16;
-  if (matched.outcomeLanguage.length) score += 0.08;
-  if (firstPerson) score += 0.12;
-  if (
-    matched.blessingRequest.length &&
-    (matched.uncertainty.length || matched.exposure.length)
-  ) score += 0.08;
-  if (
-    matched.uncertainty.length &&
-    matched.exposure.length
-  ) score += 0.06;
-  if (matched.lowSignal.length) score -= 0.25;
+  if (explicitBlessingRequest.length) {
+    score = 0.9;
+    if (strongRisk.length || waitingForResult || emotionalUncertainty.length) {
+      score += 0.05;
+    }
+  } else if (
+    (strongRisk.includes("all in") && firstPerson) ||
+    waitingForResult ||
+    personalLiquidation
+  ) {
+    score = 0.91;
+    if (emotionalUncertainty.length || softHope.length) score += 0.03;
+  } else if (personalEmotion) {
+    score = 0.86;
+    if (personalWaiting || strongRisk.length || softHope.length) score += 0.04;
+  } else if (personalWaiting) {
+    score = 0.8;
+    if (softHope.length || emotionVariant) score += 0.04;
+  } else if (emotionalUncertainty.length) {
+    score = firstPerson ? 0.78 : 0.72;
+    if (softHope.length) score += 0.04;
+  } else if (softHope.length) {
+    score = firstPerson ? 0.76 : 0.71;
+    if (softHope.length > 1) score += 0.04;
+  } else if (strongRisk.length) {
+    score = firstPerson ? 0.78 : 0.62;
+  } else if (genericMarketExposure.length || matched.outcomeLanguage.length) {
+    score = firstPerson ? 0.46 : 0.34;
+  }
+
+  if (socialHope) score = Math.min(score, 0.48);
+  if (socialWaiting) score = Math.min(score, 0.54);
+  if (socialEmotion || shortReaction) score = Math.min(score, 0.54);
+  if (marketNarration && !personalEmotion && !explicitBlessingRequest.length) {
+    score = Math.min(score, 0.46);
+  }
+  if (educational && !explicitBlessingRequest.length) {
+    score = Math.min(score, 0.42);
+  }
+  if (matched.lowSignal.length) score -= 0.3;
 
   score = Math.max(0, Math.min(0.98, Number(score.toFixed(2))));
 
@@ -89,11 +154,21 @@ export function classifySignal(message) {
   }
 
   const reasons = [];
-  if (matched.blessingRequest.length) reasons.push("request for luck or prayer");
-  if (matched.uncertainty.length) reasons.push("waiting or uncertainty");
-  if (matched.exposure.length) reasons.push("personal risk exposure");
+  if (explicitBlessingRequest.length) reasons.push("explicit request for luck or prayer");
+  else if (softHope.length) reasons.push("hope without explicit blessing request");
+  if (waitingForResult) reasons.push("waiting for a meaningful result");
+  else if (personalEmotion) reasons.push("direct personal anxiety or uncertainty");
+  else if (personalWaiting) reasons.push("direct personal waiting");
+  else if (emotionalUncertainty.length || emotionVariant) reasons.push("anxiety or uncertainty");
+  if (strongRisk.length || personalLiquidation) reasons.push("clear personal risk exposure");
+  else if (genericMarketExposure.length) reasons.push("general market or trade context");
   if (matched.outcomeLanguage.length) reasons.push("outcome pressure");
   if (firstPerson) reasons.push("first-person personal stakes");
+  if (socialHope || socialWaiting || socialEmotion || shortReaction) {
+    reasons.push("ordinary social context");
+  }
+  if (marketNarration) reasons.push("market narration");
+  if (educational) reasons.push("educational or analytical language");
   if (matched.lowSignal.length) reasons.push("announcement penalty");
 
   return {
@@ -101,7 +176,19 @@ export function classifySignal(message) {
     state,
     reason: reasons.join(" + ") || "low-context keyword match",
     matched,
-    firstPerson
+    firstPerson,
+    explicitBlessingRequest,
+    softHope,
+    strongRisk,
+    waitingForResult,
+    personalEmotion,
+    personalWaiting,
+    socialHope,
+    socialWaiting,
+    marketNarration,
+    educational,
+    socialEmotion,
+    shortReaction
   };
 }
 

@@ -93,18 +93,22 @@ async function extractVisibleResults(page, keyword, limit) {
         if (!fullText.toLocaleLowerCase().includes(normalizedKeyword)) continue;
 
         const chat = textOf(element, [
+          ".row-title .peer-title",
+          ".dialog-title .peer-title",
           ".peer-title",
           ".dialog-title",
           ".title",
           '[class*="title"]'
         ]);
         const author = textOf(element, [
+          ".dialog-subtitle-span:not(.dialog-subtitle-span-last) .peer-title",
+          ".dialog-subtitle-span:not(.dialog-subtitle-span-last)",
           ".sender-title",
-          ".peer-title",
           '[class*="sender"]',
           '[class*="author"]'
         ]);
         const message = textOf(element, [
+          ".dialog-subtitle-span-last",
           ".message",
           ".subtitle",
           ".row-subtitle",
@@ -112,6 +116,7 @@ async function extractVisibleResults(page, keyword, limit) {
           '[class*="subtitle"]'
         ]) || fullText;
         const timestamp = textOf(element, [
+          ".message-time",
           "time",
           ".time",
           '[class*="time"]'

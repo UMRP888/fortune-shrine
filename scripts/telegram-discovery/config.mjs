@@ -101,6 +101,7 @@ export const DEFAULTS = {
 };
 
 export const SEARCH_INPUT_SELECTORS = [
+  "input.input-search-input",
   'input[placeholder="Search"]',
   '.input-search input',
   '.input-search[contenteditable="true"]',
@@ -110,6 +111,7 @@ export const SEARCH_INPUT_SELECTORS = [
 ];
 
 export const RESULT_ROW_SELECTORS = [
+  ".search-group-messages a.chatlist-chat[data-mid]",
   ".search-super-container .search-group .row",
   ".search-super-container .row",
   ".search-results .row",

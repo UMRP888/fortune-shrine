@@ -65,8 +65,57 @@ test("merges archive newest first", () => {
 test("scores a direct luck request as high value", () => {
   const signal = classifySignal("Wish me luck guys, I am all in");
   assert.equal(signal.score >= 0.9, true);
-  assert.match(signal.reason, /request for luck or prayer/);
-  assert.match(signal.reason, /personal risk exposure/);
+  assert.match(signal.reason, /explicit request for luck or prayer/);
+  assert.match(signal.reason, /clear personal risk exposure/);
+});
+
+test("keeps soft hope signals in the medium band", () => {
+  assert.equal(classifySignal("Hope it works").score, 0.71);
+  assert.equal(classifySignal("Fingers crossed").score, 0.71);
+  assert.equal(
+    classifySignal("Yeah I hope so too Fingers crossed").score,
+    0.8
+  );
+});
+
+test("scores clear personal risk or result waiting as high value", () => {
+  assert.equal(classifySignal("I am all in").score >= 0.9, true);
+  assert.equal(classifySignal("Waiting for results").score >= 0.9, true);
+  assert.equal(classifySignal("I got liquidated").score >= 0.9, true);
+});
+
+test("keeps ordinary market language below 0.50", () => {
+  assert.equal(classifySignal("The long trade looks interesting").score < 0.5, true);
+  assert.equal(classifySignal("Bitcoin may win this market window").score < 0.5, true);
+});
+
+test("recognizes direct anxiety variants without requiring new search keywords", () => {
+  assert.equal(classifySignal("I am nervous today").score, 0.86);
+  assert.equal(classifySignal("I'm anxious about the result").score, 0.86);
+  assert.equal(classifySignal("I am worried this will not work").score, 0.86);
+});
+
+test("keeps social hope and coordination waiting below review level", () => {
+  assert.equal(classifySignal("Hope you slept well").score < 0.5, true);
+  assert.equal(classifySignal("Okay my friend we are waiting for you").score < 0.7, true);
+});
+
+test("keeps market narration and educational uncertainty below review level", () => {
+  assert.equal(classifySignal("You can tell the market feels nervous").score < 0.5, true);
+  assert.equal(
+    classifySignal("Risk management is important in uncertain market conditions").score < 0.5,
+    true
+  );
+  assert.equal(
+    classifySignal("I completely agree. In uncertain markets, discipline beats emotion").score < 0.5,
+    true
+  );
+  assert.equal(classifySignal("Yeah waiting when pump starting").score < 0.5, true);
+});
+
+test("keeps conversational emotion reactions below review level", () => {
+  assert.equal(classifySignal("You really make me feel excited and nervous").score < 0.7, true);
+  assert.equal(classifySignal("Nervous with what").score < 0.7, true);
 });
 
 test("keeps generic announcements below the review threshold", () => {
