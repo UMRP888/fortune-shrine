@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Telegram Discovery · Operation Queue</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">FORTUNE SHRINE · TELEGRAM DISCOVERY</p>
+        <h1>人工发送队列</h1>
+        <p>选择回复，打开原帖并填入。发送永远由你亲自确认。</p>
+      </header>
+
+      <section class="safety">
+        <strong>安全锁：</strong>
+        本工具不会点击 Reply，不会批量打开，不会连续发送，也不会在后台执行账号操作。
+      </section>
+
+      <section class="toolbar">
+        <div class="import-title">导入 V0.6 CSV</div>
+        <label class="file-control">
+          <input type="file" disabled />
+          <span>未选择任何文件</span>
+        </label>
+        <button id="loadLatest" type="button">载入默认队列</button>
+        <button id="loadToday" type="button">载入今日 Polymarket 队列</button>
+        <span id="summary">正在载入</span>
+      </section>
+
+      <section id="queue" class="queue" aria-live="polite"></section>
+    </main>
+
+    <template id="cardTemplate">
+      <article class="card">
+        <div class="card-head">
+          <div>
+            <h2></h2>
+            <p class="category"></p>
+          </div>
+          <span class="status"></span>
+        </div>
+
+        <blockquote class="post"></blockquote>
+
+        <fieldset>
+          <legend>选择一条回复草稿</legend>
+          <label class="reply-option"><input type="radio" value="replyDraftA" /><span></span></label>
+          <label class="reply-option"><input type="radio" value="replyDraftB" /><span></span></label>
+          <label class="reply-option"><input type="radio" value="replyDraftC" /><span></span></label>
+        </fieldset>
+
+        <div class="actions">
+          <button class="copy" type="button">复制回复</button>
+          <button class="open" type="button">打开原帖并填入</button>
+          <a class="profile" target="_blank" rel="noopener noreferrer">查看主页</a>
+          <button class="mark" type="button">标记为已人工发送</button>
+        </div>
+
+        <p class="notice"></p>
+      </article>
+    </template>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

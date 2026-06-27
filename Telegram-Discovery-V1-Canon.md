@@ -1,6 +1,6 @@
 # Telegram Discovery V1 Canon
 
-Version: 2026-06-23
+Version: 2026-06-24
 Status: V1 Lite validated locally
 
 This document is the recovery canon for Fortune Shrine Telegram Discovery V1
@@ -25,6 +25,138 @@ Never bless the outcome.
 
 The engine must never predict, promise, advise, encourage a risky action, or
 automatically send a reply.
+
+## Run HUD Protocol
+
+The official activation phrase is:
+
+```text
+Run HUD
+```
+
+HUD means:
+
+```text
+Human Uncertainty Detector
+人类不确定性检测器
+```
+
+The command means:
+
+```text
+Run the existing engine.
+Observe the real world.
+Report what it found.
+```
+
+It does not mean:
+
+```text
+Develop the engine.
+Change the detector.
+Expand the search.
+```
+
+### Default execution
+
+`Run HUD` runs Telegram Discovery V1 Lite against:
+
+- GMX
+- Gains Network / gTrade
+- Bitget English
+- Bybit English
+
+It uses the current implementation without modification and reports:
+
+- raw match count
+- qualified count at the current threshold
+- Prayer count
+- Waiting count
+- Anxiety count
+- Uncertainty count
+- Hope count
+- Regret / Loss count
+- Top Highest Score
+- Top Prayer
+- Top Waiting / Uncertainty
+- the current `latest.json` path
+
+### Queue Auto Generation Canon
+
+Every successful `Run HUD` cycle is one atomic operational pipeline:
+
+```text
+Discovery
+-> latest.json
+-> reply_queue.json
+-> Reply Queue V2.1 Top10
+-> operator-visible queue
+```
+
+HUD must not report success unless all stages complete from the same run.
+
+Forbidden states:
+
+- HUD succeeds but the reply queue is not generated
+- `latest.json` is newer than `reply_queue.json`
+- the UI data source points to an older HUD run
+- the generated queue or Top10 is empty
+
+Any forbidden state is:
+
+```text
+Pipeline Failed
+```
+
+Every successful cycle must report:
+
+- effective result count
+- generated queue count
+- candidates with DOM-derived message URLs
+- Top10 candidates with usable original URLs
+- `reply_queue.json` update time
+- Top1 score, category, group, and message preview
+
+Original message URLs are evidence. They must come from a real DOM `href` in
+the Telegram search result. The engine must never construct or guess a message
+URL from `messageId`, `peerId`, group name, or any inferred username.
+
+If the Top10 contains no DOM-derived original URL, the cycle is:
+
+```text
+Pipeline Failed
+```
+
+### Default prohibitions
+
+Unless separately and explicitly authorized, `Run HUD` must not:
+
+- modify code
+- add a platform
+- add a community
+- add a keyword
+- alter scoring
+- alter reply suggestions
+- send a Telegram message
+- react, join, post, or operate the account
+
+Empty categories must be reported as zero. Results must not be padded from
+older runs.
+
+### System relationship
+
+```text
+Run Shrine Search
+  = the future full cross-platform Shrine discovery system
+
+Run HUD
+  = the Telegram Human Uncertainty Detector
+  = one core module inside Shrine Search
+```
+
+The purpose of HUD is not keyword detection. Its purpose is to recognize a
+person who is waiting, anxious, praying, hesitant, hopeful, carrying regret or
+loss, or bearing personal risk before an unknown answer.
 
 ## V1 Boundary
 
@@ -490,3 +622,103 @@ The user profile is psychological, not occupational.
 The Shrine does not serve the market.
 The Shrine serves the person standing before uncertainty.
 ```
+# Run HUD Standard Output — Frozen
+
+Run HUD is an operations workspace, not an engineering log.
+
+Every successful run must print these sections in this exact order:
+
+```text
+========== RUN HUD ==========
+
+Fresh Candidates
+Seen Again
+Reply Queue
+Top10
+
+========== TOP10 ==========
+
+#1 through #10, each containing:
+Score
+Community
+Category
+Post
+Reason
+Blessing
+Original Post Link
+
+========== BLESSING QUEUE ==========
+
+1 through 10 in actual operating order, each containing:
+Community
+Blessing
+Original Post
+
+========== HUMAN REVIEW ==========
+No Auto Send
+```
+
+Do not replace real queue content with status summaries such as “complete” or
+“already output.” Do not add engineering paths, debug state, internal timing,
+or implementation details.
+
+This format is frozen. It may only change after an explicit user request.
+
+## Operation Queue Freeze — 2026-06-27
+
+This section supersedes earlier terminal-output preferences.
+
+The primary production output of Telegram Discovery V1 is the local Operation
+Queue page:
+
+```text
+http://127.0.0.1:4196/
+```
+
+The page must render from:
+
+```text
+reply_queue_v2.json -> /api/reply-queue -> UI
+```
+
+The page must remain a human operator queue:
+
+- user card
+- original post
+- three reply drafts
+- copy reply
+- open original post
+- view profile
+- mark as manually sent
+- no auto-send
+- no batch-open
+- no background account operation
+
+Frozen modules:
+
+- Operation Queue page
+- Queue Builder Top10 rules
+- Discovery / Detector
+- Writer v2
+- API
+- Operator Queue format
+
+Final Top10 priority:
+
+```text
+Waiting -> Trading -> Risk -> Anxiety -> Other
+```
+
+Other categories must not outrank these states.
+
+Macro/news/announcement discovery is not a V1 target. Do not search broad macro
+or generic terms such as:
+
+- announcement
+- trade
+- win
+- lose
+- market crash
+
+After this freeze, do not modify these modules unless a real production bug is
+observed during operation.

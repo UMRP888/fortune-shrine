@@ -6,6 +6,7 @@ import {
   SEARCH_INPUT_SELECTORS
 } from "./config.mjs";
 import { containsKeyword, deduplicateResults, normalizeText } from "./lib.mjs";
+import { acquireProfileLease } from "./profile-lease.mjs";
 
 function visible(locator) {
   return locator.isVisible().catch(() => false);
@@ -78,6 +79,26 @@ async function extractVisibleResults(page, keyword, limit) {
         return "";
       }
 
+      function hrefOf(element) {
+        const anchors = [
+          element.matches("a[href]") ? element : null,
+          element.closest("a[href]"),
+          element.querySelector("a[href]")
+        ].filter(Boolean);
+
+        for (const anchor of anchors) {
+          const rawHref = anchor.getAttribute("href")?.trim();
+          if (!rawHref) continue;
+          try {
+            const url = new URL(rawHref, window.location.href);
+            if (["http:", "https:"].includes(url.protocol)) return url.href;
+          } catch {
+            // Ignore malformed DOM href values.
+          }
+        }
+        return "";
+      }
+
       for (const element of elements) {
         if (output.length >= input.limit) break;
         const style = window.getComputedStyle(element);
@@ -130,11 +151,28 @@ async function extractVisibleResults(page, keyword, limit) {
           element.getAttribute("data-peer-id") ||
           element.querySelector("[data-peer-id]")?.getAttribute("data-peer-id") ||
           "";
-        const signature = [chat, author, message, timestamp, messageId, peerId].join("\n");
+        const messageUrl = hrefOf(element);
+        const signature = [
+          chat,
+          author,
+          message,
+          timestamp,
+          messageId,
+          peerId,
+          messageUrl
+        ].join("\n");
         if (seen.has(signature)) continue;
         seen.add(signature);
 
-        output.push({ chat, author, text: message, timestamp, messageId, peerId });
+        output.push({
+          chat,
+          author,
+          text: message,
+          timestamp,
+          messageId,
+          peerId,
+          messageUrl
+        });
       }
 
       return output;
@@ -156,6 +194,7 @@ async function extractVisibleResults(page, keyword, limit) {
       timestamp: normalizeText(row.timestamp),
       messageId: normalizeText(row.messageId),
       peerId: normalizeText(row.peerId),
+      messageUrl: normalizeText(row.messageUrl),
       observedAt: new Date().toISOString()
     }));
 }
@@ -169,12 +208,20 @@ function chatIsAllowed(chat, allowedChats) {
 
 export async function launchTelegram(options = {}) {
   const settings = { ...DEFAULTS, ...options };
-  const context = await chromium.launchPersistentContext(settings.profileDir, {
-    headless: settings.headless,
-    viewport: { width: 1440, height: 960 },
-    locale: "en-US"
+  const lease = await acquireProfileLease(settings.profileDir, {
+    owner: "Run HUD",
+    timeoutMs: settings.loginTimeoutMs
   });
+  let context;
   try {
+    context = await chromium.launchPersistentContext(settings.profileDir, {
+      headless: settings.headless,
+      viewport: { width: 1440, height: 960 },
+      locale: "en-US"
+    });
+    context.once("close", () => {
+      lease.release().catch(() => {});
+    });
     const pages = context.pages();
     const page = pages[0] || await context.newPage();
 
@@ -186,7 +233,8 @@ export async function launchTelegram(options = {}) {
 
     return { context, page, settings };
   } catch (error) {
-    await context.close().catch(() => {});
+    await context?.close().catch(() => {});
+    await lease.release().catch(() => {});
     throw error;
   }
 }
@@ -205,7 +253,7 @@ export async function collectKeywords(page, keywords, options = {}) {
   const results = [];
   const keywordRuns = [];
 
-  for (const keyword of keywords) {
+  async function collectKeyword(keyword) {
     const startedAt = new Date().toISOString();
     await clearAndFill(search, keyword);
     await page.waitForTimeout(settings.searchSettleMs);
@@ -221,13 +269,42 @@ export async function collectKeywords(page, keywords, options = {}) {
       result.chat,
       allowedChats
     ));
-    results.push(...matches);
-    keywordRuns.push({
-      keyword,
+    return {
       startedAt,
-      completedAt: new Date().toISOString(),
-      resultCount: matches.length
-    });
+      matches
+    };
+  }
+
+  for (const keyword of keywords) {
+    let startedAt = new Date().toISOString();
+    try {
+      const collected = await Promise.race([
+        collectKeyword(keyword),
+        new Promise((_, reject) => setTimeout(
+          () => reject(new Error(`Keyword timed out after ${settings.keywordTimeoutMs}ms`)),
+          settings.keywordTimeoutMs
+        ))
+      ]);
+      startedAt = collected.startedAt;
+      results.push(...collected.matches);
+      keywordRuns.push({
+        keyword,
+        startedAt,
+        completedAt: new Date().toISOString(),
+        resultCount: collected.matches.length,
+        status: "completed"
+      });
+    } catch (error) {
+      keywordRuns.push({
+        keyword,
+        startedAt,
+        completedAt: new Date().toISOString(),
+        resultCount: 0,
+        status: "skipped",
+        error: error.message
+      });
+      await page.keyboard.press("Escape").catch(() => {});
+    }
   }
 
   await clearAndFill(search, "");

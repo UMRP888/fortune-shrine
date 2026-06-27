@@ -34,7 +34,9 @@ export function deduplicateResults(results) {
       author: normalizeText(result.author),
       text: normalizeText(result.text),
       timestamp: normalizeText(result.timestamp),
-      messageId: normalizeText(result.messageId)
+      messageId: normalizeText(result.messageId),
+      peerId: normalizeText(result.peerId),
+      messageUrl: normalizeText(result.messageUrl)
     };
     const id = resultId(normalized);
     if (!unique.has(id)) unique.set(id, { id, ...normalized });

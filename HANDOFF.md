@@ -1,6 +1,6 @@
 # Fortune Shrine Handoff
 
-Last updated: 2026-06-23
+Last updated: 2026-06-24
 
 This file is for a future Codex session or collaborator who has no memory of the previous conversation.
 
@@ -418,6 +418,80 @@ Status as of 2026-06-23:
 Locally runnable and validated with a real Telegram login.
 ```
 
+### Run HUD activation contract
+
+The activation phrase is:
+
+```text
+Run HUD
+```
+
+HUD means:
+
+```text
+Human Uncertainty Detector
+人类不确定性检测器
+```
+
+Unless the operator explicitly requests development, `Run HUD` means:
+
+1. Run the existing Telegram Discovery V1 Lite engine.
+2. Observe only the four current allowlisted communities:
+   - GMX
+   - Gains Network / gTrade
+   - Bitget English
+   - Bybit English
+3. Use the current detector, keywords, scoring rules, and threshold unchanged.
+4. Classify Prayer, Waiting, Anxiety, Uncertainty, Hope, and Regret / Loss.
+5. Report:
+   - raw matches
+   - qualified matches
+   - category counts
+   - Top Highest Score
+   - Top Prayer
+   - Top Waiting / Uncertainty
+   - the path to `latest.json`
+
+`Run HUD` is an operations command, not authorization to:
+
+- modify code
+- add platforms
+- add communities
+- add keywords
+- change scoring
+- change reply language
+- send or reply automatically
+
+If a category has no results, report zero. Never fill a list with historical or
+lower-quality records merely to reach a quota.
+
+As of 2026-06-24, `Run HUD` is an atomic pipeline. A cycle is successful only
+when the same run has produced:
+
+```text
+latest.json
+reply_queue.json
+reply_queue_v2.json
+reply_queue_v2.md
+```
+
+The command output must include effective results, generated queue count,
+`reply_queue.json` update time, and a Top1 preview. A zero queue, missing queue,
+or stale queue source is `Pipeline Failed` and must exit nonzero.
+
+Evidence persistence is P0. Telegram message links must be read from real DOM
+`href` values and passed through `latest.json`, `results.json`,
+`reply_queue.json`, and `reply_queue_v2.json`. Never guess a link from message
+or peer identifiers. If no Top10 candidate has a real original URL, the HUD
+cycle is `Pipeline Failed`.
+
+Architecture relationship:
+
+```text
+Run Shrine Search = the future cross-platform Shrine discovery system
+Run HUD = its Telegram Human Uncertainty Detector module
+```
+
 The recovery reference is:
 
 ```text
@@ -670,3 +744,31 @@ One flame.
 One pause.
 One blessing.
 One person before risk.
+
+## Telegram Discovery V1 Freeze — 2026-06-27
+
+Telegram Discovery V1 is now frozen for stable operation.
+
+Frozen modules:
+
+- Operation Queue page
+- Queue Builder Top10 rules
+- Discovery / Detector
+- Writer v2
+- API
+- Operator Queue format
+
+Operational priority is locked:
+
+```text
+Waiting -> Trading -> Risk -> Anxiety -> Other
+```
+
+Other categories must not outrank these states in the operator queue.
+
+Macro/news/announcement search is removed from V1 operations. The system should
+not search broad macro-news keywords such as generic announcements, generic
+trade, win, lose, or market crash. If such content appears upstream, it must not
+be allowed to outrank real people in waiting, trading exposure, risk, or anxiety.
+
+Do not change the frozen modules unless a real production bug appears.
