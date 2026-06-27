@@ -772,3 +772,17 @@ trade, win, lose, or market crash. If such content appears upstream, it must not
 be allowed to outrank real people in waiting, trading exposure, risk, or anxiety.
 
 Do not change the frozen modules unless a real production bug appears.
+
+Reply language reference added after the freeze:
+
+```text
+docs/REPLY_LANGUAGE_SEMANTIC_PACK_V1.md
+docs/RESPONSE_PRIORITY_ROUTER_V1.md
+```
+
+`REPLY_LANGUAGE_SEMANTIC_PACK_V1.md` is a language-generation reference.
+
+`RESPONSE_PRIORITY_ROUTER_V1.md` is active. All reply drafts must pass through
+it before wording selection. If a candidate is Waiting, Trading, Risk, Loss, or
+Anxiety, Reality Flow Mode overrides Hope, Prayer, generic empathy, and
+blessing-style templates.

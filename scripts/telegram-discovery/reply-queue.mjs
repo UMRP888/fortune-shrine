@@ -43,6 +43,39 @@ const DRAFTS = {
   }
 };
 
+const REALITY_FLOW_DRAFTS = {
+  Waiting: {
+    blessingDraft: "Waiting is still part of the position; time keeps moving before the answer arrives.",
+    replyDraftA: "Waiting is not neutral here; the delay keeps exposure open while the answer is still forming.",
+    replyDraftB: "Information arrives late in moments like this; timing can change the shape before certainty appears.",
+    replyDraftC: "The moment is still unresolved, and delay can carry its own cost before anything becomes final."
+  },
+  Anxiety: {
+    blessingDraft: "Anxiety is information about exposure; it is not the same thing as a signal.",
+    replyDraftA: "Anxiety can show where exposure is already active, even before the outcome becomes clear.",
+    replyDraftB: "Pressure changes the next decision by adding noise before the situation has fully settled.",
+    replyDraftC: "The feeling is part of the structure now; it can distort timing before facts arrive."
+  },
+  Risk: {
+    blessingDraft: "Exposure begins before certainty appears; the system does not wait for intent to become clear.",
+    replyDraftA: "A position creates exposure immediately; the outcome remains nonlinear while information is still delayed.",
+    replyDraftB: "Once exposure exists, timing matters more than the original intention behind the move.",
+    replyDraftC: "Risk is already active when the position exists; certainty usually arrives after the structure changes."
+  },
+  Loss: {
+    blessingDraft: "Loss changes the next decision by adding pressure before the moment has fully closed.",
+    replyDraftA: "A loss is not only an event; it changes the weight of whatever decision comes next.",
+    replyDraftB: "After impact, pressure can become part of the position before any new choice is made.",
+    replyDraftC: "The account event is already final in one place, but its pressure can still move forward."
+  },
+  Uncertainty: {
+    blessingDraft: "Uncertainty is the baseline condition; information is still delayed while the path remains open.",
+    replyDraftA: "The path is still incomplete; information may arrive after the structure has already shifted.",
+    replyDraftB: "Not knowing is not an empty state; it keeps multiple costs active until the moment resolves.",
+    replyDraftC: "The signal is still late, and the decision space remains open without becoming neutral."
+  }
+};
+
 const CORPUS_CATEGORY_MAP = {
   Prayer: ["风险", "希望"],
   Waiting: ["等待"],
@@ -50,6 +83,49 @@ const CORPUS_CATEGORY_MAP = {
   Uncertainty: ["Uncertainty", "决策"],
   Hope: ["希望"]
 };
+
+function realityFlowKey(result, category) {
+  const reason = String(result.reason || "").toLocaleLowerCase();
+  const message = String(result.message || result.original || "").toLocaleLowerCase();
+  const keywords = (result.matchedKeywords || []).join(" ").toLocaleLowerCase();
+  const highRiskText = [reason, message, keywords].join(" ");
+
+  if (
+    /\b(liquidat(?:ed|ion)|got rekt|rekt|wiped out|blew my account|blown account|loss|lost|lose)\b/.test(highRiskText)
+  ) return "Loss";
+  if (
+    reason.includes("clear personal risk exposure")
+    || reason.includes("outcome pressure")
+    || reason.includes("trading channel")
+    || /\b(trade|trading|profit|loss|leverage|margin call|funding rate|open interest|long|short|entry|exit|tp|sl|take profit|stop loss|position|fomo|panic sell)\b/.test(highRiskText)
+  ) return "Risk";
+  if (
+    category === "Waiting"
+    || reason.includes("waiting")
+    || /\b(waiting|still waiting|wait)\b/.test(highRiskText)
+  ) return "Waiting";
+  if (
+    category === "Anxiety"
+    || reason.includes("direct personal anxiety")
+    || /\b(nervous|anxious|worried|afraid|scared|stressed|uneasy)\b/.test(highRiskText)
+  ) return "Anxiety";
+  if (
+    category === "Uncertainty"
+    || reason.includes("uncertainty")
+    || /\b(uncertain|not sure|cannot say|can't say|do not know|don't know)\b/.test(highRiskText)
+  ) return "Uncertainty";
+  return null;
+}
+
+export function routeResponseMode(result, category = queueCategory(result)) {
+  return realityFlowKey(result, category) ? "REALITY_FLOW" : "SHORT_BLESSING";
+}
+
+function replyDraftsForResult(result, category) {
+  const realityKey = realityFlowKey(result, category);
+  if (realityKey) return REALITY_FLOW_DRAFTS[realityKey];
+  return DRAFTS[category];
+}
 
 const FALLBACK_BLESSING_ALTERNATES = {
   Prayer: [
@@ -307,21 +383,27 @@ export function buildReplyQueuePayload(run, latestPath, {
   const rollingCategoryHistory = [];
   const items = run.results.map((result, index) => {
     const category = queueCategory(result);
-    const blessingDraft = selectBlessingDraft(
-      category,
-      rollingRecentBlessings,
-      random,
-      {
-        usageCounts,
-        categoryHistory: rollingCategoryHistory
-      }
-    );
-    rollingRecentBlessings.unshift(blessingDraft);
-    rollingCategoryHistory.unshift({ category, blessingDraft });
-    usageCounts.set(
-      blessingFingerprint(blessingDraft),
-      (usageCounts.get(blessingFingerprint(blessingDraft)) || 0) + 1
-    );
+    const routedDrafts = replyDraftsForResult(result, category);
+    const realityFlowActive = routeResponseMode(result, category) === "REALITY_FLOW";
+    const blessingDraft = realityFlowActive
+      ? routedDrafts.blessingDraft
+      : selectBlessingDraft(
+        category,
+        rollingRecentBlessings,
+        random,
+        {
+          usageCounts,
+          categoryHistory: rollingCategoryHistory
+        }
+      );
+    if (!realityFlowActive) {
+      rollingRecentBlessings.unshift(blessingDraft);
+      rollingCategoryHistory.unshift({ category, blessingDraft });
+      usageCounts.set(
+        blessingFingerprint(blessingDraft),
+        (usageCounts.get(blessingFingerprint(blessingDraft)) || 0) + 1
+      );
+    }
 
     return {
       id: `tg-${String(index + 1).padStart(4, "0")}`,
@@ -331,7 +413,7 @@ export function buildReplyQueuePayload(run, latestPath, {
       category,
       score: result.score,
       reason: result.reason,
-      ...DRAFTS[category],
+      ...routedDrafts,
       blessingDraft,
       riskLevel: queueRisk(result),
       author: result.author,

@@ -17,6 +17,7 @@ import {
   buildReplyQueuePayload,
   queueCategory,
   queueRisk,
+  routeResponseMode,
   selectBlessingDraft
 } from "./reply-queue.mjs";
 import { formatOperationHud } from "./operation-hud.mjs";
@@ -292,6 +293,81 @@ test("preserves existing queue category and risk mappings", () => {
   assert.equal(queueRisk({ reason: "first-person personal stakes" }), "Low");
 });
 
+test("routes high-risk contexts through Reality Flow before reply selection", () => {
+  const run = {
+    startedAt: "2026-06-24T13:00:00.000Z",
+    completedAt: "2026-06-24T13:01:00.000Z",
+    rawMatchCount: 3,
+    resultCount: 3,
+    minimumScore: 0.7,
+    allowedChats: ["Bitget English"],
+    results: [
+      {
+        group: "Bitget English",
+        message: "Pray for me I will win",
+        score: 0.9,
+        reason: "explicit request for luck or prayer + outcome pressure",
+        author: "A",
+        timestamp: "21:00",
+        messageId: "1",
+        peerId: "-100",
+        messageUrl: "https://web.telegram.org/k/#-100",
+        matchedKeywords: ["pray"],
+        observedAt: "2026-06-24T13:00:30.000Z"
+      },
+      {
+        group: "Bitget English",
+        message: "Still waiting for this setup",
+        score: 0.8,
+        reason: "direct personal waiting",
+        author: "B",
+        timestamp: "21:01",
+        messageId: "2",
+        peerId: "-100",
+        messageUrl: "https://web.telegram.org/k/#-100",
+        matchedKeywords: ["waiting"],
+        observedAt: "2026-06-24T13:00:31.000Z"
+      },
+      {
+        group: "Bitget English",
+        message: "I blew my account twice",
+        score: 0.91,
+        reason: "clear personal risk exposure + outcome pressure + trading channel",
+        author: "C",
+        timestamp: "21:02",
+        messageId: "3",
+        peerId: "-100",
+        messageUrl: "https://web.telegram.org/k/#-100",
+        matchedKeywords: ["blew my account"],
+        observedAt: "2026-06-24T13:00:32.000Z"
+      },
+      {
+        group: "Bitget English",
+        message: "I hope your trade comes out with profit Good luck",
+        score: 0.8,
+        reason: "hope without explicit blessing request",
+        author: "D",
+        timestamp: "21:03",
+        messageId: "4",
+        peerId: "-100",
+        messageUrl: "https://web.telegram.org/k/#-100",
+        matchedKeywords: ["hope", "good luck"],
+        observedAt: "2026-06-24T13:00:33.000Z"
+      }
+    ]
+  };
+  const queue = buildReplyQueuePayload(run, "/tmp/latest.json", { random: () => 0 });
+  const forbidden = /\b(may|hope|wishing|wish you|pray|prayer|blessing|everything will be fine|stay strong|you will be okay)\b/i;
+
+  for (const item of queue.items) {
+    assert.equal(routeResponseMode(item, item.category), "REALITY_FLOW");
+    assert.doesNotMatch(item.blessingDraft, forbidden);
+    assert.doesNotMatch(item.replyDraftA, forbidden);
+    assert.doesNotMatch(item.replyDraftB, forbidden);
+    assert.doesNotMatch(item.replyDraftC, forbidden);
+  }
+});
+
 test("selects a blessing outside recent reply history when possible", () => {
   const first = selectBlessingDraft("Waiting", [], () => 0);
   const next = selectBlessingDraft("Waiting", [first], () => 0);
@@ -299,7 +375,7 @@ test("selects a blessing outside recent reply history when possible", () => {
   assert.notEqual(next, first);
 });
 
-test("avoids duplicate blessings inside a generated queue when category pool allows it", () => {
+test("avoids duplicate blessings for non-high-risk blessing mode when category pool allows it", () => {
   const run = {
     startedAt: "2026-06-24T13:00:00.000Z",
     completedAt: "2026-06-24T13:01:00.000Z",
@@ -309,15 +385,15 @@ test("avoids duplicate blessings inside a generated queue when category pool all
     allowedChats: ["Bitget English"],
     results: Array.from({ length: 3 }, (_, index) => ({
       group: "Bitget English",
-      message: `Waiting sample ${index}`,
+      message: `Hope sample ${index}`,
       score: 0.8,
-      reason: "direct personal waiting + first-person personal stakes",
+      reason: "hope without explicit blessing request",
       author: `User ${index}`,
       timestamp: "21:00",
       messageId: String(index + 1),
       peerId: "-100",
       messageUrl: "https://web.telegram.org/k/#-100",
-      matchedKeywords: ["waiting"],
+      matchedKeywords: ["hope"],
       observedAt: "2026-06-24T13:00:30.000Z"
     }))
   };
