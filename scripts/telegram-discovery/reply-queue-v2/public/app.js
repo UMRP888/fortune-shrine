@@ -5,6 +5,16 @@ const loadTodayButton = document.querySelector("#loadToday");
 const template = document.querySelector("#cardTemplate");
 let lastQueueSignature = "";
 
+async function persistReviewed(item) {
+  const response = await fetch("/api/review-status", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: item.id, status: "sent" })
+  });
+  if (!response.ok) throw new Error("review status write failed");
+  return response.json();
+}
+
 function selectedDraft(card, item) {
   const selected = card.querySelector("input[type=radio]:checked");
   return selected ? item[selected.value] : "";
@@ -51,6 +61,19 @@ function itemStatusText(item) {
   return "原帖已核验";
 }
 
+function scoreText(item) {
+  const score = Number(item.priorityScore ?? item.score);
+  return Number.isFinite(score) ? `Score ${score.toFixed(2)}` : "Score --";
+}
+
+function replyDrafts(item) {
+  const drafts = ["replyDraftA", "replyDraftB", "replyDraftC"]
+    .map((key) => ({ key, text: item[key] || item.blessingDraft || "" }))
+    .filter((draft) => draft.text.trim());
+  if (drafts.length) return drafts;
+  return [{ key: "blessingDraft", text: item.blessingDraft || "无可用回复草稿" }];
+}
+
 function render(items) {
   queueElement.replaceChildren();
 
@@ -67,18 +90,27 @@ function render(items) {
 
     const status = card.querySelector(".status");
     status.textContent = itemStatusText(item);
+    card.querySelector(".score").textContent = scoreText(item);
     const notice = card.querySelector(".notice");
     if (!item.originalUrl && !item.messageUrl) {
       notice.textContent = "只能复制草稿并打开主页；不会把主页冒充原帖。";
     }
 
     const options = [...card.querySelectorAll(".reply-option")];
-    ["replyDraftA", "replyDraftB", "replyDraftC"].forEach((key, index) => {
+    const drafts = replyDrafts(item);
+    options.forEach((option, index) => {
+      const draft = drafts[index];
+      if (!draft) {
+        option.hidden = true;
+        return;
+      }
+      const { key, text } = draft;
+      option.hidden = false;
       const input = options[index].querySelector("input");
       input.name = `reply-${item.id}`;
       input.value = key;
       input.checked = index === 0;
-      options[index].querySelector("span").textContent = item[key] || item.blessingDraft || "";
+      option.querySelector("span").textContent = text;
     });
 
     card.querySelector(".copy").addEventListener("click", async () => {
@@ -108,13 +140,25 @@ function render(items) {
     const updateMarkedState = () => {
       const marked = item.status === "reviewed" || item.status === "sent";
       card.classList.toggle("sent", marked);
-      markButton.textContent = marked ? "已人工发送" : "标记为已人工发送";
+      markButton.textContent = marked ? "✓ 已人工发送" : "标记为已人工发送";
+      markButton.disabled = marked;
+      markButton.setAttribute("aria-pressed", marked ? "true" : "false");
       status.textContent = itemStatusText(item);
     };
-    markButton.disabled = true;
-    markButton.title = "Queue Freeze: UI is render-only.";
-    markButton.addEventListener("click", () => {
-      notice.textContent = "Queue Freeze：状态写入已停用；UI 当前只读。";
+    markButton.title = "仅在本机标记，不会自动发送。";
+    markButton.addEventListener("click", async () => {
+      try {
+        markButton.disabled = true;
+        notice.textContent = "正在写入人工发送状态…";
+        const updated = await persistReviewed(item);
+        item.status = updated.status || "sent";
+        item.reviewedAt = updated.reviewedAt || new Date().toISOString();
+        notice.textContent = "已标记为人工发送。";
+      } catch {
+        markButton.disabled = false;
+        notice.textContent = "标记失败：后端未写入。请刷新页面后重试。";
+      }
+      updateMarkedState();
     });
 
     updateMarkedState();

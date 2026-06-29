@@ -13,6 +13,7 @@
     "telegram:login": "node scripts/telegram-discovery/run.mjs --login-only",
     "telegram:discover": "node scripts/telegram-discovery/run.mjs --once",
     "telegram:watch": "node scripts/telegram-discovery/run.mjs --watch",
+    "telegram:queue": "scripts/telegram-discovery/open-operation-queue.sh",
     "test:telegram-discovery": "node --test scripts/telegram-discovery/test.mjs scripts/telegram-discovery/test-reply-queue-v2.mjs"
   },
   "dependencies": {

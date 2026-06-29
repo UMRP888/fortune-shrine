@@ -1,0 +1,578 @@
+{
+  "version": "0.95",
+  "generatedAt": "2026-06-21T06:34:24.762Z",
+  "timeZone": "America/Los_Angeles",
+  "dataFreshness": {
+    "searchHistoryUpdatedAt": "2026-06-21T03:23:35.178Z",
+    "sentHistoryUpdatedAt": null,
+    "sawUpdatedAt": "2026-06-21T03:21:29.451Z",
+    "latestQueueRunAt": "2026-06-21T03:21:29.451Z"
+  },
+  "operations": {
+    "todaySearchRuns": 7,
+    "todayCandidatesDiscovered": 912,
+    "todayQueueEntries": 100,
+    "todaySent": 0,
+    "cumulativeSent": 0,
+    "cumulativeUniqueUsers": 0,
+    "candidateCountCoverage": {
+      "coveredRuns": 1,
+      "totalRuns": 7
+    },
+    "sentTrend7Days": [
+      {
+        "date": "2026-06-14",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-15",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-16",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-17",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-18",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-19",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-20",
+        "sent": 0
+      }
+    ],
+    "sentTrend30Days": [
+      {
+        "date": "2026-05-22",
+        "sent": 0
+      },
+      {
+        "date": "2026-05-23",
+        "sent": 0
+      },
+      {
+        "date": "2026-05-24",
+        "sent": 0
+      },
+      {
+        "date": "2026-05-25",
+        "sent": 0
+      },
+      {
+        "date": "2026-05-26",
+        "sent": 0
+      },
+      {
+        "date": "2026-05-27",
+        "sent": 0
+      },
+      {
+        "date": "2026-05-28",
+        "sent": 0
+      },
+      {
+        "date": "2026-05-29",
+        "sent": 0
+      },
+      {
+        "date": "2026-05-30",
+        "sent": 0
+      },
+      {
+        "date": "2026-05-31",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-01",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-02",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-03",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-04",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-05",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-06",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-07",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-08",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-09",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-10",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-11",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-12",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-13",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-14",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-15",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-16",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-17",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-18",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-19",
+        "sent": 0
+      },
+      {
+        "date": "2026-06-20",
+        "sent": 0
+      }
+    ]
+  },
+  "sources": {
+    "totalQueueEntries": 100,
+    "counts": {
+      "Polymarket": 10,
+      "X": 90
+    },
+    "shares": {
+      "Polymarket": 10,
+      "X": 90
+    },
+    "trend7Days": [
+      {
+        "date": "2026-06-14",
+        "totalCandidates": 0,
+        "Polymarket": 0,
+        "X": 0
+      },
+      {
+        "date": "2026-06-15",
+        "totalCandidates": 0,
+        "Polymarket": 0,
+        "X": 0
+      },
+      {
+        "date": "2026-06-16",
+        "totalCandidates": 0,
+        "Polymarket": 0,
+        "X": 0
+      },
+      {
+        "date": "2026-06-17",
+        "totalCandidates": 0,
+        "Polymarket": 0,
+        "X": 0
+      },
+      {
+        "date": "2026-06-18",
+        "totalCandidates": 0,
+        "Polymarket": 0,
+        "X": 0
+      },
+      {
+        "date": "2026-06-19",
+        "totalCandidates": 0,
+        "Polymarket": 0,
+        "X": 0
+      },
+      {
+        "date": "2026-06-20",
+        "totalCandidates": 100,
+        "Polymarket": 10,
+        "X": 90
+      }
+    ]
+  },
+  "keywords": {
+    "analyzedCandidatePosts": 100,
+    "topKeywords": [
+      {
+        "term": "cup",
+        "count": 31
+      },
+      {
+        "term": "new",
+        "count": 29
+      },
+      {
+        "term": "world",
+        "count": 27
+      },
+      {
+        "term": "coast",
+        "count": 22
+      },
+      {
+        "term": "ecuador",
+        "count": 22
+      },
+      {
+        "term": "home",
+        "count": 22
+      },
+      {
+        "term": "ivory",
+        "count": 22
+      },
+      {
+        "term": "germany",
+        "count": 21
+      },
+      {
+        "term": "match",
+        "count": 19
+      },
+      {
+        "term": "years",
+        "count": 19
+      },
+      {
+        "term": "game",
+        "count": 18
+      },
+      {
+        "term": "picks",
+        "count": 18
+      },
+      {
+        "term": "bets",
+        "count": 17
+      },
+      {
+        "term": "win",
+        "count": 17
+      },
+      {
+        "term": "chance",
+        "count": 16
+      },
+      {
+        "term": "ev",
+        "count": 16
+      },
+      {
+        "term": "feature",
+        "count": 16
+      },
+      {
+        "term": "last",
+        "count": 16
+      },
+      {
+        "term": "limits",
+        "count": 16
+      },
+      {
+        "term": "odds",
+        "count": 16
+      },
+      {
+        "term": "ceo",
+        "count": 15
+      },
+      {
+        "term": "much",
+        "count": 15
+      },
+      {
+        "term": "games",
+        "count": 14
+      },
+      {
+        "term": "million",
+        "count": 14
+      },
+      {
+        "term": "nd",
+        "count": 13
+      },
+      {
+        "term": "today's",
+        "count": 13
+      },
+      {
+        "term": "diomande",
+        "count": 12
+      },
+      {
+        "term": "goal",
+        "count": 12
+      },
+      {
+        "term": "hold",
+        "count": 12
+      },
+      {
+        "term": "netherlands",
+        "count": 12
+      }
+    ],
+    "topPhrases": [
+      {
+        "term": "world cup",
+        "count": 27
+      },
+      {
+        "term": "ivory coast",
+        "count": 22
+      },
+      {
+        "term": "new feature",
+        "count": 16
+      },
+      {
+        "term": "germany ivory",
+        "count": 12
+      },
+      {
+        "term": "germany ivory coast",
+        "count": 12
+      },
+      {
+        "term": "bot jaredfromsubway",
+        "count": 10
+      },
+      {
+        "term": "mev bot",
+        "count": 10
+      },
+      {
+        "term": "mev bot jaredfromsubway",
+        "count": 10
+      },
+      {
+        "term": "ripple ceo",
+        "count": 10
+      },
+      {
+        "term": "lamine yamal",
+        "count": 9
+      },
+      {
+        "term": "betbuilders germany",
+        "count": 8
+      },
+      {
+        "term": "betbuilders germany ivory",
+        "count": 8
+      },
+      {
+        "term": "bets oddschecker",
+        "count": 8
+      },
+      {
+        "term": "brown start",
+        "count": 8
+      },
+      {
+        "term": "brown start world",
+        "count": 8
+      },
+      {
+        "term": "calculations found",
+        "count": 8
+      },
+      {
+        "term": "coast bets",
+        "count": 8
+      },
+      {
+        "term": "cup betbuilders",
+        "count": 8
+      },
+      {
+        "term": "cup betbuilders germany",
+        "count": 8
+      },
+      {
+        "term": "diomande tah",
+        "count": 8
+      },
+      {
+        "term": "diomande tah nathaniel",
+        "count": 8
+      },
+      {
+        "term": "feature hold",
+        "count": 8
+      },
+      {
+        "term": "feature hold limits",
+        "count": 8
+      },
+      {
+        "term": "feature new",
+        "count": 8
+      },
+      {
+        "term": "feature new feature",
+        "count": 8
+      },
+      {
+        "term": "hold limits",
+        "count": 8
+      },
+      {
+        "term": "hold limits shares",
+        "count": 8
+      },
+      {
+        "term": "home run",
+        "count": 8
+      },
+      {
+        "term": "ivory coast bets",
+        "count": 8
+      },
+      {
+        "term": "last starts",
+        "count": 8
+      }
+    ],
+    "highValueKeywords": [
+      {
+        "term": "trade",
+        "count": 12
+      },
+      {
+        "term": "loss",
+        "count": 5
+      },
+      {
+        "term": "lost",
+        "count": 5
+      },
+      {
+        "term": "bet",
+        "count": 3
+      },
+      {
+        "term": "afraid",
+        "count": 0
+      },
+      {
+        "term": "all in",
+        "count": 0
+      },
+      {
+        "term": "hope",
+        "count": 0
+      },
+      {
+        "term": "leverage",
+        "count": 0
+      },
+      {
+        "term": "liquidated",
+        "count": 0
+      },
+      {
+        "term": "liquidation",
+        "count": 0
+      },
+      {
+        "term": "luck",
+        "count": 0
+      },
+      {
+        "term": "nervous",
+        "count": 0
+      },
+      {
+        "term": "pray",
+        "count": 0
+      },
+      {
+        "term": "prediction",
+        "count": 0
+      },
+      {
+        "term": "regret",
+        "count": 0
+      },
+      {
+        "term": "resolution",
+        "count": 0
+      },
+      {
+        "term": "result",
+        "count": 0
+      },
+      {
+        "term": "risk",
+        "count": 0
+      },
+      {
+        "term": "uncertain",
+        "count": 0
+      },
+      {
+        "term": "uncertainty",
+        "count": 0
+      },
+      {
+        "term": "wait",
+        "count": 0
+      },
+      {
+        "term": "waiting",
+        "count": 0
+      },
+      {
+        "term": "wish",
+        "count": 0
+      }
+    ]
+  },
+  "definitions": {
+    "searchRun": "Unique runId in 搜索历史.json.",
+    "candidateDiscovered": "Sum of source-level candidateCount returned before final queue selection.",
+    "queueEntry": "A row written to a fresh-targets run output.",
+    "sent": "A sent-history record with status=sent and a sentAt timestamp.",
+    "uniqueUser": "Case-insensitive unique username among sent records."
+  }
+}

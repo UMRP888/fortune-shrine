@@ -1,0 +1,30 @@
+{
+  "version": "0.8",
+  "ranking": "freshness_score desc, age_minutes asc, score desc",
+  "discoveredAt": "2026-06-21T03:11:51.610Z",
+  "completedAt": "2026-06-21T03:11:54.172Z",
+  "resultCount": 0,
+  "memoryFilteredCount": 0,
+  "freshnessBreakdown": {
+    "S": 0,
+    "A": 0,
+    "B": 0,
+    "C": 0,
+    "D": 0
+  },
+  "failures": [
+    {
+      "platform": "Polymarket",
+      "error": "fetch failed",
+      "status": null
+    },
+    {
+      "platform": "X",
+      "error": "Command failed: curl --proxy http://127.0.0.1:7897 -L --max-time 12 --retry 1 --retry-delay 1 --retry-all-errors -A Mozilla/5.0 -sS https://search.brave.com/search?q=site%3Ax.com+Polymarket&source=web&offset=0\ncurl: (7) Failed to connect to 127.0.0.1 port 7897 after 0 ms: Couldn't connect to server\ncurl: (7) Failed to connect to 127.0.0.1 port 7897 after 0 ms: Couldn't connect to server\n",
+      "status": null
+    }
+  ],
+  "evidence": [],
+  "csvPath": "/Users/lixiaole/Documents/Fortune Shrine/scripts/distribution/v08/output/fresh-targets-2026-06-21T03-11-51Z.csv",
+  "jsonPath": "/Users/lixiaole/Documents/Fortune Shrine/scripts/distribution/v08/output/fresh-targets-2026-06-21T03-11-51Z.json"
+}

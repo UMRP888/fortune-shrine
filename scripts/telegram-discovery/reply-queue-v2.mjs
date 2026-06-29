@@ -6,8 +6,16 @@ import { fileURLToPath } from "node:url";
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const outputDirectory = path.join(directory, "output");
 const DEFAULT_LIMIT = 10;
-const CATEGORY_BALANCE_MIN_SCORE = 0.75;
-const CATEGORY_ORDER = ["Prayer", "Waiting", "Hope", "Anxiety", "Uncertainty"];
+const CATEGORY_BALANCE_MIN_SCORE = 0.7;
+const CATEGORY_ORDER = [
+  "Prayer",
+  "Waiting",
+  "Risk",
+  "Loss",
+  "Anxiety",
+  "Uncertainty",
+  "Hope"
+];
 const SOURCE_URL_FIELDS = [
   "post_url",
   "postUrl",
@@ -33,6 +41,7 @@ const EXPRESSION_CLUSTER_ORDER = [
   "neutral presence",
   "metaphorical support"
 ];
+const SHRINE_REPLY_PREFIX = "The Shrine says:";
 
 function normalizeText(value) {
   return String(value || "")
@@ -42,6 +51,14 @@ function normalizeText(value) {
     .replace(/[^\p{L}\p{N}\s]/gu, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function shrinePrefixedReply(value) {
+  const text = String(value || "").trim();
+  if (!text) return "";
+  if (/^the shrine says:/i.test(text)) return text;
+  if (/[\u3400-\u9fff]/u.test(text)) return text;
+  return `${SHRINE_REPLY_PREFIX} ${text}`;
 }
 
 function dedupeKey(item) {
@@ -99,7 +116,23 @@ function riskRank(riskLevel) {
 function operationallyStrong(item) {
   const score = Number(item.score || 0);
   const reason = normalizeText(item.reason);
+  const original = normalizeText(item.original);
+  const author = normalizeText(item.author);
+  if (/^you$/.test(author)) return false;
   if (score < CATEGORY_BALANCE_MIN_SCORE) return false;
+  if (
+    item.category === "Hope"
+    && reason.includes("hope without explicit blessing request")
+    && !/\b(i hope (?:this|it) (?:works|turns out|goes|holds|happens|is okay|is fine)|just hoping|fingers crossed|need this|please work)\b/.test(original)
+  ) return false;
+  if (
+    item.category === "Hope"
+    && /\b(hope you|hope we|we hope|hope it will help|hope you are|hope you can|hope you shared|hope you back|hope we are|hope we win|hope you win)\b/.test(original)
+  ) return false;
+  if (
+    item.category === "Anxiety"
+    && /\b(not worried|not anxious|not nervous|no worry|dont worry|don't worry|am not worried|i am patient)\b/.test(original)
+  ) return false;
   if (
     reason.includes("educational or analytical language")
     && !reason.includes("first person personal stakes")
@@ -201,6 +234,51 @@ function semanticallyEquivalent(left, right) {
   if (!leftSignature || !rightSignature) return false;
   if (leftSignature === rightSignature) return true;
   return jaccard(expressionTokens(left), expressionTokens(right)) >= 0.72;
+}
+
+const SAFE_REPLY_FALLBACKS = [
+  "The moment is still open, and you do not need to answer it with pressure.",
+  "What happened is real, but your next step can still be taken with steadiness.",
+  "The waiting is heavy, but it does not have to take your balance with it."
+];
+
+function oldRealityFlowDraft(value) {
+  return /^(Waiting is not neutral here|Information arrives late in moments like this|The moment is still unresolved|A loss is not only an event|After impact, pressure can become part|The account event is already final|A position creates exposure immediately|Once exposure exists|Risk is already active|Anxiety can show where exposure|Pressure changes the next decision|The feeling is part of the structure)/i
+    .test(String(value || "").trim());
+}
+
+function ensureReplyDrafts(item) {
+  const drafts = [
+    item.replyDraftA,
+    item.replyDraftB,
+    item.replyDraftC,
+    item.blessingDraft,
+    ...SAFE_REPLY_FALLBACKS
+  ]
+    .map((draft) => String(draft || "").trim())
+    .filter((draft) => draft && !oldRealityFlowDraft(draft));
+  const selected = [];
+  const seen = new Set();
+
+  for (const draft of drafts) {
+    const key = normalizeText(draft);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    selected.push(draft);
+    if (selected.length >= 3) break;
+  }
+
+  while (selected.length < 3) {
+    selected.push(SAFE_REPLY_FALLBACKS[selected.length % SAFE_REPLY_FALLBACKS.length]);
+  }
+
+  return {
+    ...item,
+    blessingDraft: shrinePrefixedReply(item.blessingDraft || selected[0]),
+    replyDraftA: shrinePrefixedReply(selected[0]),
+    replyDraftB: shrinePrefixedReply(selected[1]),
+    replyDraftC: shrinePrefixedReply(selected[2])
+  };
 }
 
 export function resolveOriginalUrl(item) {
@@ -307,13 +385,6 @@ export function selectBalancedTopQueue(items, limit = DEFAULT_LIMIT) {
   for (const item of items) {
     if (selected.length >= limit) break;
     if (selectedIds.has(item.id) || !operationallyStrong(item)) continue;
-    selected.push(item);
-    selectedIds.add(item.id);
-  }
-
-  for (const item of items) {
-    if (selected.length >= limit) break;
-    if (selectedIds.has(item.id)) continue;
     selected.push(item);
     selectedIds.add(item.id);
   }
@@ -443,6 +514,7 @@ export async function buildReplyQueueV2({
   const uniqueItems = deduplicate(clusteredItems);
   const diverseItems = enforceExpressionDiversity(uniqueItems, limit);
   const queue = selectBalancedTopQueue(uniqueItems, limit);
+  const normalizedQueue = queue.map(ensureReplyDrafts);
   const payload = {
     version: "2.1",
     generatedAt: new Date().toISOString(),
@@ -464,14 +536,14 @@ export async function buildReplyQueueV2({
     diversity: {
       clusters: Object.fromEntries(EXPRESSION_CLUSTER_ORDER.map((cluster) => [
         cluster,
-        queue.filter((item) => expressionIntent(item) === cluster).length
+        normalizedQueue.filter((item) => expressionIntent(item) === cluster).length
       ])),
       preQueueCount: diverseItems.length,
       maxPerCluster: 2,
       appliedBeforeFinalQueue: true
     },
     queueLimit: limit,
-    queue
+    queue: normalizedQueue
   };
 
   await writeFile(jsonPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");

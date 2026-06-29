@@ -1,6 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
 import {
+  buildReplyQueueV2,
   deduplicate,
   enforceExpressionDiversity,
   expressionIntent,
@@ -89,7 +93,7 @@ test("prioritizes waiting trading risk and anxiety above other candidates", () =
 
   assert.deepEqual(
     selected.map((entry) => entry.id),
-    ["waiting", "trading", "risk", "anxiety", "hope-high"]
+    ["waiting", "trading", "risk", "anxiety"]
   );
 });
 
@@ -156,9 +160,10 @@ test("backfills high-quality unique candidates to keep the operator queue at ten
     Array.from({ length: 12 }, (_, index) => item(
       `h${index}`,
       "Hope",
-      `Unique high quality candidate ${index}`,
+      `I am still trying after getting rekt ${index}`,
       0.9 - (index * 0.01),
       {
+        reason: "clear personal risk exposure + first person personal stakes",
         blessingDraft: "Hope stays with you, gently and steadily.",
         replyDraftA: "Fingers crossed for a calm heart while you wait.",
         replyDraftB: "Hope stays with you, gently and steadily.",
@@ -173,6 +178,144 @@ test("backfills high-quality unique candidates to keep the operator queue at ten
     selected.map((entry) => entry.priorityScore),
     [...selected].map((entry) => entry.priorityScore).sort((a, b) => b - a)
   );
+});
+
+test("rejects generic social hope from the operator queue", () => {
+  const selected = selectBalancedTopQueue([
+    item("social-1", "Hope", "Hope we are all good", 0.9, {
+      reason: "hope without explicit blessing request + first-person personal stakes + emotional channel",
+      blessingDraft: "Hope stays with you, gently and steadily."
+    }),
+    item("social-2", "Hope", "I hope you are active dear", 0.9, {
+      reason: "hope without explicit blessing request + first-person personal stakes + emotional channel",
+      blessingDraft: "Hope stays with you, gently and steadily."
+    }),
+    item("valid", "Waiting", "Still waiting for the result", 0.8, {
+      reason: "direct personal waiting",
+      blessingDraft: "Waiting can be long, and this hour can simply be witnessed."
+    })
+  ], 10);
+
+  assert.deepEqual(selected.map((entry) => entry.id), ["valid"]);
+});
+
+test("rejects negated anxiety from the operator queue", () => {
+  const selected = selectBalancedTopQueue([
+    item("negated", "Anxiety", "I am patient am not worried", 0.86, {
+      reason: "direct personal anxiety or uncertainty",
+      blessingDraft: "May calm return one breath at a time."
+    }),
+    item("valid", "Anxiety", "I'm getting a bit anxious, to be honest", 0.86, {
+      reason: "direct personal anxiety or uncertainty",
+      blessingDraft: "May calm return one breath at a time."
+    })
+  ], 10);
+
+  assert.deepEqual(selected.map((entry) => entry.id), ["valid"]);
+});
+
+test("rejects self-authored queue items", () => {
+  const selected = selectBalancedTopQueue([
+    item("self", "Waiting", "Still waiting", 0.9, {
+      author: "You:",
+      reason: "direct personal waiting",
+      blessingDraft: "Waiting can be long, and this hour can simply be witnessed."
+    }),
+    item("valid", "Waiting", "Still waiting for the result", 0.8, {
+      author: "Someone",
+      reason: "direct personal waiting",
+      blessingDraft: "Waiting can be long, and this hour can simply be witnessed."
+    })
+  ], 10);
+
+  assert.deepEqual(selected.map((entry) => entry.id), ["valid"]);
+});
+
+test("writes an empty v2 queue when current run has no eligible items", async () => {
+  const outputDir = await mkdtemp(path.join(os.tmpdir(), "reply-queue-v2-"));
+  try {
+    const existing = {
+      version: "2.1",
+      generatedAt: "2026-06-28T00:00:00.000Z",
+      sourceRun: { completedAt: "2026-06-28T00:00:00.000Z" },
+      queue: [item("old", "Waiting", "Still waiting", 0.8)]
+    };
+    await writeFile(
+      path.join(outputDir, "reply_queue_v2.json"),
+      `${JSON.stringify(existing, null, 2)}\n`,
+      "utf8"
+    );
+    const { payload } = await buildReplyQueueV2({
+      outputDir,
+      sourcePayload: {
+        sourceRun: { completedAt: "2026-06-28T01:00:00.000Z" },
+        items: []
+      }
+    });
+
+    const written = JSON.parse(await readFile(
+      path.join(outputDir, "reply_queue_v2.json"),
+      "utf8"
+    ));
+
+    assert.equal(payload.preservedFromPreviousRun, undefined);
+    assert.equal(payload.emptyRun, undefined);
+    assert.equal(payload.queue.length, 0);
+    assert.equal(written.queue.length, 0);
+    assert.equal(written.sourceRun.completedAt, "2026-06-28T01:00:00.000Z");
+  } finally {
+    await rm(outputDir, { recursive: true, force: true });
+  }
+});
+
+test("v2 writer fills missing reply drafts before rendering", async () => {
+  const outputDir = await mkdtemp(path.join(os.tmpdir(), "reply-queue-v2-"));
+  try {
+    const { payload } = await buildReplyQueueV2({
+      outputDir,
+      sourcePayload: {
+        sourceRun: { completedAt: "2026-06-28T01:00:00.000Z" },
+        items: [item("one", "Waiting", "Still waiting for the result", 0.9, {
+          reason: "direct personal waiting",
+          replyDraftA: "Only one draft"
+        })]
+      }
+    });
+    const [entry] = payload.queue;
+    assert.equal(new Set([
+      entry.replyDraftA,
+      entry.replyDraftB,
+      entry.replyDraftC
+    ]).size, 3);
+    assert.equal(Boolean(entry.replyDraftB), true);
+    assert.equal(Boolean(entry.replyDraftC), true);
+  } finally {
+    await rm(outputDir, { recursive: true, force: true });
+  }
+});
+
+test("v2 writer replaces old Reality Flow fallback drafts", async () => {
+  const outputDir = await mkdtemp(path.join(os.tmpdir(), "reply-queue-v2-"));
+  try {
+    const { payload } = await buildReplyQueueV2({
+      outputDir,
+      sourcePayload: {
+        sourceRun: { completedAt: "2026-06-28T01:00:00.000Z" },
+        items: [item("old-flow", "Waiting", "Still waiting for the result", 0.9, {
+          reason: "direct personal waiting",
+          replyDraftA: "Waiting is not neutral here; the delay keeps exposure open while the answer is still forming.",
+          replyDraftB: "Information arrives late in moments like this; timing can change the shape before certainty appears.",
+          replyDraftC: "The moment is still unresolved, and delay can carry its own cost before anything becomes final."
+        })]
+      }
+    });
+    const [entry] = payload.queue;
+    assert.doesNotMatch(entry.replyDraftA, /Waiting is not neutral here/);
+    assert.doesNotMatch(entry.replyDraftB, /Information arrives late/);
+    assert.doesNotMatch(entry.replyDraftC, /moment is still unresolved/);
+  } finally {
+    await rm(outputDir, { recursive: true, force: true });
+  }
 });
 
 test("reuses supported existing original URL fields", () => {

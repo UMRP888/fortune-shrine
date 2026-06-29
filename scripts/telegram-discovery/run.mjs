@@ -2,7 +2,11 @@
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import { DEFAULTS, KEYWORDS } from "./config.mjs";
-import { collectKeywords, launchTelegram } from "./collector.mjs";
+import {
+  collectKeywords,
+  collectRecentMessages,
+  launchTelegram
+} from "./collector.mjs";
 import { mergeArchive, readJson, writeJsonAtomic } from "./lib.mjs";
 import { generateReplyQueue } from "./reply-queue.mjs";
 import { buildReplyQueueV2 } from "./reply-queue-v2.mjs";
@@ -101,11 +105,16 @@ async function persistRun(outputDir, run) {
   };
 }
 
-async function queueEligibility(outputDir, results) {
+async function queueEligibility(outputDir, results, settings = {}) {
   const processedPath = path.join(outputDir, "processed_messages.json");
   const processed = await readJson(processedPath, null);
   const processedItems = processed?.items || [];
-  const partition = partitionQueueEligibility(results, processedItems);
+  const partition = partitionQueueEligibility(results, processedItems, {
+    cooldownMs: settings.seenAgainCooldownMs,
+    timeZone: settings.watchTimeZone,
+    freshnessWindowMs: settings.freshnessWindowMs,
+    freshnessFutureToleranceMs: settings.freshnessFutureToleranceMs
+  });
 
   return {
     ...partition,
@@ -167,17 +176,17 @@ async function closeContextSafely(context, timeoutMs) {
 async function executeCycle(page, options) {
   const startedAt = new Date().toISOString();
   const settings = { ...DEFAULTS, ...options };
-  let collection;
+  let searchCollection;
   try {
-    collection = await Promise.race([
+    searchCollection = await Promise.race([
       collectKeywords(page, KEYWORDS, settings),
       timeoutAfter(
         settings.cycleTimeoutMs,
-        `Discovery cycle timed out after ${settings.cycleTimeoutMs}ms before queue writer.`
+        `Keyword discovery cycle timed out after ${settings.cycleTimeoutMs}ms before queue writer.`
       )
     ]);
   } catch (error) {
-    collection = {
+    searchCollection = {
       results: [],
       allowedChats: [],
       keywordRuns: [{
@@ -194,30 +203,73 @@ async function executeCycle(page, options) {
       }
     };
   }
-  const evaluated = collection.results
+  let recentCollection;
+  try {
+    recentCollection = await Promise.race([
+      collectRecentMessages(page, {
+        ...settings,
+        allowedChats: searchCollection.allowedChats?.length
+          ? searchCollection.allowedChats
+          : settings.allowedChats
+      }),
+      timeoutAfter(
+        settings.cycleTimeoutMs,
+        `Recent chat discovery cycle timed out after ${settings.cycleTimeoutMs}ms before queue writer.`
+      )
+    ]);
+  } catch (error) {
+    recentCollection = {
+      results: [],
+      allowedChats: searchCollection.allowedChats || [],
+      recentRuns: [{
+        chat: "*",
+        startedAt,
+        completedAt: new Date().toISOString(),
+        resultCount: 0,
+        status: "skipped",
+        error: error.message
+      }],
+      selfHealing: {
+        type: "Recent Chat Discovery Block",
+        action: "skip current recent batch and continue queue writer"
+      }
+    };
+  }
+  const combinedResults = mergeArchive(
+    searchCollection.results,
+    recentCollection.results
+  );
+  const selfHealing = [
+    searchCollection.selfHealing,
+    recentCollection.selfHealing
+  ].filter(Boolean);
+  const evaluated = combinedResults
     .map(enrichResult)
     .filter((result) => result.score >= DEFAULTS.minimumScore)
     .sort((left, right) => right.score - left.score);
   const run = {
     version: "1.0-lite",
     source: "Telegram Web",
-    mode: "keyword-search",
+    mode: "keyword-search-plus-recent-chat",
     scope: "configured-group-allowlist",
     startedAt,
     completedAt: new Date().toISOString(),
     keywords: KEYWORDS,
-    allowedChats: collection.allowedChats,
+    allowedChats: searchCollection.allowedChats?.length
+      ? searchCollection.allowedChats
+      : recentCollection.allowedChats,
     autoReply: false,
     aiAnalysis: false,
     autoSend: false,
     minimumScore: DEFAULTS.minimumScore,
-    rawMatchCount: collection.results.length,
+    rawMatchCount: combinedResults.length,
     resultCount: evaluated.length,
-    keywordRuns: collection.keywordRuns,
-    selfHealing: collection.selfHealing || null,
+    keywordRuns: searchCollection.keywordRuns,
+    recentRuns: recentCollection.recentRuns,
+    selfHealing: selfHealing.length ? selfHealing : null,
     results: evaluated
   };
-  const eligibility = await queueEligibility(options.outputDir, run.results);
+  const eligibility = await queueEligibility(options.outputDir, run.results, settings);
   const files = await persistRun(options.outputDir, run);
   const queueRun = {
     ...run,
@@ -254,7 +306,10 @@ async function executeCycle(page, options) {
 
   if (
     queue.sourceRun.completedAt !== run.completedAt
-    || topQueue.sourceRun.completedAt !== run.completedAt
+    || (
+      topQueue.sourceRun.completedAt !== run.completedAt
+      && !topQueue.preservedFromPreviousRun
+    )
   ) {
     throw new Error("Pipeline Failed: queue data source does not match latest HUD run.");
   }
@@ -265,13 +320,6 @@ async function executeCycle(page, options) {
       "Pipeline Failed: Reply Queue Top10 contains no DOM-derived original message URLs."
     );
   }
-  await persistProcessedMessages(
-    eligibility.processedPath,
-    eligibility.processedItems,
-    queue.items,
-    run.completedAt
-  );
-
   process.stdout.write(formatOperationHud({
     run,
     queue,

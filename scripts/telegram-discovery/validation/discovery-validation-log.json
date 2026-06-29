@@ -1,0 +1,70 @@
+{
+  "protocol": "Discovery Validation Protocol v1",
+  "timezone": "Asia/Shanghai",
+  "minimumDailySample": 5,
+  "minimumVerifiedBeforeAccuracyEstimate": 50,
+  "accuracyClaimAllowed": false,
+  "evidencePolicy": {
+    "authority": "human review of original Telegram posts",
+    "automationRole": "sampling and recordkeeping only",
+    "accuracyEstimateBefore50Samples": "prohibited"
+  },
+  "totals": {
+    "rounds": 2,
+    "sampled": 15,
+    "matched": 9,
+    "false_positive": 0,
+    "unverified": 6
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "date": "2026-06-24",
+      "sampled": 10,
+      "matched": 9,
+      "false_positive": 0,
+      "unverified": 1,
+      "sampleDefinition": "Reply Queue Top10: #1 through #10",
+      "verifiedItems": ["#2", "#3", "#4", "#5", "#6", "#7", "#8", "#9", "#10"],
+      "unverifiedItems": ["#1"],
+      "classificationObservation": [
+        "Waiting",
+        "Hope",
+        "Nervous",
+        "Fingers Crossed",
+        "Pray For Me",
+        "Uncertainty"
+      ],
+      "engineeringConclusion": {
+        "discovery": "PASS",
+        "candidateQueue": "PASS",
+        "openOriginalPost": "PASS (Round 1)"
+      },
+      "note": "Human production review. Nine queue messages matched their original Telegram posts. #1 was unverified, not a false positive or failure. Insufficient evidence for a Discovery accuracy estimate."
+    },
+    {
+      "round": 2,
+      "date": "2026-06-25",
+      "sampled": 5,
+      "matched": 0,
+      "false_positive": 0,
+      "unverified": 5,
+      "sampleDefinition": "Random sample of current Reply Queue Top10: #1 tg-0001, #3 tg-0009, #6 tg-0023, #7 tg-0024, #9 tg-0029",
+      "verifiedItems": [],
+      "unverifiedItems": ["#1 tg-0001", "#3 tg-0009", "#6 tg-0023", "#7 tg-0024", "#9 tg-0029"],
+      "classificationObservation": [
+        "Waiting",
+        "Prayer",
+        "Anxiety",
+        "Hope",
+        "Fingers Crossed"
+      ],
+      "engineeringConclusion": {
+        "discovery": "INCONCLUSIVE (Round 2)",
+        "candidateQueue": "PASS",
+        "openOriginalPost": "UNVERIFIED (environment blocked persistent Telegram review browser)"
+      },
+      "note": "Round 2 used a random five-item sample from the current candidate queue. Local production review could not open Telegram originals because the sandboxed Chromium persistent profile crashed on launch with permission errors, so all five sampled items were recorded as unverified. Insufficient evidence for a Discovery accuracy estimate."
+    }
+  ]
+}

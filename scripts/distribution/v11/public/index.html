@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fortune Shrine V1.1 Send Layer</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <p class="eyebrow">FORTUNE SHRINE · V1.1</p>
+          <h1>发送层</h1>
+          <p>审批不会发送。每次发送必须独立确认，并且一次只处理一条。</p>
+        </div>
+        <div class="operator">
+          <label for="operator">Operator</label>
+          <input id="operator" value="founder" maxlength="80" />
+        </div>
+      </header>
+
+      <section id="safety" class="safety">
+        <strong>安全锁：</strong>
+        无自动审批、无批量发送、无自动重试。平台出现验证码、挑战、限制或警告时立即暂停。
+        <button id="haltButton" type="button">暂停发送</button>
+      </section>
+
+      <section id="stats" class="stats" aria-label="发送统计"></section>
+
+      <section class="trend-panel">
+        <h2>近 7 天发送趋势</h2>
+        <div id="trend" class="trend"></div>
+      </section>
+
+      <nav id="filters" class="filters" aria-label="状态筛选">
+        <button data-status="pending" class="active">待审批</button>
+        <button data-status="approved">已审批</button>
+        <button data-status="unconfirmed">待确认</button>
+        <button data-status="sent">已发送</button>
+        <button data-status="failed">失败</button>
+        <button data-status="rejected">已拒绝</button>
+      </nav>
+
+      <p id="notice" class="global-notice" role="status"></p>
+      <section id="queue" class="queue" aria-live="polite"></section>
+    </main>
+
+    <template id="cardTemplate">
+      <article class="card">
+        <div class="card-head">
+          <div>
+            <h2></h2>
+            <p class="meta"></p>
+          </div>
+          <span class="status"></span>
+        </div>
+        <blockquote class="original"></blockquote>
+        <fieldset class="blessings">
+          <legend>祝福草稿</legend>
+        </fieldset>
+        <div class="approval-actions">
+          <button class="approve" type="button">Approve</button>
+          <button class="reject secondary" type="button">Reject</button>
+        </div>
+        <div class="send-actions">
+          <p class="approved-copy"></p>
+          <button class="send" type="button">Send · 打开并填入这一条</button>
+        </div>
+        <div class="result-actions">
+          <p>请在 X 人工点击 Reply。返回后记录真实结果。</p>
+          <label>Message ID <input class="message-id" placeholder="必填，平台回复 ID" /></label>
+          <label>Message URL <input class="message-url" placeholder="可选，公开回复 URL" /></label>
+          <label>Failure reason <input class="failure-reason" placeholder="失败时填写" /></label>
+          <div>
+            <button class="mark-sent" type="button">记录为 Sent</button>
+            <button class="mark-failed secondary" type="button">记录为 Failed</button>
+          </div>
+        </div>
+        <p class="card-notice"></p>
+      </article>
+    </template>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
+

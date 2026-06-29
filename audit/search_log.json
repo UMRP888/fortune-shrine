@@ -1,0 +1,132 @@
+[
+  {
+    "timestamp": "2026-06-19T04:41:34Z",
+    "platform": "HN Algolia",
+    "keyword": "nervous",
+    "request_url": "https://hn.algolia.com/api/v1/search_by_date?query=nervous&tags=story&numericFilters=created_at_i%3E1735689600&hitsPerPage=100",
+    "result_count": 100,
+    "total_matching_count": 161,
+    "http_status": 200,
+    "raw_response_file": "hn/hn_response_full.json",
+    "response_headers_file": "hn/hn_response_headers.txt",
+    "sha256": "3ec6c2e88fae188b8ddf237ed2d072c1fe89ede7e277b1113e8de42118936775",
+    "sample_results": [
+      {
+        "author": "jbredeche",
+        "published_at": "2026-06-18T16:26:30Z",
+        "title": "Apple's Meeting That Led It to Take AI Seriously",
+        "url": "https://news.ycombinator.com/item?id=48587822"
+      },
+      {
+        "author": "Brajeshwar",
+        "published_at": "2026-06-17T19:22:02Z",
+        "title": "The hacker sent by Anthropic to calm the government's nerves about AI safety",
+        "url": "https://news.ycombinator.com/item?id=48575451"
+      },
+      {
+        "author": "dkobia",
+        "published_at": "2026-06-17T08:16:57Z",
+        "title": "The Hacker Sent by Anthropic to Calm the Government's Nerves About AI Safety",
+        "url": "https://news.ycombinator.com/item?id=48567357"
+      },
+      {
+        "author": "nickv",
+        "published_at": "2026-06-15T18:24:54Z",
+        "title": "Show HN: Spotlight shows what your Claude Code/Codex are doing",
+        "url": "https://news.ycombinator.com/item?id=48545168"
+      },
+      {
+        "author": "bl4ckbe4r",
+        "published_at": "2026-06-04T10:01:17Z",
+        "title": "Show HN: ssh late.sh - a cozy command-line Clubhouse for computer people",
+        "url": "https://news.ycombinator.com/item?id=48396398"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-06-19T04:41:33Z",
+    "platform": "Polymarket",
+    "keyword": "active markets ordered by volume24hr",
+    "request_url": "https://gamma-api.polymarket.com/events?active=true&closed=false&limit=10&order=volume24hr&ascending=false",
+    "result_count": 10,
+    "http_status": 200,
+    "raw_response_file": "polymarket/markets_response_full.json",
+    "response_headers_file": "polymarket/markets_response_headers.txt",
+    "sha256": "82cb40e3ad3cf4c45f8a458facbf0a8d6208d307fd097d60dae8c0f95d642c80",
+    "sample_results": [
+      {
+        "market_id": "30615",
+        "title": "World Cup Winner ",
+        "comment_count": 1418,
+        "url": "https://polymarket.com/event/world-cup-winner"
+      },
+      {
+        "market_id": "411239",
+        "title": "Next Prime Minister of Ethiopia?",
+        "comment_count": 4,
+        "url": "https://polymarket.com/event/next-prime-minister-of-ethiopia"
+      },
+      {
+        "market_id": "30829",
+        "title": "Democratic Presidential Nominee 2028",
+        "comment_count": 774,
+        "url": "https://polymarket.com/event/democratic-presidential-nominee-2028"
+      },
+      {
+        "market_id": "371649",
+        "title": "US x Iran diplomatic meeting by...?",
+        "comment_count": 6,
+        "url": "https://polymarket.com/event/us-x-iran-diplomatic-meeting-by-329"
+      },
+      {
+        "market_id": "509893",
+        "title": "What Iranian demands will Trump agree to by June 30?",
+        "comment_count": 0,
+        "url": "https://polymarket.com/event/what-iranian-demands-will-trump-agree-to-by-june-30"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-06-19T04:41:54Z",
+    "platform": "Polymarket",
+    "keyword": "comments for event 30615",
+    "request_url": "https://gamma-api.polymarket.com/comments?parent_entity_id=30615&parent_entity_type=Event&limit=100&offset=0&order=createdAt&ascending=false",
+    "result_count": 158,
+    "http_status": 200,
+    "raw_response_file": "polymarket/comments_response_full.json",
+    "response_headers_file": "polymarket/comments_response_headers.txt",
+    "sha256": "3832f84e298fe93e743b82526dba6e9649dd07972beb85afa955b151013da65c",
+    "sample_results": [
+      {
+        "username": "0x90cc9aD4c6385BFD3305a3DCbe78cc424df31Eb0-1774885709853",
+        "published_at": "2026-06-19T00:23:44.896987Z",
+        "text": "Go go Argentina",
+        "url": "https://polymarket.com/event/world-cup-winner"
+      },
+      {
+        "username": "0x90cc9aD4c6385BFD3305a3DCbe78cc424df31Eb0-1774885709853",
+        "published_at": "2026-06-19T00:21:24.667595Z",
+        "text": "Canada 6-0",
+        "url": "https://polymarket.com/event/world-cup-winner"
+      },
+      {
+        "username": "Etanol",
+        "published_at": "2026-06-18T23:36:56.673771Z",
+        "text": "Croacia x Panama & Gana next games. Finalist in 2018 and Semifinalist in 2022. Actually priced at 0,7c. Best Pick.",
+        "url": "https://polymarket.com/event/world-cup-winner"
+      },
+      {
+        "username": "BetView",
+        "published_at": "2026-06-18T21:35:37.42355Z",
+        "text": "Come on, Ivory Coast",
+        "url": "https://polymarket.com/event/world-cup-winner"
+      },
+      {
+        "username": "Thyser",
+        "published_at": "2026-06-18T21:32:07.844718Z",
+        "text": "Please 🙏",
+        "url": "https://polymarket.com/event/world-cup-winner"
+      }
+    ]
+  }
+]

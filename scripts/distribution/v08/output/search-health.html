@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fortune Shrine Search Health</title>
+  <style>
+    :root { color-scheme: dark; font-family: ui-sans-serif, system-ui, sans-serif; }
+    body { margin: 0; padding: 32px; background: #100d09; color: #eee4d2; }
+    header, main { max-width: 1120px; margin: auto; }
+    h1 { font-weight: 500; letter-spacing: .04em; }
+    .summary, .sources { display: grid; grid-template-columns: repeat(auto-fit,minmax(170px,1fr)); gap: 12px; }
+    .metric, .card { padding: 16px; border: 1px solid #4c3d29; background: #19140e; border-radius: 8px; }
+    .metric strong, .card strong { display: block; font-size: 28px; color: #efc87f; }
+    .sources { margin: 18px 0 28px; }
+    table { width: 100%; border-collapse: collapse; background: #15110c; }
+    th, td { padding: 10px; border-bottom: 1px solid #30271c; text-align: left; vertical-align: top; }
+    th { color: #b9a98e; font-weight: 500; }
+    .success td:nth-child(3) { color: #8fd5a6; }
+    .empty td:nth-child(3) { color: #e3c276; }
+    .failed td:nth-child(3), .failed td:nth-child(4) { color: #ef8f85; }
+    small { color: #a99d8b; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fortune Shrine · 搜索健康</h1>
+    <p>最近 24 小时 · 更新于 2026-06-21T03:24:45.828Z</p>
+    <div class="summary">
+      <div class="metric"><strong>1</strong><span>总运行次数</span></div>
+      <div class="metric"><strong>1</strong><span>成功次数</span></div>
+      <div class="metric"><strong>0</strong><span>失败次数</span></div>
+      <div class="metric"><strong>100%</strong><span>成功率</span></div>
+      <div class="metric"><strong>912</strong><span>平均候选数</span></div>
+    </div>
+  </header>
+  <main>
+    <div class="sources">
+    <section class="card">
+      <h2>X</h2>
+      <p><strong>100%</strong> 成功率</p>
+      <small>1 成功 · 0 失败 · 0 次没有结果</small>
+    </section>
+  
+    <section class="card">
+      <h2>Polymarket</h2>
+      <p><strong>100%</strong> 成功率</p>
+      <small>1 成功 · 0 失败 · 0 次没有结果</small>
+    </section>
+  </div>
+    <table>
+      <thead><tr><th>时间</th><th>来源</th><th>结果</th><th>错误分类</th><th>原因</th><th>耗时</th></tr></thead>
+      <tbody>
+    <tr class="success">
+      <td>2026/6/20 20:21:46</td>
+      <td>X</td>
+      <td>成功，85 位候选</td>
+      <td>—</td>
+      <td>—</td>
+      <td>108948 ms</td>
+    </tr>
+  
+    <tr class="success">
+      <td>2026/6/20 20:21:29</td>
+      <td>Polymarket</td>
+      <td>成功，827 位候选</td>
+      <td>—</td>
+      <td>—</td>
+      <td>16756 ms</td>
+    </tr>
+  </tbody>
+    </table>
+  </main>
+</body>
+</html>

@@ -1,0 +1,81 @@
+{
+  "version": "0.7.1",
+  "generatedAt": "2026-06-22T03:50:00.000Z",
+  "queue": [
+    {
+      "id": "polymarket:3071111",
+      "post_id": "3071111",
+      "comment_id": "3071111",
+      "platform": "Polymarket",
+      "username": "Jimjow",
+      "profile_url": "https://polymarket.com/profile/0x763d5dfa99dd59d6daca6f4d5eb18e826e54ee81",
+      "post_url": "https://polymarket.com/event/when-will-gpt-5pt6-be-released?comment=3071111",
+      "post_url_status": "verified",
+      "category": "Polymarket · uncertainty",
+      "latest_post": "Why did market flip today?",
+      "reply_a": "I was wondering the same. Did a new source drop, or was it just one large position moving the price?",
+      "reply_b": "That move seemed sudden. I’m curious whether new information appeared or the market simply overreacted.",
+      "reply_c": "The price changed faster than the story did. Did you find what triggered it?"
+    },
+    {
+      "id": "polymarket:3073280",
+      "post_id": "3073280",
+      "comment_id": "3073280",
+      "platform": "Polymarket",
+      "username": "EnzoTheUser",
+      "profile_url": "https://polymarket.com/profile/0x7b695b489512b050e4447b04422702235bdd15b1",
+      "post_url": "https://polymarket.com/event/when-will-gpt-5pt6-be-released?comment=3073280",
+      "post_url_status": "verified",
+      "category": "Polymarket · loss",
+      "latest_post": "bro you placed the bet on Jun 21 and lost :(",
+      "reply_a": "That’s a rough reminder of how much timing matters in these markets. Being close can still feel very far away.",
+      "reply_b": "That one hurts because the idea was close, but the date was unforgiving.",
+      "reply_c": "Prediction markets can make being one day early feel exactly like being wrong."
+    },
+    {
+      "id": "polymarket:3072129",
+      "post_id": "3072129",
+      "comment_id": "3072129",
+      "platform": "Polymarket",
+      "username": "ddch3rry",
+      "profile_url": "https://polymarket.com/profile/0xa41b46d72a5fc39a2edaed2d6fbee36f2ab3f882",
+      "post_url": "https://polymarket.com/event/world-cup-winner?comment=3072129",
+      "post_url_status": "verified",
+      "category": "Polymarket · uncertainty",
+      "latest_post": "France will won but i'm not sure",
+      "reply_a": "That “I think so, but I’m not sure” feeling is basically the whole prediction-market experience.",
+      "reply_b": "Confidence and doubt living in the same sentence—that feels honest for this market.",
+      "reply_c": "What’s the biggest thing keeping you from feeling sure about France?"
+    },
+    {
+      "id": "polymarket:3075633",
+      "post_id": "3075633",
+      "comment_id": "3075633",
+      "platform": "Polymarket",
+      "username": "KainniaK1",
+      "profile_url": "https://polymarket.com/profile/0xe77b7a4f4e38ae40bb42454a5400dea353032e29",
+      "post_url": "https://polymarket.com/event/world-cup-winner?comment=3075633",
+      "post_url_status": "verified",
+      "category": "Polymarket · waiting",
+      "latest_post": "And when that happens you make 36 dollars! That's so cool.",
+      "reply_a": "The tiny payout after all that waiting is the most prediction-market thing imaginable.",
+      "reply_b": "All that uncertainty for thirty-six dollars somehow makes the story better.",
+      "reply_c": "The waiting may end up being worth more than the payout as a story."
+    },
+    {
+      "id": "polymarket:3070113",
+      "post_id": "3070113",
+      "comment_id": "3070113",
+      "platform": "Polymarket",
+      "username": "imlimonh",
+      "profile_url": "https://polymarket.com/profile/0x2f9092ada33a6335baa4decdf63bb728388e40e0",
+      "post_url": "https://polymarket.com/event/world-cup-winner?comment=3070113",
+      "post_url_status": "verified",
+      "category": "Polymarket · hope",
+      "latest_post": "Argentina Win...🤞🤞🤞",
+      "reply_a": "The crossed fingers say more than the confidence does 😄 What made Argentina your pick?",
+      "reply_b": "That looks like confidence with just enough uncertainty left in it. Why Argentina?",
+      "reply_c": "The conviction is clear; the crossed fingers tell the rest of the story."
+    }
+  ]
+}

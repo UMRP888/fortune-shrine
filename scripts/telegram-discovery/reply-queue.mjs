@@ -9,6 +9,155 @@ const blessingCorpusPath = path.join(projectRoot, "docs", "blessing-corpus-v2.js
 const BLESSING_HISTORY_LIMIT = 50;
 const RECENT_BLESSING_BLOCK_LIMIT = 20;
 const TOP_K_BLESSING_POOL = 10;
+const SHRINE_REPLY_PREFIX = "The Shrine says:";
+
+function shrinePrefixedReply(value) {
+  const text = String(value || "").trim();
+  if (!text) return "";
+  if (/^the shrine says:/i.test(text)) return text;
+  if (/[\u3400-\u9fff]/u.test(text)) return text;
+  return `${SHRINE_REPLY_PREFIX} ${text}`;
+}
+
+const SRE_LIBRARY = {
+  WAITING: [
+    "The situation has not resolved, and no clear signal has arrived yet. You are still inside the waiting, where outcomes are not formed. May clarity reach you without forcing you to rush.",
+    "Nothing has changed in a visible way, even if time has moved. You remain inside an unfinished process. May this uncertainty stay gentle rather than heavy.",
+    "What you are waiting for is still in motion, just not revealed. You are not outside the process, only inside its early phase. May you stay steady until it becomes clearer.",
+    "Silence here does not mean absence, only unfinished movement. You are still part of what is forming. May what arrives not shake your center.",
+    "This moment is still open, not concluded. You are inside the interval where outcomes are forming. May you move through it without losing direction.",
+    "Nothing has closed yet, even if nothing is changing. You are still inside the process. May time carry you gently forward.",
+    "What you are waiting for is still moving through time. You are not outside its path. May it arrive in its right form.",
+    "The outcome is not yet decided. You are still inside its formation space. May you remain calm until it settles.",
+    "Things are still forming beneath what you can see. You are still inside the unfolding. May clarity come without force.",
+    "Nothing here is final yet. You remain within the living process of time. May you be held steady through it."
+  ],
+  TRADING_LOSS: [
+    "A loss has already happened, and it cannot be undone. You are still here, and this moment is not the end of your path. May you regain steadiness before your next step.",
+    "What has passed is already part of the system’s outcome. You are still inside its aftermath. May this weight become lighter over time.",
+    "The impact is real, and it has already occurred. You remain inside its echo, not its conclusion. May you recover without rushing.",
+    "This moment has already been shaped by timing and exposure. You are still within its continuation. May you not lose your direction.",
+    "Loss belongs to movement in uncertain systems. You are still on the same path. May balance return to you.",
+    "What happened is now part of the structure you came through. You are still inside its unfolding effect. May you move forward with clarity.",
+    "The system has already moved on from this point. You are still adjusting inside its result. May your next step be steadier.",
+    "This is not the end, but a shift in condition. You are still within the same path. May you find ground again.",
+    "What is felt now is the echo, not the full story. You are still inside its field. May calm return before your next move.",
+    "The outcome has already been set in motion. You are still inside its consequences. May you recover your center."
+  ],
+  RISK: [
+    "Every decision already carries exposure. You are not in neutrality, but in motion. May your choice come with clarity rather than pressure.",
+    "Waiting does not remove risk, only reshapes it. You are already inside the system. May timing align with your action.",
+    "There is no fully safe position in a moving environment. You are already part of the structure. May your decision stay clear.",
+    "You are already inside consequence space. Nothing here is outside effect. May you move without pressure.",
+    "The system is already active before action. You are within it now. May awareness stay steady.",
+    "Uncertainty is already part of the structure you stand in. You are not outside outcome formation. May clarity come before pressure builds.",
+    "The moment does not wait for certainty. You are inside ongoing motion. May your decision feel grounded.",
+    "Even hesitation is part of participation. You are already in the system. May your choice remain steady.",
+    "You are already in contact with consequence through timing. Nothing here is fully detached. May your step be calm and deliberate.",
+    "The structure is already in motion before action. You are inside its field. May you move without distortion."
+  ],
+  ANXIETY: [
+    "What feels heavy is already passing through you, not defining you. You are still here inside this moment. May your breath settle again.",
+    "This state is temporary, even if it feels close. You are still in motion. May calm return naturally.",
+    "Pressure is part of the moment, not the whole system. You are not trapped inside it. May space open again for you.",
+    "You are still inside a passing condition. Nothing here is final. May steadiness return gradually.",
+    "What you feel is a wave, not a structure. You are still grounded in reality. May it soften in time.",
+    "The system is moving faster than your sense of control. You are still inside it. May your mind slow down.",
+    "This will not remain in this form. You are still present here. May relief arrive soon.",
+    "Nothing here is permanent or fixed. You are still in transition. May balance return.",
+    "You are inside a temporary intensity. You are not lost in it. May calm re-enter you.",
+    "This moment will pass without becoming permanent. You are still here. May you stay steady until it does."
+  ],
+  HOPE: [
+    "What you are waiting for is still forming in time. You are still inside its field. May it arrive in a stable form.",
+    "The outcome is not decided yet. You are still within possibility space. May things align in your favor.",
+    "Nothing here has closed. You are still inside unfolding conditions. May clarity arrive gently.",
+    "The result is still in formation. You are still connected to it. May it complete in a balanced way.",
+    "This is still an open situation. You are still inside its movement. May it resolve without disruption.",
+    "What you want has not disappeared. You are still in its path. May it take shape correctly.",
+    "The process is still ongoing. You are still within possibility. May outcome meet expectation.",
+    "Nothing has finalized yet. You are still inside time. May what arrives feel right.",
+    "The situation remains open. You are still part of it. May it stabilize in your direction.",
+    "What is coming has not formed yet. You are still inside its unfolding. May it reach you clearly."
+  ]
+};
+
+function sreIntent(result, category) {
+  const reason = String(result.reason || "").toLocaleLowerCase();
+  const message = String(result.message || result.original || "").toLocaleLowerCase();
+  const keywords = (result.matchedKeywords || []).join(" ").toLocaleLowerCase();
+  const text = [reason, message, keywords, category].join(" ");
+
+  if (/\b(liquidat(?:ed|ion)|got rekt|rekt|wiped out|blew my account|blown account|loss|lost|lose)\b/.test(text)) {
+    return "TRADING_LOSS";
+  }
+  if (/\b(nervous|anxious|worried|afraid|scared|stressed|panic|panicking|control)\b/.test(text)) {
+    return "ANXIETY";
+  }
+  if (
+    reason.includes("clear personal risk exposure")
+    || reason.includes("outcome pressure")
+    || reason.includes("trading channel")
+    || /\b(trade|trading|leverage|margin call|funding rate|open interest|long|short|entry|exit|tp|sl|take profit|stop loss|position|fomo|decision|enter|entered|early)\b/.test(text)
+  ) {
+    return "RISK";
+  }
+  if (category === "Waiting" || /\b(waiting|still waiting|wait|delay|hours)\b/.test(text)) {
+    return "WAITING";
+  }
+  if (category === "Hope" || /\b(hope|hoping|hopefully|fingers crossed|wish)\b/.test(text)) {
+    return "HOPE";
+  }
+  return category === "Uncertainty" ? "RISK" : "HOPE";
+}
+
+export function shrineReplyEngine(
+  result,
+  category = queueCategory(result),
+  random = Math.random,
+  recentReplies = []
+) {
+  const intent = sreIntent(result, category);
+  const library = SRE_LIBRARY[intent];
+  if (!library?.length) return null;
+  const recent = new Set(recentReplies.map(blessingFingerprint));
+  const available = library.filter((reply) => !recent.has(blessingFingerprint(reply)));
+  const pool = available.length ? available : library;
+  const index = Math.floor(random() * pool.length);
+  return pool[Math.max(0, Math.min(pool.length - 1, index))];
+}
+
+function shrineReplyDrafts(result, category, random = Math.random, recentReplies = []) {
+  const intent = sreIntent(result, category);
+  const library = SRE_LIBRARY[intent];
+  if (!library?.length) return null;
+
+  const recent = new Set(recentReplies.map(blessingFingerprint));
+  const selected = [];
+  const selectedKeys = new Set();
+  let pool = library.filter((reply) => !recent.has(blessingFingerprint(reply)));
+  if (pool.length < 3) pool = library;
+
+  while (selected.length < 3 && pool.length) {
+    const index = Math.floor(random() * pool.length);
+    const [reply] = pool.splice(Math.max(0, Math.min(pool.length - 1, index)), 1);
+    const key = blessingFingerprint(reply);
+    if (selectedKeys.has(key)) continue;
+    selectedKeys.add(key);
+    selected.push(reply);
+  }
+
+  while (selected.length < 3 && library.length) {
+    selected.push(library[selected.length % library.length]);
+  }
+
+  return {
+    blessingDraft: selected[0],
+    replyDraftA: selected[0],
+    replyDraftB: selected[1],
+    replyDraftC: selected[2]
+  };
+}
 
 const DRAFTS = {
   Prayer: {
@@ -353,6 +502,14 @@ export function queueCategory(result) {
 
   if (reason.includes("explicit request for luck or prayer")) return "Prayer";
   if (
+    reason.includes("outcome pressure")
+    && /\b(liquidat(?:ed|ion)|got rekt|rekt|wiped out|blew my account|loss|lost|lose)\b/.test(message)
+  ) return "Loss";
+  if (
+    reason.includes("clear personal risk exposure")
+    || reason.includes("trading channel")
+  ) return "Risk";
+  if (
     reason.includes("waiting for a meaningful result")
     || reason.includes("direct personal waiting")
     || /\b(still waiting|wait and see|waiting)\b/.test(message)
@@ -383,9 +540,12 @@ export function buildReplyQueuePayload(run, latestPath, {
   const rollingCategoryHistory = [];
   const items = run.results.map((result, index) => {
     const category = queueCategory(result);
-    const routedDrafts = replyDraftsForResult(result, category);
+    const sreDrafts = shrineReplyDrafts(result, category, random, rollingRecentBlessings);
+    const routedDrafts = sreDrafts || replyDraftsForResult(result, category);
     const realityFlowActive = routeResponseMode(result, category) === "REALITY_FLOW";
-    const blessingDraft = realityFlowActive
+    const blessingDraft = sreDrafts
+      ? sreDrafts.blessingDraft
+      : realityFlowActive
       ? routedDrafts.blessingDraft
       : selectBlessingDraft(
         category,
@@ -396,7 +556,24 @@ export function buildReplyQueuePayload(run, latestPath, {
           categoryHistory: rollingCategoryHistory
         }
       );
-    if (!realityFlowActive) {
+    if (sreDrafts) {
+      for (const reply of [
+        sreDrafts.replyDraftA,
+        sreDrafts.replyDraftB,
+        sreDrafts.replyDraftC
+      ]) {
+        rollingRecentBlessings.unshift(reply);
+        usageCounts.set(
+          blessingFingerprint(reply),
+          (usageCounts.get(blessingFingerprint(reply)) || 0) + 1
+        );
+      }
+      rollingCategoryHistory.unshift({ category, blessingDraft });
+      usageCounts.set(
+        blessingFingerprint(blessingDraft),
+        (usageCounts.get(blessingFingerprint(blessingDraft)) || 0)
+      );
+    } else if (!realityFlowActive) {
       rollingRecentBlessings.unshift(blessingDraft);
       rollingCategoryHistory.unshift({ category, blessingDraft });
       usageCounts.set(
@@ -414,7 +591,10 @@ export function buildReplyQueuePayload(run, latestPath, {
       score: result.score,
       reason: result.reason,
       ...routedDrafts,
-      blessingDraft,
+      blessingDraft: shrinePrefixedReply(blessingDraft),
+      replyDraftA: shrinePrefixedReply(routedDrafts.replyDraftA),
+      replyDraftB: shrinePrefixedReply(routedDrafts.replyDraftB),
+      replyDraftC: shrinePrefixedReply(routedDrafts.replyDraftC),
       riskLevel: queueRisk(result),
       author: result.author,
       timestamp: result.timestamp,

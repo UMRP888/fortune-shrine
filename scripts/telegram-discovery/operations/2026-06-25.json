@@ -1,0 +1,92 @@
+{
+  "date": "2026-06-25",
+  "timezone": "Asia/Shanghai",
+  "focus": "Operational validation: find real people, reply manually, learn.",
+  "hudRuns": [
+    {
+      "completedAt": "2026-06-25T11:22:48+08:00",
+      "candidatesFound": 83,
+      "topQueueCount": 10,
+      "verifiableCandidates": 83,
+      "topCandidate": {
+        "score": 0.9,
+        "category": "Prayer",
+        "group": "Bitget English",
+        "message": "I feel you bro, thanks for your concern, pray for me so it goes right ya😁"
+      }
+    },
+    {
+      "completedAt": "2026-06-26T00:04:30+08:00",
+      "candidatesFound": 78,
+      "topQueueCount": 10,
+      "verifiableCandidates": 78,
+      "topCandidate": {
+        "score": 0.94,
+        "category": "Hope",
+        "group": "Bybit English",
+        "message": "We pray for batter market to recover from our Liquidated"
+      }
+    },
+    {
+      "completedAt": "2026-06-27T00:01:37+08:00",
+      "candidatesFound": 71,
+      "topQueueCount": 6,
+      "verifiableCandidates": 71,
+      "topCandidate": {
+        "score": 0.8,
+        "category": "Waiting",
+        "group": "Bitget English",
+        "message": "I've been waiting for that question 😂😆 What's on your mind?"
+      }
+    },
+    {
+      "completedAt": "2026-06-28T00:06:16+08:00",
+      "candidatesFound": 151,
+      "topQueueCount": 2,
+      "verifiableCandidates": 151,
+      "topCandidate": {
+        "score": 0.76,
+        "category": "Hope",
+        "group": "Bitget English",
+        "message": "I hope to meet a good friend with whom I can grow together."
+      }
+    },
+    {
+      "completedAt": "2026-06-29T00:05:55+08:00",
+      "candidatesFound": 53,
+      "topQueueCount": 10,
+      "verifiableCandidates": 53,
+      "topCandidate": {
+        "score": 0.91,
+        "category": "Hope",
+        "group": "Bitget English",
+        "message": "do ittt, it’s that reminder we all need like “ok I got rekt but still in game” mindset 💀🚀"
+      }
+    },
+    {
+      "completedAt": "2026-06-30T00:06:40+08:00",
+      "candidatesFound": 151,
+      "topQueueCount": 10,
+      "verifiableCandidates": 151,
+      "topCandidate": {
+        "score": 0.91,
+        "category": "Loss",
+        "group": "Bitget English",
+        "message": "Facts bro, got rekt too many times by fakeouts in the past lesson learned,so now i always wait for a..."
+      }
+    }
+  ],
+  "totals": {
+    "hudCandidatesFound": 587,
+    "repliesSent": 0,
+    "repliesReceived": 0,
+    "likesOrReactions": 0,
+    "shrineVisits": null
+  },
+  "interactionPolicy": {
+    "humanReviewRequired": true,
+    "autoSend": false,
+    "qualityOverQuantity": true
+  },
+  "notes": []
+}

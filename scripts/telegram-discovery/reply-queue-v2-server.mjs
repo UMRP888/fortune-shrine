@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import http from "node:http";
-import { appendFile, mkdir, readFile } from "node:fs/promises";
+import { appendFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
@@ -11,10 +11,12 @@ import {
 } from "./config.mjs";
 import { acquireProfileLease } from "./profile-lease.mjs";
 import { expressionIntent } from "./reply-queue-v2.mjs";
+import { candidateIdentity, queueDedupKey } from "./queue-eligibility.mjs";
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const publicDirectory = path.join(directory, "reply-queue-v2", "public");
 const queuePath = path.join(directory, "output", "reply_queue_v2.json");
+const processedPath = path.join(directory, "output", "processed_messages.json");
 const navigationLogPath = path.join(directory, "output", "open-post-navigation.jsonl");
 const host = process.env.HOST || "127.0.0.1";
 const port = Number(process.env.PORT || 4196);
@@ -168,14 +170,30 @@ function normalizeQueuePayload(payload, sourcePath) {
   };
 }
 
+function humanProcessedStatus(status) {
+  return ["sent", "reviewed", "ignored"].includes(String(status || "").toLocaleLowerCase());
+}
+
 async function loadOperationQueuePayload() {
   const payload = await readJsonIfExists(queuePath);
   if (!payload) {
     throw Object.assign(new Error("Operation Queue v2 source not found"), { code: "ENOENT" });
   }
+  const normalized = normalizeQueuePayload(payload, queuePath);
+  const processed = await readJsonIfExists(processedPath);
+  const humanProcessed = new Set(
+    (processed?.items || [])
+      .filter((item) => humanProcessedStatus(item.status))
+      .map((item) => item.identity || candidateIdentity(item))
+  );
+  const queue = normalized.queue.filter((item) => !humanProcessed.has(candidateIdentity(item)));
   return {
     path: queuePath,
-    payload: normalizeQueuePayload(payload, queuePath)
+    payload: {
+      ...normalized,
+      queue,
+      summary: summarizeBoundQueue(queue)
+    }
   };
 }
 
@@ -193,10 +211,35 @@ async function updateReviewStatus(id, status) {
   const { payload } = await loadOperationQueuePayload();
   const item = payload.queue.find((candidate) => candidate.id === id);
   if (!item) return null;
+  const allowedStatus = ["sent", "reviewed", "ignored"].includes(status) ? status : "sent";
+  const existing = await readJsonIfExists(processedPath);
+  const items = existing?.items || [];
+  const merged = new Map(items.map((entry) => [entry.identity || candidateIdentity(entry), entry]));
+  const identity = candidateIdentity(item);
+  const previous = merged.get(identity);
+  const now = new Date().toISOString();
+  merged.set(identity, {
+    identity,
+    dedupKey: item.dedupKey || queueDedupKey(item),
+    peerId: item.peerId || previous?.peerId || "",
+    messageId: item.messageId || previous?.messageId || "",
+    group: item.group || previous?.group || "",
+    original: item.original || previous?.original || "",
+    status: allowedStatus,
+    firstProcessedAt: previous?.firstProcessedAt || now,
+    lastProcessedAt: now
+  });
+  await writeFile(processedPath, `${JSON.stringify({
+    version: "1.0",
+    updatedAt: now,
+    itemCount: merged.size,
+    items: [...merged.values()]
+  }, null, 2)}\n`, "utf8");
+
   return {
     id: item.id,
-    status: item.status || status,
-    reviewedAt: item.reviewedAt || null
+    status: allowedStatus,
+    reviewedAt: now
   };
 }
 
@@ -467,13 +510,13 @@ const server = http.createServer(async (request, response) => {
     }
 
     if (request.method === "POST" && url.pathname === "/api/review-status") {
-      response.writeHead(405, {
+      const body = await readRequestJson(request);
+      const updated = await updateReviewStatus(String(body.id || ""), String(body.status || "sent"));
+      response.writeHead(updated ? 200 : 404, {
         "Content-Type": contentTypes[".json"],
         "Cache-Control": "no-store"
       });
-      response.end(JSON.stringify({
-        error: "Queue Freeze: UI is read-only. Review status writes are disabled."
-      }));
+      response.end(JSON.stringify(updated || { error: "Queue item not found." }));
       return;
     }
 

@@ -313,6 +313,7 @@ export function enrichResult(result) {
     messageId: normalizeText(result.messageId),
     peerId: normalizeText(result.peerId),
     messageUrl: normalizeText(result.messageUrl),
+    collectionSource: normalizeText(result.collectionSource),
     observedAt: result.observedAt,
     matchedKeywords: [...new Set([
       ...signal.matched.blessingRequest,

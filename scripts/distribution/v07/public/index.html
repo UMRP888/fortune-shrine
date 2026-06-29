@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fortune Shrine V0.7 Sender</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">FORTUNE SHRINE · V0.7</p>
+        <h1>人工发送队列</h1>
+        <p>选择回复，打开原帖并填入。发送永远由你亲自确认。</p>
+      </header>
+
+      <section class="safety">
+        <strong>安全锁：</strong>
+        本工具不会点击 Reply，不会批量打开，不会连续发送，也不会在后台执行账号操作。
+      </section>
+
+      <section class="toolbar">
+        <label>
+          导入 V0.6 CSV
+          <input id="csvInput" type="file" accept=".csv,text/csv" />
+        </label>
+        <button id="loadDefault" type="button">载入默认队列</button>
+        <button id="loadPolymarket" type="button">载入今日 Polymarket 队列</button>
+        <span id="summary">尚未载入</span>
+      </section>
+
+      <section id="queue" class="queue" aria-live="polite"></section>
+    </main>
+    <template id="cardTemplate">
+      <article class="card">
+        <div class="card-head">
+          <div>
+            <h2></h2>
+            <p class="category"></p>
+          </div>
+          <span class="status"></span>
+        </div>
+        <blockquote class="post"></blockquote>
+        <fieldset>
+          <legend>选择一条回复草稿</legend>
+          <label class="reply-option"><input type="radio" value="reply_a" /><span></span></label>
+          <label class="reply-option"><input type="radio" value="reply_b" /><span></span></label>
+          <label class="reply-option"><input type="radio" value="reply_c" /><span></span></label>
+        </fieldset>
+        <div class="actions">
+          <button class="copy" type="button">复制回复</button>
+          <button class="open" type="button">打开原帖并填入</button>
+          <a class="profile" target="_blank" rel="noopener noreferrer">查看主页</a>
+          <button class="mark" type="button">标记为已人工发送</button>
+        </div>
+        <p class="notice"></p>
+      </article>
+    </template>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

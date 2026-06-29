@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-06-21T03:24:45.828Z",
+  "windowHours": 24,
+  "totalRuns": 1,
+  "successfulRuns": 1,
+  "failedRuns": 0,
+  "noResultRuns": 0,
+  "successRate": 100,
+  "averageCandidates": 912,
+  "bySource": {
+    "X": {
+      "totalRuns": 1,
+      "successfulRuns": 1,
+      "failedRuns": 0,
+      "noResultRuns": 0,
+      "successRate": 100,
+      "averageCandidates": 85
+    },
+    "Polymarket": {
+      "totalRuns": 1,
+      "successfulRuns": 1,
+      "failedRuns": 0,
+      "noResultRuns": 0,
+      "successRate": 100,
+      "averageCandidates": 827
+    }
+  },
+  "runs": [
+    {
+      "runId": "shrine-search-2026-06-21T03:21:29.451Z",
+      "timestamp": "2026-06-21T03:21:46.208Z",
+      "completedAt": "2026-06-21T03:23:35.156Z",
+      "source": "X",
+      "searchMethod": "Public index + public profiles",
+      "status": "success",
+      "result": "candidates_found",
+      "errorCategory": null,
+      "errorReason": null,
+      "httpStatus": null,
+      "candidateCount": 85,
+      "evidenceCount": 127,
+      "durationMs": 108948
+    },
+    {
+      "runId": "shrine-search-2026-06-21T03:21:29.451Z",
+      "timestamp": "2026-06-21T03:21:29.452Z",
+      "completedAt": "2026-06-21T03:21:46.208Z",
+      "source": "Polymarket",
+      "searchMethod": "Gamma API",
+      "status": "success",
+      "result": "candidates_found",
+      "errorCategory": null,
+      "errorReason": null,
+      "httpStatus": null,
+      "candidateCount": 827,
+      "evidenceCount": 20,
+      "durationMs": 16756
+    }
+  ]
+}

@@ -98,12 +98,34 @@ button:disabled {
 .mark { margin-left: auto; }
 
 .queue { display: grid; gap: 30px; }
-.card { padding: 30px 30px 18px; }
-.card.sent { opacity: .65; }
+.card {
+  padding: 30px 30px 18px;
+  transition: opacity .16s ease, filter .16s ease, border-color .16s ease, background .16s ease;
+}
+.card.sent {
+  opacity: .54;
+  filter: grayscale(.55);
+  border-color: rgba(114, 108, 99, .78);
+  background: rgba(16, 16, 15, .88);
+}
 .card-head {
   display: flex;
   justify-content: space-between;
   gap: 16px;
+}
+.card-meta {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+  min-width: 110px;
+}
+.score {
+  color: #f0c46f;
+  border: 1px solid rgba(167, 123, 62, .72);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 15px;
+  font-weight: 800;
 }
 .card h2 {
   margin: 0;
@@ -116,7 +138,20 @@ button:disabled {
   font-weight: 650;
 }
 .notice { color: #a99b87; }
-.status { color: #d5a65d; font-size: 13px; }
+.status { color: #d5a65d; font-size: 13px; text-align: right; }
+.card.sent .status {
+  color: #d8d0c2;
+  border: 1px solid rgba(190, 181, 166, .38);
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: rgba(80, 76, 68, .34);
+  font-weight: 800;
+}
+.card.sent .mark {
+  border-color: rgba(190, 181, 166, .42);
+  background: rgba(80, 76, 68, .34);
+  color: #d8d0c2;
+}
 .post {
   border-left: 3px solid #8a6638;
   margin: 38px 0 24px;

@@ -1,0 +1,85 @@
+:root {
+  color-scheme: dark;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #100f0d;
+  color: #eee5d2;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at 50% 0, #2a2117 0, #100f0d 45%);
+  min-height: 100vh;
+}
+
+main {
+  width: min(1100px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0 80px;
+}
+
+header { margin-bottom: 24px; }
+h1 { margin: 8px 0; font-family: Georgia, serif; font-weight: 500; }
+.eyebrow { color: #c9944c; letter-spacing: .18em; font-size: 12px; }
+header p { color: #bcb09d; }
+
+.safety, .toolbar, .card {
+  border: 1px solid #4c3c29;
+  background: rgba(24, 21, 17, .9);
+  border-radius: 12px;
+}
+
+.safety { padding: 14px 16px; color: #d7c5a6; }
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0 24px;
+  padding: 14px 16px;
+  flex-wrap: wrap;
+}
+
+input[type="file"] { display: block; margin-top: 6px; }
+button, .profile {
+  border: 1px solid #70583a;
+  background: #2b241b;
+  color: #f1e5cf;
+  border-radius: 8px;
+  padding: 9px 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+button:hover, .profile:hover { background: #3a2e21; }
+button:disabled { cursor: not-allowed; opacity: .4; }
+.mark { margin-left: auto; }
+
+.queue { display: grid; gap: 16px; }
+.card { padding: 20px; }
+.card.sent { opacity: .65; }
+.card-head { display: flex; justify-content: space-between; gap: 16px; }
+.card h2 { margin: 0; font-size: 19px; }
+.category, .notice { color: #a99b87; }
+.status { color: #d5a65d; font-size: 13px; }
+.post {
+  border-left: 2px solid #765b35;
+  margin: 18px 0;
+  padding: 4px 0 4px 14px;
+  color: #d8cebc;
+}
+fieldset { border: 0; padding: 0; margin: 0; }
+legend { margin-bottom: 10px; color: #b8aa95; }
+.reply-option {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 8px;
+}
+.reply-option:has(input:checked) { background: #30271c; }
+.actions { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+
+@media (max-width: 680px) {
+  .actions > * { width: 100%; text-align: center; }
+  .mark { margin-left: 0; }
+}

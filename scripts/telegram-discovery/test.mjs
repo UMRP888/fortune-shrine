@@ -6,7 +6,7 @@ import {
   mergeArchive,
   normalizeText
 } from "./lib.mjs";
-import { KEYWORDS } from "./config.mjs";
+import { KEYWORDS, RECENT_CHAT_SOURCES } from "./config.mjs";
 import {
   canonicalGroup,
   classifySignal,
@@ -18,11 +18,13 @@ import {
   queueCategory,
   queueRisk,
   routeResponseMode,
+  shrineReplyEngine,
   selectBlessingDraft
 } from "./reply-queue.mjs";
 import { formatOperationHud } from "./operation-hud.mjs";
 import {
   candidateIdentity,
+  hasFreshTelegramTimestamp,
   partitionQueueEligibility
 } from "./queue-eligibility.mjs";
 
@@ -36,26 +38,24 @@ test("matches keywords case-insensitively", () => {
   assert.equal(containsKeyword("ordinary update", "fortune"), false);
 });
 
-test("includes safe trading behavior keywords without deleting uncertainty layer", () => {
+test("uses high-intent search keywords without deleting uncertainty layer", () => {
   for (const keyword of [
     "wish me luck",
     "pray for me",
-    "hope",
     "waiting",
+    "still waiting",
+    "waiting for results",
     "nervous",
+    "anxious",
+    "worried",
     "uncertain",
+    "not sure",
+    "don't know",
+    "liquidated",
     "leverage",
     "margin call",
-    "funding rate",
-    "open interest",
-    "BTC dump",
-    "BTC pump",
-    "ETH dump",
-    "ETH pump",
-    "take profit",
-    "stop loss",
-    "opened position",
-    "closed position",
+    "opened a long",
+    "opened a short",
     "got rekt",
     "wiped out",
     "blew my account",
@@ -63,7 +63,21 @@ test("includes safe trading behavior keywords without deleting uncertainty layer
   ]) {
     assert.equal(KEYWORDS.includes(keyword), true, keyword);
   }
-  for (const keyword of ["announcement", "trade", "win", "lose", "market crash"]) {
+  for (const keyword of [
+    "announcement",
+    "trade",
+    "win",
+    "lose",
+    "market crash",
+    "hope",
+    "long",
+    "short",
+    "entry",
+    "exit",
+    "bounce",
+    "funding rate",
+    "open interest"
+  ]) {
     assert.equal(KEYWORDS.includes(keyword), false, keyword);
   }
 });
@@ -82,6 +96,38 @@ test("deduplicates the same visible search result", () => {
     observedAt: "2026-06-23T10:00:00.000Z"
   };
   assert.equal(deduplicateResults([base, { ...base }]).length, 1);
+});
+
+test("deduplicates the same Telegram message across collection sources", () => {
+  const base = {
+    platform: "Telegram",
+    keyword: "waiting",
+    chat: "Bitget English",
+    author: "Alice",
+    text: "I am still waiting",
+    timestamp: "21:12",
+    messageId: "4301",
+    peerId: "-1872223162",
+    messageUrl: "https://web.telegram.org/k/#-1872223162",
+    observedAt: "2026-06-23T13:12:00.000Z"
+  };
+
+  assert.equal(deduplicateResults([
+    base,
+    { ...base, keyword: "still waiting", collectionSource: "keyword-search" },
+    { ...base, keyword: "__recent__", collectionSource: "recent-chat" }
+  ]).length, 1);
+});
+
+test("keeps recent chat sources scoped to the V1 whitelist", () => {
+  assert.deepEqual(
+    RECENT_CHAT_SOURCES.map((source) => source.chat).sort(),
+    ["Bitget English", "Bybit English", "GMX", "Gains Network"].sort()
+  );
+  assert.equal(
+    RECENT_CHAT_SOURCES.every((source) => /^-\d+$/.test(source.peerId)),
+    true
+  );
 });
 
 test("merges archive newest first", () => {
@@ -293,7 +339,7 @@ test("preserves existing queue category and risk mappings", () => {
   assert.equal(queueRisk({ reason: "first-person personal stakes" }), "Low");
 });
 
-test("routes high-risk contexts through Reality Flow before reply selection", () => {
+test("uses SRE side-car before existing reply selection", () => {
   const run = {
     startedAt: "2026-06-24T13:00:00.000Z",
     completedAt: "2026-06-24T13:01:00.000Z",
@@ -357,14 +403,14 @@ test("routes high-risk contexts through Reality Flow before reply selection", ()
     ]
   };
   const queue = buildReplyQueuePayload(run, "/tmp/latest.json", { random: () => 0 });
-  const forbidden = /\b(may|hope|wishing|wish you|pray|prayer|blessing|everything will be fine|stay strong|you will be okay)\b/i;
 
   for (const item of queue.items) {
-    assert.equal(routeResponseMode(item, item.category), "REALITY_FLOW");
-    assert.doesNotMatch(item.blessingDraft, forbidden);
-    assert.doesNotMatch(item.replyDraftA, forbidden);
-    assert.doesNotMatch(item.replyDraftB, forbidden);
-    assert.doesNotMatch(item.replyDraftC, forbidden);
+    assert.equal(item.blessingDraft, item.replyDraftA);
+    assert.notEqual(item.replyDraftB, item.replyDraftA);
+    assert.notEqual(item.replyDraftC, item.replyDraftA);
+    assert.notEqual(item.replyDraftC, item.replyDraftB);
+    assert.ok(shrineReplyEngine(item, item.category, () => 0));
+    assert.doesNotMatch(item.replyDraftA, /A position creates exposure immediately|Waiting is not neutral here|A loss is not only an event/);
   }
 });
 
@@ -444,26 +490,103 @@ test("formats Run HUD as an operational queue", () => {
   );
 });
 
-test("keeps previously seen Telegram messages queue-eligible with a score penalty", () => {
+test("formats Run HUD without empty reply rows", () => {
+  const output = formatOperationHud({
+    topQueue: {
+      queue: [{
+        rank: 1,
+        priorityScore: 0.9,
+        group: "Bitget English",
+        category: "Waiting",
+        original: "Still waiting for the result",
+        author: "Tester",
+        source: "Telegram",
+        replyDraftA: "Only reply text",
+        replyDraftB: "",
+        replyDraftC: "",
+        status: "pending_human_review"
+      }]
+    }
+  });
+
+  assert.match(output, /\( \) Only reply text/);
+  assert.doesNotMatch(output, /\( \) \n\( \) /);
+});
+
+test("freshness gate only allows current-day Telegram time labels", () => {
+  const options = {
+    now: Date.parse("2026-06-29T02:17:00.000Z"),
+    timeZone: "Asia/Shanghai",
+    maxAgeMs: 4 * 60 * 60 * 1000,
+    futureToleranceMs: 5 * 60 * 1000
+  };
+  assert.equal(hasFreshTelegramTimestamp({ timestamp: "10:12" }, options), true);
+  assert.equal(hasFreshTelegramTimestamp({ timestamp: "09:20" }, options), true);
+  assert.equal(hasFreshTelegramTimestamp({ timestamp: "10:43" }, options), false);
+  assert.equal(hasFreshTelegramTimestamp({ timestamp: "03:07" }, options), false);
+  assert.equal(hasFreshTelegramTimestamp({ timestamp: "Today" }, options), true);
+  assert.equal(hasFreshTelegramTimestamp({ timestamp: "Thu" }, options), false);
+  assert.equal(hasFreshTelegramTimestamp({ timestamp: "Wed" }, options), false);
+  assert.equal(hasFreshTelegramTimestamp({ timestamp: "May 11" }, options), false);
+  assert.equal(hasFreshTelegramTimestamp({ timestamp: "Jun 19" }, options), false);
+  assert.equal(hasFreshTelegramTimestamp({ timestamp: "" }, options), false);
+});
+
+test("excludes stale Telegram search results before queue ranking", () => {
+  const fresh = {
+    peerId: "-100",
+    messageId: "101",
+    group: "Bitget English",
+    message: "I am waiting",
+    timestamp: "10:12",
+    score: 0.8
+  };
+  const stale = {
+    peerId: "-100",
+    messageId: "102",
+    group: "Bitget English",
+    message: "Pray for me",
+    timestamp: "May 11",
+    score: 0.95
+  };
+  const partition = partitionQueueEligibility([stale, fresh], [], {
+    now: Date.parse("2026-06-29T02:17:00.000Z"),
+    timeZone: "Asia/Shanghai"
+  });
+
+  assert.deepEqual(
+    partition.queueResults.map(candidateIdentity),
+    ["-100:101"]
+  );
+});
+
+test("filters previously seen Telegram messages before queue ranking", () => {
   const processed = {
     peerId: "-100",
     messageId: "42",
     group: "Bitget English",
     message: "Pray for me",
     score: 0.75,
-    reason: "explicit request for luck or prayer"
+    reason: "explicit request for luck or prayer",
+    status: "sent",
+    lastProcessedAt: "2026-06-28T01:00:00.000Z"
   };
   const fresh = {
     peerId: "-100",
     messageId: "43",
     group: "Bitget English",
     message: "Still waiting",
+    timestamp: "10:01",
     score: 0.8,
     reason: "direct personal waiting"
   };
   const partition = partitionQueueEligibility(
     [{ ...processed }, fresh],
-    [processed]
+    [processed],
+    {
+      now: Date.parse("2026-06-28T02:00:00.000Z"),
+      cooldownMs: 6 * 60 * 60 * 1000
+    }
   );
 
   assert.equal(candidateIdentity(processed), "-100:42");
@@ -477,14 +600,61 @@ test("keeps previously seen Telegram messages queue-eligible with a score penalt
   );
   assert.deepEqual(
     partition.queueResults.map(candidateIdentity),
-    ["-100:43", "-100:42"]
+    ["-100:43"]
   );
-  assert.equal(partition.queueResults.find((item) =>
-    candidateIdentity(item) === "-100:42"
-  ).seenAgain, true);
-  assert.equal(partition.queueResults.find((item) =>
-    candidateIdentity(item) === "-100:42"
-  ).score, 0.72);
+});
+
+test("does not treat auto-queued messages as processed", () => {
+  const queued = {
+    peerId: "-100",
+    messageId: "42",
+    group: "Bitget English",
+    message: "Pray for me",
+    timestamp: "10:01",
+    status: "processed",
+    lastProcessedAt: "2026-06-28T01:00:00.000Z"
+  };
+  const partition = partitionQueueEligibility(
+    [{ ...queued, score: 0.9 }],
+    [queued],
+    {
+      now: Date.parse("2026-06-28T02:00:00.000Z"),
+      cooldownMs: 6 * 60 * 60 * 1000
+    }
+  );
+
+  assert.deepEqual(
+    partition.queueResults.map(candidateIdentity),
+    ["-100:42"]
+  );
+});
+
+test("keeps manually sent Telegram messages excluded after cooldown", () => {
+  const processed = {
+    peerId: "-100",
+    messageId: "42",
+    group: "Bitget English",
+    message: "Pray for me",
+    score: 0.75,
+    reason: "explicit request for luck or prayer",
+    status: "sent",
+    lastProcessedAt: "2026-06-27T18:00:00.000Z"
+  };
+  const partition = partitionQueueEligibility(
+    [{ ...processed }],
+    [processed],
+    {
+      now: Date.parse("2026-06-28T02:00:00.000Z"),
+      cooldownMs: 6 * 60 * 60 * 1000
+    }
+  );
+
+  assert.deepEqual(partition.freshResults, []);
+  assert.deepEqual(
+    partition.seenAgainResults.map(candidateIdentity),
+    ["-100:42"]
+  );
+  assert.deepEqual(partition.queueResults, []);
 });
 
 test("matches legacy archive records that lack peerId", () => {
@@ -498,9 +668,14 @@ test("matches legacy archive records that lack peerId", () => {
     peerId: "",
     messageId: "4304492379",
     group: "Bitget English",
-    message: "Pray for me"
+    message: "Pray for me",
+    status: "sent",
+    lastProcessedAt: "2026-06-28T01:00:00.000Z"
   };
-  const partition = partitionQueueEligibility([current], [legacyArchive]);
+  const partition = partitionQueueEligibility([current], [legacyArchive], {
+    now: Date.parse("2026-06-28T02:00:00.000Z"),
+    cooldownMs: 6 * 60 * 60 * 1000
+  });
 
   assert.equal(partition.freshResults.length, 0);
   assert.deepEqual(
@@ -509,6 +684,6 @@ test("matches legacy archive records that lack peerId", () => {
   );
   assert.deepEqual(
     partition.queueResults.map(candidateIdentity),
-    ["-1872223162:4304492379"]
+    []
   );
 });

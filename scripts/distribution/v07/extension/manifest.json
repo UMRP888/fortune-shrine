@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Fortune Shrine V0.7 Draft Filler",
+  "version": "0.7.1",
+  "description": "Fills one approved Fortune Shrine draft into an X or Polymarket reply box. Never sends.",
+  "permissions": ["scripting", "debugger"],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*",
+    "https://polymarket.com/*",
+    "http://127.0.0.1:4191/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://x.com/*/status/*",
+        "https://twitter.com/*/status/*",
+        "https://x.com/compose/post*",
+        "https://twitter.com/compose/post*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://polymarket.com/event/*",
+        "https://polymarket.com/zh/event/*"
+      ],
+      "js": ["polymarket.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

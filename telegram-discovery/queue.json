@@ -1,0 +1,734 @@
+{
+  "version": "telegram-discovery-hud-queue-v1",
+  "generatedAt": "2026-06-26T15:31:08.141Z",
+  "source": "Telegram Web",
+  "mode": "discovery-only",
+  "policy": {
+    "autoReply": false,
+    "autoSend": false,
+    "blessingSystemTouched": false
+  },
+  "startedAt": "2026-06-26T15:30:20.147Z",
+  "completedAt": "2026-06-26T15:31:08.141Z",
+  "keywords": [
+    "wish me luck",
+    "good luck",
+    "pray",
+    "pray for me",
+    "all in",
+    "hope",
+    "waiting",
+    "fingers crossed",
+    "need this",
+    "please work",
+    "nervous",
+    "uncertain",
+    "announcement",
+    "trade",
+    "win",
+    "lose",
+    "liquidation",
+    "long",
+    "short"
+  ],
+  "allowedChats": [
+    "GMX",
+    "Gains Network",
+    "Bitget English",
+    "Bybit English"
+  ],
+  "rawMatchCount": 48,
+  "eligibleCount": 43,
+  "queueLimit": 50,
+  "queue": [
+    {
+      "rank": 1,
+      "group": "Bitget English",
+      "message": "I've been waiting for that question 😂😆 What's on your mind?",
+      "score": 0.8,
+      "reason": "direct personal waiting + first-person personal stakes",
+      "author": "Ernest",
+      "timestamp": "08:22",
+      "messageId": "4304735299",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:41.123Z",
+      "matchedKeywords": [
+        "waiting"
+      ]
+    },
+    {
+      "rank": 2,
+      "group": "Bitget English",
+      "message": "I'm waiting for your own day, you that knows how to cry",
+      "score": 0.8,
+      "reason": "direct personal waiting + first-person personal stakes",
+      "author": "Ernest",
+      "timestamp": "07:58",
+      "messageId": "4304734896",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:41.123Z",
+      "matchedKeywords": [
+        "waiting"
+      ]
+    },
+    {
+      "rank": 3,
+      "group": "Bitget English",
+      "message": "Not yet I am also waiting for that",
+      "score": 0.8,
+      "reason": "direct personal waiting + first-person personal stakes",
+      "author": "Maaz",
+      "timestamp": "07:25",
+      "messageId": "4304734596",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:41.123Z",
+      "matchedKeywords": [
+        "waiting"
+      ]
+    },
+    {
+      "rank": 4,
+      "group": "Bitget English",
+      "message": "I’m just waiting till it starts getting better",
+      "score": 0.8,
+      "reason": "direct personal waiting + first-person personal stakes",
+      "author": "Dopeblaq",
+      "timestamp": "06:17",
+      "messageId": "4304733253",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:41.123Z",
+      "matchedKeywords": [
+        "waiting"
+      ]
+    },
+    {
+      "rank": 5,
+      "group": "Bitget English",
+      "message": "Yeah I hope so too Fingers crossed",
+      "score": 0.8,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty + first-person personal stakes",
+      "author": "Miss",
+      "timestamp": "Jun 21",
+      "messageId": "4304668555",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed",
+        "hope"
+      ]
+    },
+    {
+      "rank": 6,
+      "group": "Bitget English",
+      "message": "Sorry about that I hope your loss was minimal",
+      "score": 0.76,
+      "reason": "hope without explicit blessing request + first-person personal stakes",
+      "author": "Miss",
+      "timestamp": "08:22",
+      "messageId": "4304735303",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.859Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 7,
+      "group": "Bitget English",
+      "message": "We have to be complex sometimes hope you get it",
+      "score": 0.76,
+      "reason": "hope without explicit blessing request + first-person personal stakes",
+      "author": "Jennifer James 🍅",
+      "timestamp": "08:14",
+      "messageId": "4304735125",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.859Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 8,
+      "group": "Bitget English",
+      "message": "Hope you will do that Let me calm down for you",
+      "score": 0.76,
+      "reason": "hope without explicit blessing request + first-person personal stakes",
+      "author": "Alilu Timothy🌱SEED🆙 UXUY",
+      "timestamp": "08:12",
+      "messageId": "4304735096",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.859Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 9,
+      "group": "Bitget English",
+      "message": "What do you mean by complying I hope you're not trying to tell me to forget about my money",
+      "score": 0.76,
+      "reason": "hope without explicit blessing request + first-person personal stakes",
+      "author": "Miss",
+      "timestamp": "08:08",
+      "messageId": "4304735029",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.859Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 10,
+      "group": "Bitget English",
+      "message": "Yeah surely I'm Hope same with ya?",
+      "score": 0.76,
+      "reason": "hope without explicit blessing request + first-person personal stakes",
+      "author": "Ernest",
+      "timestamp": "08:02",
+      "messageId": "4304734946",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.859Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 11,
+      "group": "Bitget English",
+      "message": "😂😂😂 This one you sound okay with loosing the shoulders I hope it's not metal that's inside there",
+      "score": 0.76,
+      "reason": "hope without explicit blessing request + first-person personal stakes",
+      "author": "Miss",
+      "timestamp": "07:47",
+      "messageId": "4304734772",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.860Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 12,
+      "group": "Bitget English",
+      "message": "Oh I see I hope you are enjoying your time",
+      "score": 0.76,
+      "reason": "hope without explicit blessing request + first-person personal stakes",
+      "author": "Buzzy",
+      "timestamp": "07:40",
+      "messageId": "4304734704",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.860Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 13,
+      "group": "Bitget English",
+      "message": "Oh that will be fine I hope is beef stew",
+      "score": 0.76,
+      "reason": "hope without explicit blessing request + first-person personal stakes",
+      "author": "Buzzy",
+      "timestamp": "07:24",
+      "messageId": "4304734580",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.860Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 14,
+      "group": "Bitget English",
+      "message": "I hope he gets what he deserves",
+      "score": 0.76,
+      "reason": "hope without explicit blessing request + first-person personal stakes",
+      "author": "Pal Javi",
+      "timestamp": "07:19",
+      "messageId": "4304734493",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.860Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 15,
+      "group": "Bitget English",
+      "message": "I think so, fingers crossed.",
+      "score": 0.76,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty + first-person personal stakes",
+      "author": "I'M Auwal⚡️",
+      "timestamp": "05:27",
+      "messageId": "4304732738",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 16,
+      "group": "Bybit English",
+      "message": "Same here But I joined this edition early so fingers crossed",
+      "score": 0.76,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty + first-person personal stakes",
+      "author": "John",
+      "timestamp": "Thu",
+      "messageId": "4299336554",
+      "peerId": "-1453035653",
+      "messageUrl": "https://web.telegram.org/k/#-1453035653",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 17,
+      "group": "Bitget English",
+      "message": "I think today is riddle day ☺️ Fingers crossed",
+      "score": 0.76,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty + first-person personal stakes",
+      "author": "꧁𓊈𒆜🆁🅾🅺🅷🆁🅸𒆜𓊉꧂",
+      "timestamp": "Jun 20",
+      "messageId": "4304649946",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 18,
+      "group": "Bitget English",
+      "message": "that’s good, no endless waiting like some promos",
+      "score": 0.72,
+      "reason": "anxiety or uncertainty",
+      "author": "Rowan",
+      "timestamp": "07:03",
+      "messageId": "4304734296",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:41.123Z",
+      "matchedKeywords": [
+        "waiting"
+      ]
+    },
+    {
+      "rank": 19,
+      "group": "Bitget English",
+      "message": "Yeah Volume seems low Waiting for a clear move before jumping in",
+      "score": 0.72,
+      "reason": "anxiety or uncertainty",
+      "author": "Brandon",
+      "timestamp": "06:18",
+      "messageId": "4304733278",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:41.123Z",
+      "matchedKeywords": [
+        "waiting"
+      ]
+    },
+    {
+      "rank": 20,
+      "group": "Bitget English",
+      "message": "Ooh Let hope for revival",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request",
+      "author": "A Isma'il",
+      "timestamp": "08:00",
+      "messageId": "4304734928",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.859Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 21,
+      "group": "Bitget English",
+      "message": "Hope you have gotten something to eat today",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request",
+      "author": "Jennifer James 🍅",
+      "timestamp": "07:51",
+      "messageId": "4304734808",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.860Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 22,
+      "group": "Bitget English",
+      "message": "Am doing well as well ☺️ Hope your having a fabulous day",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request",
+      "author": "Villain🥷",
+      "timestamp": "07:47",
+      "messageId": "4304734768",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.860Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 23,
+      "group": "Bitget English",
+      "message": "Not good thing out of it? Hope there is no problem",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request",
+      "author": "Buzzy",
+      "timestamp": "07:41",
+      "messageId": "4304734711",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.860Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 24,
+      "group": "Bitget English",
+      "message": "That's Nicee hope you got alot of things done",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request",
+      "author": "Villain🥷",
+      "timestamp": "07:35",
+      "messageId": "4304734673",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.860Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 25,
+      "group": "Bitget English",
+      "message": "You can it gets better Always hope for a good day",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request",
+      "author": "Miss",
+      "timestamp": "07:18",
+      "messageId": "4304734492",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:38.860Z",
+      "matchedKeywords": [
+        "hope"
+      ]
+    },
+    {
+      "rank": 26,
+      "group": "Bitget English",
+      "message": "Fingers crossed for a calm heart while you wait.",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "You:",
+      "timestamp": "07:18",
+      "messageId": "4304734479",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 27,
+      "group": "Bitget English",
+      "message": "Fingers crossed for us all. How's your day so far?",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "I'M Auwal⚡️",
+      "timestamp": "05:17",
+      "messageId": "4304732527",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 28,
+      "group": "Bybit English",
+      "message": "Fingers crossed for a calm heart while you wait.",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "You:",
+      "timestamp": "00:37",
+      "messageId": "4299340534",
+      "peerId": "-1453035653",
+      "messageUrl": "https://web.telegram.org/k/#-1453035653",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 29,
+      "group": "Bitget English",
+      "message": "Fingers crossed for a calm heart while you wait.",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "You:",
+      "timestamp": "Thu",
+      "messageId": "4304723404",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 30,
+      "group": "Bybit English",
+      "message": "Fingers crossed for a calm heart while you wait.",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "You:",
+      "timestamp": "Thu",
+      "messageId": "4299337982",
+      "peerId": "-1453035653",
+      "messageUrl": "https://web.telegram.org/k/#-1453035653",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 31,
+      "group": "Bitget English",
+      "message": "Fingers crossed for a calm heart while you wait.",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "You:",
+      "timestamp": "Thu",
+      "messageId": "4304720005",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 32,
+      "group": "Bybit English",
+      "message": "Fingers crossed for a calm heart while you wait.",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "You:",
+      "timestamp": "Thu",
+      "messageId": "4299337877",
+      "peerId": "-1453035653",
+      "messageUrl": "https://web.telegram.org/k/#-1453035653",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 33,
+      "group": "Bybit English",
+      "message": "Fingers crossed for a calm heart while you wait.",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "You:",
+      "timestamp": "Thu",
+      "messageId": "4299337876",
+      "peerId": "-1453035653",
+      "messageUrl": "https://web.telegram.org/k/#-1453035653",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 34,
+      "group": "Bitget English",
+      "message": "Fingers crossed for a calm heart while you wait.",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "You:",
+      "timestamp": "Thu",
+      "messageId": "4304719998",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 35,
+      "group": "Bybit English",
+      "message": "Fingers crossed for a calm heart while you wait.",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "You:",
+      "timestamp": "Thu",
+      "messageId": "4299337871",
+      "peerId": "-1453035653",
+      "messageUrl": "https://web.telegram.org/k/#-1453035653",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 36,
+      "group": "Bitget English",
+      "message": "Fingers crossed for a calm heart while you wait.",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "You:",
+      "timestamp": "Thu",
+      "messageId": "4304719986",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 37,
+      "group": "Bitget English",
+      "message": "Yeah, fingers crossed! How's your day going so far?",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "I'M Auwal⚡️",
+      "timestamp": "Thu",
+      "messageId": "4304716307",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 38,
+      "group": "Bitget English",
+      "message": "Fingers crossed for them! Did you catch the game yesterday?",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "I'M Auwal⚡️",
+      "timestamp": "Thu",
+      "messageId": "4304716164",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 39,
+      "group": "Bitget English",
+      "message": "Fingers crossed!",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "I'M Auwal⚡️",
+      "timestamp": "Tue",
+      "messageId": "4304700077",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 40,
+      "group": "Bitget English",
+      "message": "Fingers crossed it pays off. Have you seen that new movie that just came out?",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "I'M Auwal⚡️",
+      "timestamp": "Tue",
+      "messageId": "4304696135",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 41,
+      "group": "Bitget English",
+      "message": "Let's fingers crossed",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "AQSA",
+      "timestamp": "Mon",
+      "messageId": "4304679520",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 42,
+      "group": "Bitget English",
+      "message": "Time of fingers crossed 🤞",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "꧁𓊈𒆜🆁🅾🅺🅷🆁🅸𒆜𓊉꧂",
+      "timestamp": "Jun 20",
+      "messageId": "4304649556",
+      "peerId": "-1872223162",
+      "messageUrl": "https://web.telegram.org/k/#-1872223162",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    },
+    {
+      "rank": 43,
+      "group": "Bybit English",
+      "message": "True, fingers crossed for a good game tonight! 🤞",
+      "score": 0.71,
+      "reason": "hope without explicit blessing request + anxiety or uncertainty",
+      "author": "Зоя",
+      "timestamp": "Jun 19",
+      "messageId": "4299312748",
+      "peerId": "-1453035653",
+      "messageUrl": "https://web.telegram.org/k/#-1453035653",
+      "observedAt": "2026-06-26T15:30:43.409Z",
+      "matchedKeywords": [
+        "fingers crossed"
+      ]
+    }
+  ]
+}

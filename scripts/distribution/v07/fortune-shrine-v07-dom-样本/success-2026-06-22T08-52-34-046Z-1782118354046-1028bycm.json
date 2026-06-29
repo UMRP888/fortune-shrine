@@ -1,0 +1,1802 @@
+{
+  "sampleId": "1782118354046-1028bycm",
+  "capturedAt": "2026-06-22T08:52:34.046Z",
+  "outcome": "success",
+  "locationHref": "https://x.com/compose/post",
+  "targetTweetUrl": "https://x.com/BobLoukas/status/2068320442331369981",
+  "replyText": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+  "focusData": {
+    "beforeFocus": {
+      "activeElementOuterHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><br data-text=\"true\"></span></div></div></div></div>",
+      "activeElementTagName": "DIV"
+    },
+    "afterFocus": {
+      "activeElementOuterHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><br data-text=\"true\"></span></div></div></div></div>",
+      "activeElementTagName": "DIV"
+    },
+    "beforeInsert": {
+      "activeElementOuterHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><br data-text=\"true\"></span></div></div></div></div>",
+      "activeElementPath": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div",
+      "activeElementReact": {
+        "detected": true,
+        "fiber": [
+          {
+            "elementType": "div",
+            "memoizedPropsKeys": [
+              "aria-activedescendant",
+              "aria-autocomplete",
+              "aria-controls",
+              "aria-describedby",
+              "aria-expanded",
+              "aria-label",
+              "aria-labelledby",
+              "aria-multiline",
+              "aria-owns",
+              "autoCapitalize",
+              "autoComplete",
+              "autoCorrect",
+              "className",
+              "contentEditable",
+              "data-testid",
+              "onBeforeInput",
+              "onBlur",
+              "onCompositionEnd",
+              "onCompositionStart",
+              "onCopy",
+              "onCut",
+              "onDragEnd",
+              "onDragEnter",
+              "onDragLeave",
+              "onDragOver",
+              "onDragStart",
+              "onDrop",
+              "onFocus",
+              "onInput",
+              "onKeyDown",
+              "onKeyPress",
+              "onKeyUp",
+              "onMouseUp",
+              "onPaste",
+              "onSelect",
+              "role",
+              "spellCheck",
+              "style",
+              "suppressContentEditableWarning",
+              "tabIndex",
+              "no-focustrapview-refocus",
+              "children"
+            ],
+            "tag": 5,
+            "type": "div"
+          }
+        ],
+        "keys": [
+          "__reactFiber$1kkgphuza4s",
+          "__reactProps$1kkgphuza4s"
+        ]
+      },
+      "contentEditableTree": [
+        {
+          "ariaLabel": "Post text",
+          "className": "notranslate public-DraftEditor-content",
+          "contentEditable": "true",
+          "innerText": "\n",
+          "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><br data-text=\"true\"></span></div></div></div></div>",
+          "parentChain": [
+            {
+              "className": "DraftEditor-editorContainer",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "DraftEditor-root",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "r-1niwhzg r-17gur6a r-1yadl64 r-deolkf r-homxoj r-poiln3 r-7cikom r-1ny4l3l r-1ttztb7 r-t60dpp",
+              "role": null,
+              "tagName": "DIV",
+              "testId": "tweetTextarea_0RichTextInputContainer"
+            },
+            {
+              "className": "false draftjs-styles_0 ",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r r-xoduu5 r-xyw6el r-13qz1uu r-1e084wi",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-6koalj",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r r-1wbh5a2 r-16y2uox",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r r-1dqbpge r-13awgt0 r-18u37iz",
+              "role": null,
+              "tagName": "DIV",
+              "testId": "tweetTextarea_0_label"
+            },
+            {
+              "className": "css-175oi2r r-1awozwy r-18u37iz",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            }
+          ],
+          "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div",
+          "react": {
+            "detected": true,
+            "fiber": [
+              {
+                "elementType": "div",
+                "memoizedPropsKeys": [
+                  "aria-activedescendant",
+                  "aria-autocomplete",
+                  "aria-controls",
+                  "aria-describedby",
+                  "aria-expanded",
+                  "aria-label",
+                  "aria-labelledby",
+                  "aria-multiline",
+                  "aria-owns",
+                  "autoCapitalize",
+                  "autoComplete",
+                  "autoCorrect",
+                  "className",
+                  "contentEditable",
+                  "data-testid",
+                  "onBeforeInput",
+                  "onBlur",
+                  "onCompositionEnd",
+                  "onCompositionStart",
+                  "onCopy",
+                  "onCut",
+                  "onDragEnd",
+                  "onDragEnter",
+                  "onDragLeave",
+                  "onDragOver",
+                  "onDragStart",
+                  "onDrop",
+                  "onFocus",
+                  "onInput",
+                  "onKeyDown",
+                  "onKeyPress",
+                  "onKeyUp",
+                  "onMouseUp",
+                  "onPaste",
+                  "onSelect",
+                  "role",
+                  "spellCheck",
+                  "style",
+                  "suppressContentEditableWarning",
+                  "tabIndex",
+                  "no-focustrapview-refocus",
+                  "children"
+                ],
+                "tag": 5,
+                "type": "div"
+              }
+            ],
+            "keys": [
+              "__reactFiber$1kkgphuza4s",
+              "__reactProps$1kkgphuza4s"
+            ]
+          },
+          "role": "textbox",
+          "tagName": "DIV",
+          "testId": "tweetTextarea_0",
+          "textContent": "",
+          "uniqueAttributeIdentifier": "DIV|textbox|tweetTextarea_0|Post text|notranslate public-DraftEditor-content|div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div"
+        },
+        {
+          "ariaLabel": "Post text",
+          "className": "notranslate public-DraftEditor-content",
+          "contentEditable": "true",
+          "innerText": "\n",
+          "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.10763278788567188\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-0\" aria-describedby=\"placeholder-4ijbc\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"4ijbc\" data-offset-key=\"4g3ro-0-0\"><div data-offset-key=\"4g3ro-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"4g3ro-0-0\"><br data-text=\"true\"></span></div></div></div></div>",
+          "parentChain": [
+            {
+              "className": "DraftEditor-editorContainer",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "DraftEditor-root",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "r-1niwhzg r-17gur6a r-1yadl64 r-deolkf r-homxoj r-poiln3 r-7cikom r-1ny4l3l r-1ttztb7 r-t60dpp",
+              "role": null,
+              "tagName": "DIV",
+              "testId": "tweetTextarea_0RichTextInputContainer"
+            },
+            {
+              "className": "false draftjs-styles_0 ",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r r-xoduu5 r-xyw6el r-13qz1uu r-1e084wi",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-6koalj",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r r-1wbh5a2 r-16y2uox",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r r-1dqbpge r-13awgt0 r-18u37iz",
+              "role": null,
+              "tagName": "DIV",
+              "testId": "tweetTextarea_0_label"
+            },
+            {
+              "className": "css-175oi2r r-1awozwy r-18u37iz",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            }
+          ],
+          "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div",
+          "react": {
+            "detected": true,
+            "fiber": [
+              {
+                "elementType": "div",
+                "memoizedPropsKeys": [
+                  "aria-activedescendant",
+                  "aria-autocomplete",
+                  "aria-controls",
+                  "aria-describedby",
+                  "aria-expanded",
+                  "aria-label",
+                  "aria-labelledby",
+                  "aria-multiline",
+                  "aria-owns",
+                  "autoCapitalize",
+                  "autoComplete",
+                  "autoCorrect",
+                  "className",
+                  "contentEditable",
+                  "data-testid",
+                  "onBeforeInput",
+                  "onBlur",
+                  "onCompositionEnd",
+                  "onCompositionStart",
+                  "onCopy",
+                  "onCut",
+                  "onDragEnd",
+                  "onDragEnter",
+                  "onDragLeave",
+                  "onDragOver",
+                  "onDragStart",
+                  "onDrop",
+                  "onFocus",
+                  "onInput",
+                  "onKeyDown",
+                  "onKeyPress",
+                  "onKeyUp",
+                  "onMouseUp",
+                  "onPaste",
+                  "onSelect",
+                  "role",
+                  "spellCheck",
+                  "style",
+                  "suppressContentEditableWarning",
+                  "tabIndex",
+                  "no-focustrapview-refocus",
+                  "children"
+                ],
+                "tag": 5,
+                "type": "div"
+              }
+            ],
+            "keys": [
+              "__reactFiber$1kkgphuza4s",
+              "__reactProps$1kkgphuza4s"
+            ]
+          },
+          "role": "textbox",
+          "tagName": "DIV",
+          "testId": "tweetTextarea_0",
+          "textContent": "",
+          "uniqueAttributeIdentifier": "DIV|textbox|tweetTextarea_0|Post text|notranslate public-DraftEditor-content|div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div"
+        }
+      ],
+      "textboxFound": true,
+      "textboxInnerText": "\n",
+      "textboxOuterHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><br data-text=\"true\"></span></div></div></div></div>",
+      "textboxPath": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div",
+      "textboxReact": {
+        "detected": true,
+        "fiber": [
+          {
+            "elementType": "div",
+            "memoizedPropsKeys": [
+              "aria-activedescendant",
+              "aria-autocomplete",
+              "aria-controls",
+              "aria-describedby",
+              "aria-expanded",
+              "aria-label",
+              "aria-labelledby",
+              "aria-multiline",
+              "aria-owns",
+              "autoCapitalize",
+              "autoComplete",
+              "autoCorrect",
+              "className",
+              "contentEditable",
+              "data-testid",
+              "onBeforeInput",
+              "onBlur",
+              "onCompositionEnd",
+              "onCompositionStart",
+              "onCopy",
+              "onCut",
+              "onDragEnd",
+              "onDragEnter",
+              "onDragLeave",
+              "onDragOver",
+              "onDragStart",
+              "onDrop",
+              "onFocus",
+              "onInput",
+              "onKeyDown",
+              "onKeyPress",
+              "onKeyUp",
+              "onMouseUp",
+              "onPaste",
+              "onSelect",
+              "role",
+              "spellCheck",
+              "style",
+              "suppressContentEditableWarning",
+              "tabIndex",
+              "no-focustrapview-refocus",
+              "children"
+            ],
+            "tag": 5,
+            "type": "div"
+          }
+        ],
+        "keys": [
+          "__reactFiber$1kkgphuza4s",
+          "__reactProps$1kkgphuza4s"
+        ]
+      },
+      "textboxTextContent": ""
+    },
+    "afterInsert": {
+      "activeElementOuterHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+      "activeElementPath": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+      "activeElementReact": {
+        "detected": true,
+        "fiber": [
+          {
+            "elementType": "div",
+            "memoizedPropsKeys": [
+              "aria-activedescendant",
+              "aria-autocomplete",
+              "aria-controls",
+              "aria-describedby",
+              "aria-expanded",
+              "aria-label",
+              "aria-labelledby",
+              "aria-multiline",
+              "aria-owns",
+              "autoCapitalize",
+              "autoComplete",
+              "autoCorrect",
+              "className",
+              "contentEditable",
+              "data-testid",
+              "onBeforeInput",
+              "onBlur",
+              "onCompositionEnd",
+              "onCompositionStart",
+              "onCopy",
+              "onCut",
+              "onDragEnd",
+              "onDragEnter",
+              "onDragLeave",
+              "onDragOver",
+              "onDragStart",
+              "onDrop",
+              "onFocus",
+              "onInput",
+              "onKeyDown",
+              "onKeyPress",
+              "onKeyUp",
+              "onMouseUp",
+              "onPaste",
+              "onSelect",
+              "role",
+              "spellCheck",
+              "style",
+              "suppressContentEditableWarning",
+              "tabIndex",
+              "no-focustrapview-refocus",
+              "children"
+            ],
+            "tag": 5,
+            "type": "div"
+          }
+        ],
+        "keys": [
+          "__reactFiber$1kkgphuza4s",
+          "__reactProps$1kkgphuza4s"
+        ]
+      },
+      "contentEditableTree": [
+        {
+          "ariaLabel": "Post text",
+          "className": "notranslate public-DraftEditor-content",
+          "contentEditable": "true",
+          "innerText": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+          "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+          "parentChain": [
+            {
+              "className": "DraftEditor-editorContainer",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "DraftEditor-root",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "r-1niwhzg r-17gur6a r-1yadl64 r-deolkf r-homxoj r-poiln3 r-7cikom r-1ny4l3l r-1ttztb7 r-t60dpp",
+              "role": null,
+              "tagName": "DIV",
+              "testId": "tweetTextarea_0RichTextInputContainer"
+            },
+            {
+              "className": "false draftjs-styles_0 ",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r r-xoduu5 r-xyw6el r-13qz1uu r-1e084wi",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-6koalj",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r r-1wbh5a2 r-16y2uox",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r r-1dqbpge r-13awgt0 r-18u37iz",
+              "role": null,
+              "tagName": "DIV",
+              "testId": "tweetTextarea_0_label"
+            },
+            {
+              "className": "css-175oi2r r-1awozwy r-18u37iz",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            }
+          ],
+          "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+          "react": {
+            "detected": true,
+            "fiber": [
+              {
+                "elementType": "div",
+                "memoizedPropsKeys": [
+                  "aria-activedescendant",
+                  "aria-autocomplete",
+                  "aria-controls",
+                  "aria-describedby",
+                  "aria-expanded",
+                  "aria-label",
+                  "aria-labelledby",
+                  "aria-multiline",
+                  "aria-owns",
+                  "autoCapitalize",
+                  "autoComplete",
+                  "autoCorrect",
+                  "className",
+                  "contentEditable",
+                  "data-testid",
+                  "onBeforeInput",
+                  "onBlur",
+                  "onCompositionEnd",
+                  "onCompositionStart",
+                  "onCopy",
+                  "onCut",
+                  "onDragEnd",
+                  "onDragEnter",
+                  "onDragLeave",
+                  "onDragOver",
+                  "onDragStart",
+                  "onDrop",
+                  "onFocus",
+                  "onInput",
+                  "onKeyDown",
+                  "onKeyPress",
+                  "onKeyUp",
+                  "onMouseUp",
+                  "onPaste",
+                  "onSelect",
+                  "role",
+                  "spellCheck",
+                  "style",
+                  "suppressContentEditableWarning",
+                  "tabIndex",
+                  "no-focustrapview-refocus",
+                  "children"
+                ],
+                "tag": 5,
+                "type": "div"
+              }
+            ],
+            "keys": [
+              "__reactFiber$1kkgphuza4s",
+              "__reactProps$1kkgphuza4s"
+            ]
+          },
+          "role": "textbox",
+          "tagName": "DIV",
+          "testId": "tweetTextarea_0",
+          "textContent": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+          "uniqueAttributeIdentifier": "DIV|textbox|tweetTextarea_0|Post text|notranslate public-DraftEditor-content|div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div"
+        },
+        {
+          "ariaLabel": "Post text",
+          "className": "notranslate public-DraftEditor-content",
+          "contentEditable": "true",
+          "innerText": "\n",
+          "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.10763278788567188\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-0\" aria-describedby=\"placeholder-4ijbc\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"4ijbc\" data-offset-key=\"4g3ro-0-0\"><div data-offset-key=\"4g3ro-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"4g3ro-0-0\"><br data-text=\"true\"></span></div></div></div></div>",
+          "parentChain": [
+            {
+              "className": "DraftEditor-editorContainer",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "DraftEditor-root",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "r-1niwhzg r-17gur6a r-1yadl64 r-deolkf r-homxoj r-poiln3 r-7cikom r-1ny4l3l r-1ttztb7 r-t60dpp",
+              "role": null,
+              "tagName": "DIV",
+              "testId": "tweetTextarea_0RichTextInputContainer"
+            },
+            {
+              "className": "false draftjs-styles_0 ",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r r-xoduu5 r-xyw6el r-13qz1uu r-1e084wi",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-6koalj",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r r-1wbh5a2 r-16y2uox",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r r-1dqbpge r-13awgt0 r-18u37iz",
+              "role": null,
+              "tagName": "DIV",
+              "testId": "tweetTextarea_0_label"
+            },
+            {
+              "className": "css-175oi2r r-1awozwy r-18u37iz",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            },
+            {
+              "className": "css-175oi2r",
+              "role": null,
+              "tagName": "DIV",
+              "testId": null
+            }
+          ],
+          "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div",
+          "react": {
+            "detected": true,
+            "fiber": [
+              {
+                "elementType": "div",
+                "memoizedPropsKeys": [
+                  "aria-activedescendant",
+                  "aria-autocomplete",
+                  "aria-controls",
+                  "aria-describedby",
+                  "aria-expanded",
+                  "aria-label",
+                  "aria-labelledby",
+                  "aria-multiline",
+                  "aria-owns",
+                  "autoCapitalize",
+                  "autoComplete",
+                  "autoCorrect",
+                  "className",
+                  "contentEditable",
+                  "data-testid",
+                  "onBeforeInput",
+                  "onBlur",
+                  "onCompositionEnd",
+                  "onCompositionStart",
+                  "onCopy",
+                  "onCut",
+                  "onDragEnd",
+                  "onDragEnter",
+                  "onDragLeave",
+                  "onDragOver",
+                  "onDragStart",
+                  "onDrop",
+                  "onFocus",
+                  "onInput",
+                  "onKeyDown",
+                  "onKeyPress",
+                  "onKeyUp",
+                  "onMouseUp",
+                  "onPaste",
+                  "onSelect",
+                  "role",
+                  "spellCheck",
+                  "style",
+                  "suppressContentEditableWarning",
+                  "tabIndex",
+                  "no-focustrapview-refocus",
+                  "children"
+                ],
+                "tag": 5,
+                "type": "div"
+              }
+            ],
+            "keys": [
+              "__reactFiber$1kkgphuza4s",
+              "__reactProps$1kkgphuza4s"
+            ]
+          },
+          "role": "textbox",
+          "tagName": "DIV",
+          "testId": "tweetTextarea_0",
+          "textContent": "",
+          "uniqueAttributeIdentifier": "DIV|textbox|tweetTextarea_0|Post text|notranslate public-DraftEditor-content|div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div"
+        }
+      ],
+      "textboxFound": true,
+      "textboxInnerText": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+      "textboxOuterHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+      "textboxPath": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+      "textboxReact": {
+        "detected": true,
+        "fiber": [
+          {
+            "elementType": "div",
+            "memoizedPropsKeys": [
+              "aria-activedescendant",
+              "aria-autocomplete",
+              "aria-controls",
+              "aria-describedby",
+              "aria-expanded",
+              "aria-label",
+              "aria-labelledby",
+              "aria-multiline",
+              "aria-owns",
+              "autoCapitalize",
+              "autoComplete",
+              "autoCorrect",
+              "className",
+              "contentEditable",
+              "data-testid",
+              "onBeforeInput",
+              "onBlur",
+              "onCompositionEnd",
+              "onCompositionStart",
+              "onCopy",
+              "onCut",
+              "onDragEnd",
+              "onDragEnter",
+              "onDragLeave",
+              "onDragOver",
+              "onDragStart",
+              "onDrop",
+              "onFocus",
+              "onInput",
+              "onKeyDown",
+              "onKeyPress",
+              "onKeyUp",
+              "onMouseUp",
+              "onPaste",
+              "onSelect",
+              "role",
+              "spellCheck",
+              "style",
+              "suppressContentEditableWarning",
+              "tabIndex",
+              "no-focustrapview-refocus",
+              "children"
+            ],
+            "tag": 5,
+            "type": "div"
+          }
+        ],
+        "keys": [
+          "__reactFiber$1kkgphuza4s",
+          "__reactProps$1kkgphuza4s"
+        ]
+      },
+      "textboxTextContent": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?"
+    },
+    "beforeValidation": {
+      "capturedAt": "2026-06-22T08:52:34.045Z",
+      "activeElement": {
+        "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+        "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+        "tagName": "DIV",
+        "role": "textbox",
+        "contentEditable": "true"
+      },
+      "editor": {
+        "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div",
+        "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.10763278788567188\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-0\" aria-describedby=\"placeholder-4ijbc\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"4ijbc\" data-offset-key=\"4g3ro-0-0\"><div data-offset-key=\"4g3ro-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"4g3ro-0-0\"><br data-text=\"true\"></span></div></div></div></div>",
+        "innerHTML": "<div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"4ijbc\" data-offset-key=\"4g3ro-0-0\"><div data-offset-key=\"4g3ro-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"4g3ro-0-0\"><br data-text=\"true\"></span></div></div></div>",
+        "innerText": "\n",
+        "textContent": "",
+        "role": "textbox",
+        "contentEditable": "true",
+        "ariaLabel": "Post text",
+        "testId": "tweetTextarea_0",
+        "className": "notranslate public-DraftEditor-content",
+        "uniqueAttributeIdentifier": "DIV|textbox|tweetTextarea_0|Post text|notranslate public-DraftEditor-content|div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div"
+      },
+      "contentEditableTree": [
+        {
+          "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+          "tagName": "DIV",
+          "role": "textbox",
+          "contentEditable": "true",
+          "ariaLabel": "Post text",
+          "testId": "tweetTextarea_0",
+          "className": "notranslate public-DraftEditor-content",
+          "innerText": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+          "textContent": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+          "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+          "parentChain": [
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "DraftEditor-editorContainer"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "DraftEditor-root"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": "tweetTextarea_0RichTextInputContainer",
+              "contentEditable": null,
+              "className": "r-1niwhzg r-17gur6a r-1yadl64 r-deolkf r-homxoj r-poiln3 r-7cikom r-1ny4l3l r-1ttztb7 r-t60dpp"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "false draftjs-styles_0 "
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r r-xoduu5 r-xyw6el r-13qz1uu r-1e084wi"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-6koalj"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r r-1wbh5a2 r-16y2uox"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": "tweetTextarea_0_label",
+              "contentEditable": null,
+              "className": "css-175oi2r r-1dqbpge r-13awgt0 r-18u37iz"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r r-1awozwy r-18u37iz"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r"
+            }
+          ],
+          "react": {
+            "reactControlledMarkersFound": false,
+            "reactInternalKeys": []
+          }
+        },
+        {
+          "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div",
+          "tagName": "DIV",
+          "role": "textbox",
+          "contentEditable": "true",
+          "ariaLabel": "Post text",
+          "testId": "tweetTextarea_0",
+          "className": "notranslate public-DraftEditor-content",
+          "innerText": "\n",
+          "textContent": "",
+          "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.10763278788567188\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-0\" aria-describedby=\"placeholder-4ijbc\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"4ijbc\" data-offset-key=\"4g3ro-0-0\"><div data-offset-key=\"4g3ro-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"4g3ro-0-0\"><br data-text=\"true\"></span></div></div></div></div>",
+          "parentChain": [
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "DraftEditor-editorContainer"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "DraftEditor-root"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": "tweetTextarea_0RichTextInputContainer",
+              "contentEditable": null,
+              "className": "r-1niwhzg r-17gur6a r-1yadl64 r-deolkf r-homxoj r-poiln3 r-7cikom r-1ny4l3l r-1ttztb7 r-t60dpp"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "false draftjs-styles_0 "
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r r-xoduu5 r-xyw6el r-13qz1uu r-1e084wi"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-6koalj"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r r-1wbh5a2 r-16y2uox"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": "tweetTextarea_0_label",
+              "contentEditable": null,
+              "className": "css-175oi2r r-1dqbpge r-13awgt0 r-18u37iz"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r r-1awozwy r-18u37iz"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r"
+            }
+          ],
+          "react": {
+            "reactControlledMarkersFound": false,
+            "reactInternalKeys": []
+          }
+        }
+      ]
+    },
+    "afterValidation": {
+      "capturedAt": "2026-06-22T08:52:34.045Z",
+      "activeElement": {
+        "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+        "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+        "tagName": "DIV",
+        "role": "textbox",
+        "contentEditable": "true"
+      },
+      "editor": {
+        "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+        "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+        "innerHTML": "<div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div>",
+        "innerText": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+        "textContent": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+        "role": "textbox",
+        "contentEditable": "true",
+        "ariaLabel": "Post text",
+        "testId": "tweetTextarea_0",
+        "className": "notranslate public-DraftEditor-content",
+        "uniqueAttributeIdentifier": "DIV|textbox|tweetTextarea_0|Post text|notranslate public-DraftEditor-content|div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div"
+      },
+      "contentEditableTree": [
+        {
+          "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+          "tagName": "DIV",
+          "role": "textbox",
+          "contentEditable": "true",
+          "ariaLabel": "Post text",
+          "testId": "tweetTextarea_0",
+          "className": "notranslate public-DraftEditor-content",
+          "innerText": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+          "textContent": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+          "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+          "parentChain": [
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "DraftEditor-editorContainer"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "DraftEditor-root"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": "tweetTextarea_0RichTextInputContainer",
+              "contentEditable": null,
+              "className": "r-1niwhzg r-17gur6a r-1yadl64 r-deolkf r-homxoj r-poiln3 r-7cikom r-1ny4l3l r-1ttztb7 r-t60dpp"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "false draftjs-styles_0 "
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r r-xoduu5 r-xyw6el r-13qz1uu r-1e084wi"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-6koalj"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r r-1wbh5a2 r-16y2uox"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": "tweetTextarea_0_label",
+              "contentEditable": null,
+              "className": "css-175oi2r r-1dqbpge r-13awgt0 r-18u37iz"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r r-1awozwy r-18u37iz"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r"
+            }
+          ],
+          "react": {
+            "reactControlledMarkersFound": false,
+            "reactInternalKeys": []
+          }
+        },
+        {
+          "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div",
+          "tagName": "DIV",
+          "role": "textbox",
+          "contentEditable": "true",
+          "ariaLabel": "Post text",
+          "testId": "tweetTextarea_0",
+          "className": "notranslate public-DraftEditor-content",
+          "innerText": "\n",
+          "textContent": "",
+          "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.10763278788567188\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-0\" aria-describedby=\"placeholder-4ijbc\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"4ijbc\" data-offset-key=\"4g3ro-0-0\"><div data-offset-key=\"4g3ro-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"4g3ro-0-0\"><br data-text=\"true\"></span></div></div></div></div>",
+          "parentChain": [
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "DraftEditor-editorContainer"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "DraftEditor-root"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": "tweetTextarea_0RichTextInputContainer",
+              "contentEditable": null,
+              "className": "r-1niwhzg r-17gur6a r-1yadl64 r-deolkf r-homxoj r-poiln3 r-7cikom r-1ny4l3l r-1ttztb7 r-t60dpp"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "false draftjs-styles_0 "
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r r-xoduu5 r-xyw6el r-13qz1uu r-1e084wi"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-6koalj"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r r-1wbh5a2 r-16y2uox"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": "tweetTextarea_0_label",
+              "contentEditable": null,
+              "className": "css-175oi2r r-1dqbpge r-13awgt0 r-18u37iz"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r r-1awozwy r-18u37iz"
+            },
+            {
+              "tagName": "DIV",
+              "role": null,
+              "testId": null,
+              "contentEditable": null,
+              "className": "css-175oi2r"
+            }
+          ],
+          "react": {
+            "reactControlledMarkersFound": false,
+            "reactInternalKeys": []
+          }
+        }
+      ]
+    }
+  },
+  "validation": {
+    "beforeReadTextLength": 0,
+    "afterReadTextLength": 0,
+    "validationTextLength": 129,
+    "finalDetectedResult": "success"
+  },
+  "activeElement": {
+    "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+    "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+    "react": {
+      "reactControlledMarkersFound": false,
+      "reactInternalKeys": []
+    }
+  },
+  "editor": {
+    "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+    "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+    "innerText": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+    "textContent": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+    "innerHTML": "<div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div>",
+    "react": {
+      "reactControlledMarkersFound": false,
+      "reactInternalKeys": []
+    }
+  },
+  "contentEditableTree": [
+    {
+      "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+      "tagName": "DIV",
+      "role": "textbox",
+      "contentEditable": "true",
+      "ariaLabel": "Post text",
+      "testId": "tweetTextarea_0",
+      "className": "notranslate public-DraftEditor-content",
+      "innerText": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+      "textContent": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+      "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+      "parentChain": [
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "DraftEditor-editorContainer"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "DraftEditor-root"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": "tweetTextarea_0RichTextInputContainer",
+          "contentEditable": null,
+          "className": "r-1niwhzg r-17gur6a r-1yadl64 r-deolkf r-homxoj r-poiln3 r-7cikom r-1ny4l3l r-1ttztb7 r-t60dpp"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "false draftjs-styles_0 "
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "css-175oi2r r-xoduu5 r-xyw6el r-13qz1uu r-1e084wi"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-6koalj"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "css-175oi2r r-1wbh5a2 r-16y2uox"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": "tweetTextarea_0_label",
+          "contentEditable": null,
+          "className": "css-175oi2r r-1dqbpge r-13awgt0 r-18u37iz"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "css-175oi2r r-1awozwy r-18u37iz"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "css-175oi2r"
+        }
+      ],
+      "react": {
+        "reactControlledMarkersFound": false,
+        "reactInternalKeys": []
+      }
+    },
+    {
+      "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div",
+      "tagName": "DIV",
+      "role": "textbox",
+      "contentEditable": "true",
+      "ariaLabel": "Post text",
+      "testId": "tweetTextarea_0",
+      "className": "notranslate public-DraftEditor-content",
+      "innerText": "\n",
+      "textContent": "",
+      "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.10763278788567188\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-0\" aria-describedby=\"placeholder-4ijbc\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"4ijbc\" data-offset-key=\"4g3ro-0-0\"><div data-offset-key=\"4g3ro-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"4g3ro-0-0\"><br data-text=\"true\"></span></div></div></div></div>",
+      "parentChain": [
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "DraftEditor-editorContainer"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "DraftEditor-root"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": "tweetTextarea_0RichTextInputContainer",
+          "contentEditable": null,
+          "className": "r-1niwhzg r-17gur6a r-1yadl64 r-deolkf r-homxoj r-poiln3 r-7cikom r-1ny4l3l r-1ttztb7 r-t60dpp"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "false draftjs-styles_0 "
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "css-175oi2r r-xoduu5 r-xyw6el r-13qz1uu r-1e084wi"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-6koalj"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "css-175oi2r r-1wbh5a2 r-16y2uox"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": "tweetTextarea_0_label",
+          "contentEditable": null,
+          "className": "css-175oi2r r-1dqbpge r-13awgt0 r-18u37iz"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "css-175oi2r r-1awozwy r-18u37iz"
+        },
+        {
+          "tagName": "DIV",
+          "role": null,
+          "testId": null,
+          "contentEditable": null,
+          "className": "css-175oi2r"
+        }
+      ],
+      "react": {
+        "reactControlledMarkersFound": false,
+        "reactInternalKeys": []
+      }
+    }
+  ],
+  "mainWorldInspection": {
+    "activeElementOuterHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+    "activeElementPath": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+    "activeElementReact": {
+      "detected": true,
+      "fiber": [
+        {
+          "elementType": "div",
+          "memoizedPropsKeys": [
+            "aria-activedescendant",
+            "aria-autocomplete",
+            "aria-controls",
+            "aria-describedby",
+            "aria-expanded",
+            "aria-label",
+            "aria-labelledby",
+            "aria-multiline",
+            "aria-owns",
+            "autoCapitalize",
+            "autoComplete",
+            "autoCorrect",
+            "className",
+            "contentEditable",
+            "data-testid",
+            "onBeforeInput",
+            "onBlur",
+            "onCompositionEnd",
+            "onCompositionStart",
+            "onCopy",
+            "onCut",
+            "onDragEnd",
+            "onDragEnter",
+            "onDragLeave",
+            "onDragOver",
+            "onDragStart",
+            "onDrop",
+            "onFocus",
+            "onInput",
+            "onKeyDown",
+            "onKeyPress",
+            "onKeyUp",
+            "onMouseUp",
+            "onPaste",
+            "onSelect",
+            "role",
+            "spellCheck",
+            "style",
+            "suppressContentEditableWarning",
+            "tabIndex",
+            "no-focustrapview-refocus",
+            "children"
+          ],
+          "tag": 5,
+          "type": "div"
+        }
+      ],
+      "keys": [
+        "__reactFiber$1kkgphuza4s",
+        "__reactProps$1kkgphuza4s"
+      ]
+    },
+    "contentEditableTree": [
+      {
+        "ariaLabel": "Post text",
+        "className": "notranslate public-DraftEditor-content",
+        "contentEditable": "true",
+        "innerText": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+        "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+        "parentChain": [
+          {
+            "className": "DraftEditor-editorContainer",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "DraftEditor-root",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "r-1niwhzg r-17gur6a r-1yadl64 r-deolkf r-homxoj r-poiln3 r-7cikom r-1ny4l3l r-1ttztb7 r-t60dpp",
+            "role": null,
+            "tagName": "DIV",
+            "testId": "tweetTextarea_0RichTextInputContainer"
+          },
+          {
+            "className": "false draftjs-styles_0 ",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "css-175oi2r r-xoduu5 r-xyw6el r-13qz1uu r-1e084wi",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-6koalj",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "css-175oi2r r-1wbh5a2 r-16y2uox",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "css-175oi2r r-1dqbpge r-13awgt0 r-18u37iz",
+            "role": null,
+            "tagName": "DIV",
+            "testId": "tweetTextarea_0_label"
+          },
+          {
+            "className": "css-175oi2r r-1awozwy r-18u37iz",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "css-175oi2r",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          }
+        ],
+        "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+        "react": {
+          "detected": true,
+          "fiber": [
+            {
+              "elementType": "div",
+              "memoizedPropsKeys": [
+                "aria-activedescendant",
+                "aria-autocomplete",
+                "aria-controls",
+                "aria-describedby",
+                "aria-expanded",
+                "aria-label",
+                "aria-labelledby",
+                "aria-multiline",
+                "aria-owns",
+                "autoCapitalize",
+                "autoComplete",
+                "autoCorrect",
+                "className",
+                "contentEditable",
+                "data-testid",
+                "onBeforeInput",
+                "onBlur",
+                "onCompositionEnd",
+                "onCompositionStart",
+                "onCopy",
+                "onCut",
+                "onDragEnd",
+                "onDragEnter",
+                "onDragLeave",
+                "onDragOver",
+                "onDragStart",
+                "onDrop",
+                "onFocus",
+                "onInput",
+                "onKeyDown",
+                "onKeyPress",
+                "onKeyUp",
+                "onMouseUp",
+                "onPaste",
+                "onSelect",
+                "role",
+                "spellCheck",
+                "style",
+                "suppressContentEditableWarning",
+                "tabIndex",
+                "no-focustrapview-refocus",
+                "children"
+              ],
+              "tag": 5,
+              "type": "div"
+            }
+          ],
+          "keys": [
+            "__reactFiber$1kkgphuza4s",
+            "__reactProps$1kkgphuza4s"
+          ]
+        },
+        "role": "textbox",
+        "tagName": "DIV",
+        "testId": "tweetTextarea_0",
+        "textContent": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+        "uniqueAttributeIdentifier": "DIV|textbox|tweetTextarea_0|Post text|notranslate public-DraftEditor-content|div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div"
+      },
+      {
+        "ariaLabel": "Post text",
+        "className": "notranslate public-DraftEditor-content",
+        "contentEditable": "true",
+        "innerText": "\n",
+        "outerHTML": "<div aria-activedescendant=\"typeaheadFocus-0.10763278788567188\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-0\" aria-describedby=\"placeholder-4ijbc\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"4ijbc\" data-offset-key=\"4g3ro-0-0\"><div data-offset-key=\"4g3ro-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"4g3ro-0-0\"><br data-text=\"true\"></span></div></div></div></div>",
+        "parentChain": [
+          {
+            "className": "DraftEditor-editorContainer",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "DraftEditor-root",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "r-1niwhzg r-17gur6a r-1yadl64 r-deolkf r-homxoj r-poiln3 r-7cikom r-1ny4l3l r-1ttztb7 r-t60dpp",
+            "role": null,
+            "tagName": "DIV",
+            "testId": "tweetTextarea_0RichTextInputContainer"
+          },
+          {
+            "className": "false draftjs-styles_0 ",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "css-175oi2r r-xoduu5 r-xyw6el r-13qz1uu r-1e084wi",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-6koalj",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "css-175oi2r r-1wbh5a2 r-16y2uox",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "css-175oi2r r-1dqbpge r-13awgt0 r-18u37iz",
+            "role": null,
+            "tagName": "DIV",
+            "testId": "tweetTextarea_0_label"
+          },
+          {
+            "className": "css-175oi2r r-1awozwy r-18u37iz",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          },
+          {
+            "className": "css-175oi2r",
+            "role": null,
+            "tagName": "DIV",
+            "testId": null
+          }
+        ],
+        "path": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div",
+        "react": {
+          "detected": true,
+          "fiber": [
+            {
+              "elementType": "div",
+              "memoizedPropsKeys": [
+                "aria-activedescendant",
+                "aria-autocomplete",
+                "aria-controls",
+                "aria-describedby",
+                "aria-expanded",
+                "aria-label",
+                "aria-labelledby",
+                "aria-multiline",
+                "aria-owns",
+                "autoCapitalize",
+                "autoComplete",
+                "autoCorrect",
+                "className",
+                "contentEditable",
+                "data-testid",
+                "onBeforeInput",
+                "onBlur",
+                "onCompositionEnd",
+                "onCompositionStart",
+                "onCopy",
+                "onCut",
+                "onDragEnd",
+                "onDragEnter",
+                "onDragLeave",
+                "onDragOver",
+                "onDragStart",
+                "onDrop",
+                "onFocus",
+                "onInput",
+                "onKeyDown",
+                "onKeyPress",
+                "onKeyUp",
+                "onMouseUp",
+                "onPaste",
+                "onSelect",
+                "role",
+                "spellCheck",
+                "style",
+                "suppressContentEditableWarning",
+                "tabIndex",
+                "no-focustrapview-refocus",
+                "children"
+              ],
+              "tag": 5,
+              "type": "div"
+            }
+          ],
+          "keys": [
+            "__reactFiber$1kkgphuza4s",
+            "__reactProps$1kkgphuza4s"
+          ]
+        },
+        "role": "textbox",
+        "tagName": "DIV",
+        "testId": "tweetTextarea_0",
+        "textContent": "",
+        "uniqueAttributeIdentifier": "DIV|textbox|tweetTextarea_0|Post text|notranslate public-DraftEditor-content|div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div:nth-of-type(2) > div"
+      }
+    ],
+    "textboxFound": true,
+    "textboxInnerText": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?",
+    "textboxOuterHTML": "<div aria-activedescendant=\"typeaheadFocus-0.5652548907771344\" aria-autocomplete=\"list\" aria-controls=\"typeaheadDropdownWrapped-1\" aria-describedby=\"placeholder-f8p63\" aria-label=\"Post text\" aria-multiline=\"true\" class=\"notranslate public-DraftEditor-content\" contenteditable=\"true\" data-testid=\"tweetTextarea_0\" role=\"textbox\" spellcheck=\"true\" tabindex=\"0\" no-focustrapview-refocus=\"true\" style=\"outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;\"><div data-contents=\"true\"><div class=\"\" data-block=\"true\" data-editor=\"f8p63\" data-offset-key=\"68gkd-0-0\"><div data-offset-key=\"68gkd-0-0\" class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"><span data-offset-key=\"68gkd-0-0\"><span data-text=\"true\">Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?</span></span></div></div></div></div>",
+    "textboxPath": "div > div > div > div > div:nth-of-type(1) > div > div > div > div > div > div > div",
+    "textboxReact": {
+      "detected": true,
+      "fiber": [
+        {
+          "elementType": "div",
+          "memoizedPropsKeys": [
+            "aria-activedescendant",
+            "aria-autocomplete",
+            "aria-controls",
+            "aria-describedby",
+            "aria-expanded",
+            "aria-label",
+            "aria-labelledby",
+            "aria-multiline",
+            "aria-owns",
+            "autoCapitalize",
+            "autoComplete",
+            "autoCorrect",
+            "className",
+            "contentEditable",
+            "data-testid",
+            "onBeforeInput",
+            "onBlur",
+            "onCompositionEnd",
+            "onCompositionStart",
+            "onCopy",
+            "onCut",
+            "onDragEnd",
+            "onDragEnter",
+            "onDragLeave",
+            "onDragOver",
+            "onDragStart",
+            "onDrop",
+            "onFocus",
+            "onInput",
+            "onKeyDown",
+            "onKeyPress",
+            "onKeyUp",
+            "onMouseUp",
+            "onPaste",
+            "onSelect",
+            "role",
+            "spellCheck",
+            "style",
+            "suppressContentEditableWarning",
+            "tabIndex",
+            "no-focustrapview-refocus",
+            "children"
+          ],
+          "tag": 5,
+          "type": "div"
+        }
+      ],
+      "keys": [
+        "__reactFiber$1kkgphuza4s",
+        "__reactProps$1kkgphuza4s"
+      ]
+    },
+    "textboxTextContent": "Naming the outcome that doesn’t fit the preferred story takes intellectual honesty. What evidence would change this view for you?"
+  }
+}

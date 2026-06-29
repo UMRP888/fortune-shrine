@@ -47,25 +47,69 @@ function candidateIdentityKeys(result) {
   return keys;
 }
 
-export function partitionQueueEligibility(results, processedResults) {
-  const previouslySeen = new Set(
+function humanProcessed(result) {
+  return ["sent", "reviewed", "ignored"].includes(String(result.status || "").toLocaleLowerCase());
+}
+
+function timePartsInZone(date, timeZone) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit"
+  }).formatToParts(date);
+  return Object.fromEntries(parts.map((part) => [part.type, part.value]));
+}
+
+export function hasFreshTelegramTimestamp(result, {
+  now = Date.now(),
+  timeZone = "Asia/Shanghai",
+  maxAgeMs = 4 * 60 * 60 * 1000,
+  futureToleranceMs = 5 * 60 * 1000
+} = {}) {
+  const timestamp = normalizeForDedup(result.timestamp);
+  if (!timestamp) return false;
+  if (/^today\b/.test(timestamp)) return true;
+  const timeMatch = timestamp.match(/^(\d{1,2}):(\d{2})(?:\s?([ap]m))?$/);
+  if (timeMatch) {
+    let hours = Number(timeMatch[1]);
+    const minutes = Number(timeMatch[2]);
+    const suffix = timeMatch[3];
+    if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return false;
+    if (suffix === "pm" && hours < 12) hours += 12;
+    if (suffix === "am" && hours === 12) hours = 0;
+    if (hours > 23 || minutes > 59) return false;
+
+    const parts = timePartsInZone(new Date(now), timeZone);
+    const currentMinutes = Number(parts.hour) * 60 + Number(parts.minute);
+    const labelMinutes = hours * 60 + minutes;
+    const ageMs = (currentMinutes - labelMinutes) * 60 * 1000;
+    return ageMs >= -futureToleranceMs && ageMs <= maxAgeMs;
+  }
+
+  return false;
+}
+
+export function partitionQueueEligibility(results, processedResults, options = {}) {
+  const manuallyProcessed = new Set(
     processedResults
-      .filter((result) => result.status !== "ignored")
+      .filter(humanProcessed)
       .flatMap((result) => [...candidateIdentityKeys(result)])
   );
   const wasSeen = (result) =>
-    [...candidateIdentityKeys(result)].some((key) => previouslySeen.has(key));
-  const freshResults = results.filter((result) => !wasSeen(result));
+    [...candidateIdentityKeys(result)].some((key) => manuallyProcessed.has(key));
+  const freshResults = results.filter((result) =>
+    !wasSeen(result) && hasFreshTelegramTimestamp(result, {
+      now: options.now,
+      timeZone: options.timeZone,
+      maxAgeMs: options.freshnessWindowMs,
+      futureToleranceMs: options.freshnessFutureToleranceMs
+    })
+  );
   const seenAgainResults = results.filter((result) => wasSeen(result));
-  const queueResults = [
-    ...freshResults,
-    ...seenAgainResults.map((result) => ({
-      ...result,
-      score: Math.max(0.7, Number((Number(result.score || 0) - 0.03).toFixed(2))),
-      seenAgain: true,
-      reason: [result.reason, "seen again score penalty"].filter(Boolean).join(" + ")
-    }))
-  ].sort((left, right) => right.score - left.score);
+  const queueResults = freshResults
+    .map((result) => ({ ...result, seenAgain: false }))
+    .sort((left, right) => right.score - left.score);
 
   return {
     freshResults,

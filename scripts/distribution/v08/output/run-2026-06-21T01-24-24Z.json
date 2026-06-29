@@ -1,0 +1,1009 @@
+{
+  "version": "0.8",
+  "ranking": "freshness_score desc, age_minutes asc, score desc",
+  "discoveredAt": "2026-06-21T01:24:24.985Z",
+  "completedAt": "2026-06-21T01:26:30.968Z",
+  "resultCount": 20,
+  "freshnessBreakdown": {
+    "S": 2,
+    "A": 1,
+    "B": 1,
+    "C": 3,
+    "D": 13
+  },
+  "failures": [
+    {
+      "platform": "Polymarket",
+      "error": "fetch failed",
+      "status": null
+    }
+  ],
+  "evidence": [
+    {
+      "platform": "X Public Index",
+      "community": "Polymarket",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+Polymarket&source=web&offset=0",
+      "resultCount": 12
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Polymarket",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+Polymarket&source=web&offset=1",
+      "resultCount": 16
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Prediction Markets",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+%22prediction+market%22&source=web&offset=0",
+      "resultCount": 21
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Prediction Markets",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+%22prediction+market%22&source=web&offset=1",
+      "resultCount": 20
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Prediction Markets",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+Kalshi+trader&source=web&offset=0",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Prediction Markets",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+Kalshi+trader&source=web&offset=1",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Crypto Traders",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+%22crypto+trader%22&source=web&offset=0",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Crypto Traders",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+%22crypto+trader%22&source=web&offset=1",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Crypto Traders",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+bitcoin+trading+leverage&source=web&offset=0",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Crypto Traders",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+bitcoin+trading+leverage&source=web&offset=1",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Crypto Traders",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+crypto+liquidated+trader&source=web&offset=0",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Crypto Traders",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+crypto+liquidated+trader&source=web&offset=1",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Meme Coin",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+memecoin+trader&source=web&offset=0",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Meme Coin",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+memecoin+trader&source=web&offset=1",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "All In",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+%22all+in%22+crypto&source=web&offset=0",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "All In",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+%22all+in%22+crypto&source=web&offset=1",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Betting",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+betting+odds&source=web&offset=0",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Betting",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+betting+odds&source=web&offset=1",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Betting",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+%22sports+betting%22&source=web&offset=0",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Betting",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+%22sports+betting%22&source=web&offset=1",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Election Markets",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+%22election+betting%22&source=web&offset=0",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Election Markets",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+%22election+betting%22&source=web&offset=1",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Election Markets",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+%22election+odds%22&source=web&offset=0",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Public Index",
+      "community": "Election Markets",
+      "url": "https://search.brave.com/search?q=site%3Ax.com+%22election+odds%22&source=web&offset=1",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket | Prediction Markets",
+      "url": "https://x.com/Polymarket",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/PolymarketLoL",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/PolymarketCS2",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/PolymarketFC",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/PolymarketSport",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/PolymarketDevs",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/SuhailKakar",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/billsperos",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/esidery",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/steventey",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/bernardbulletin",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/garooya",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/llamaonthebrink",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/Kalshi",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/ElectionBetting",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/KalshiPolitics",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/NateSilver538",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/Metaculus",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/manifoldmarkets",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/RobinHanson",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/fmeetsdata",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/Pentoshi",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/Cobie",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/HsakaTrades",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/CryptoCred",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/PollTracker2024",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/traderSZ",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/Arthur_0x",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/DegenSpartan",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/TheFlowHorse",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/CryptoHayes",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/AltcoinSherpa",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/ColdBloodShill",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/GCRClassic",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/CryptoCapo_",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/gainzy222",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/Ansem",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/inversebrah",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/loomdart",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/0xngmi",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/MustStopMurad",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/blknoiz06",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/WhalePanda",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/tier10k",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/TheWolfOfAllStreets",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/zachxbt",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/CryptoKaleo",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/DonAlt",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/IncomeSharks",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/PeterLBrandt",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/RektCapital",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/ToneVays",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/CredibleCrypto",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/Josh_Rager",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/filbfilb",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/100trillionUSD",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/lookonchain",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/Whale_Alert",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/michaelvandepoppe",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/ArkhamIntel",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/WuBlockchain",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/CoinMarketCap",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/DefiLlama",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Crypto Traders",
+      "url": "https://x.com/coingecko",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/BestOddsBets",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/BTFOdds",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/GetBettorOdds",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/BetDEXLabs",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/JTFOz",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/PickTheOdd",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/Mrbankstips",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/Route2FI",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/bettingelection",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/bettingoddsuk",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/bettingoddsusa",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/oddscheckerus",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/oddsmarket",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/mmamania",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/oddschecker",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/thespread",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/ActionNetworkHQ",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/Covers",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/FanDuel",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/DraftKings",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/CaesarsSports",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/BettingPros",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/Pinnacle",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/BetMGM",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/bet365",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/Betfair",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/SBRReview",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/RotoGrinders",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/propsdotcash",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/SportsLine",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Betting",
+      "url": "https://x.com/VegasInsider",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Election Markets",
+      "url": "https://x.com/DecisionDeskHQ",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Election Markets",
+      "url": "https://x.com/SplitTicket_",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Election Markets",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/ElectionMapsCo",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Election Markets",
+      "url": "https://x.com/RacetotheWH",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Election Markets",
+      "url": "https://x.com/CookPolitical",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Election Markets",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/RealClearPolling",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Election Markets",
+      "url": "https://x.com/LarrySabato",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Election Markets",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/538politics",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/polymarketjapan",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/PolymarketTrade",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/poly_data",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/PolymarketIntel",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/BrendanMenapace",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/larepublica_co",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/polymarketval",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/Hunter_Weiss",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/jimmyjairala",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/DavidNStocks1",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/isaiahefes",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/digitdustin",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/readDanwrite",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/TheStalwart",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/Cointelegraph",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/conorsen",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/modularmedia_",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/zeitgeistpm",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Polymarket",
+      "url": "https://x.com/NYMag",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/artemis",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/chaos_labs",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/Predictefy",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/knowerofmarkets",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/mansourtarek_",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/predictionindex",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/predofficial",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/andrewtalksdefi",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/castle_labs",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/PredictAction",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/TeaonaX",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/ycombinator",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/AltCryptoGems",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/allday_stocks",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://syndication.twitter.com/srv/timeline-profile/screen-name/EasyEatsBodega",
+      "resultCount": 0
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/XBusiness",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/LiveSquawk",
+      "resultCount": 3
+    },
+    {
+      "platform": "X Syndication",
+      "community": "Prediction Markets",
+      "url": "https://x.com/lil_psalmy",
+      "resultCount": 3
+    }
+  ],
+  "csvPath": "/Users/lixiaole/Documents/Fortune Shrine/scripts/distribution/v08/output/fresh-targets-2026-06-21T01-24-24Z.csv",
+  "jsonPath": "/Users/lixiaole/Documents/Fortune Shrine/scripts/distribution/v08/output/fresh-targets-2026-06-21T01-24-24Z.json"
+}

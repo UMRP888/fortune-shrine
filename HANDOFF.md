@@ -7,6 +7,8 @@ This file is for a future Codex session or collaborator who has no memory of the
 Read this first, then read:
 
 - `docs/FORTUNE_SHRINE_CANON.md`
+- `docs/ENGINEERING_CHARTER_V1.md`
+- `docs/DISTRIBUTION_PLAN_1.md`
 - `AGENTS.md`
 - `README.md`
 
@@ -65,6 +67,20 @@ They may not ask for a blessing directly.
 They may ask for luck, calm, courage, restraint, or a pause.
 
 The Shrine should answer that emotional state, not the trade.
+
+## Planned Growth Layer
+
+`docs/DISTRIBUTION_PLAN_1.md` records the next planned growth experiment.
+
+Do not execute it yet.
+
+It should begin only after:
+
+- the current Telegram Discovery engine passes three evening Run HUD tests
+- the current version is frozen
+- the user explicitly asks to start Distribution Plan 1
+
+Distribution Plan 1 is a manual outreach tracker for distribution nodes. It must not auto-DM, bulk contact, auto-join groups, or modify the Discovery Engine.
 
 ## Current Ritual Flow
 
@@ -786,3 +802,61 @@ docs/RESPONSE_PRIORITY_ROUTER_V1.md
 it before wording selection. If a candidate is Waiting, Trading, Risk, Loss, or
 Anxiety, Reality Flow Mode overrides Hope, Prayer, generic empathy, and
 blessing-style templates.
+
+## Telegram Discovery Operational Correction — 2026-06-29
+
+Read this diagnostic before resuming Telegram Discovery work:
+
+```text
+docs/TELEGRAM_DISCOVERY_DIAGNOSTIC_2026-06-29.md
+```
+
+The 2026-06-27 freeze should be treated as a freeze of the stable downstream
+operation layers, not as proof that the Telegram Collector layer is fully stable.
+
+Stable / do not casually change:
+
+- Human State Detector
+- Freshness Gate
+- Queue Builder V2
+- Reply Queue V2 output
+- Empty queue refresh behavior
+- Human review status
+- Reply draft system
+- Operation Queue format
+- UI / API shape
+
+Known unstable / observational:
+
+- Telegram Web Recent Chat Collector
+
+Current recommendation:
+
+```text
+Run V1 through Telegram Search Collector + Freshness Gate + Queue.
+Do not rely on Recent Chat Collector as the primary production source yet.
+Do not keep patching Telegram Web DOM unless a specific production bug blocks operation.
+```
+
+Important 2026-06-29 fixes already applied:
+
+- Empty runs now write an empty `reply_queue_v2.json` instead of preserving a
+  previous queue.
+- Playwright Telegram context uses `Asia/Shanghai` timezone so Telegram time
+  labels and Freshness Gate use the same clock.
+- Queue V2 threshold is aligned to `0.70`.
+- `Risk` and `Loss` are first-class V2 queue categories.
+- Telegram messages deduplicate across keywords by `peerId + messageId`.
+- Recent Collector now records proof fields when it cannot read message DOM.
+
+Next session should not begin by adding features.
+
+Recommended next action:
+
+1. Run HUD once.
+2. Inspect queue quality.
+3. If queue exists and is fresh, operate manually.
+4. If queue is empty, use the diagnostic checklist instead of guessing that
+   no users exist.
+5. If repeated Search Collector runs produce acceptable queues, freeze V1 for
+   operation and move growth work to Distribution Plan 1 later.
