@@ -217,7 +217,7 @@ button {
 .hero-stage {
   display: block;
   min-height: calc(100vh - 82px);
-  padding-top: clamp(22px, 5.2vh, 58px);
+  padding-top: clamp(72px, 11vh, 118px);
   max-width: 760px;
 }
 
@@ -1468,7 +1468,7 @@ h2 {
   }
 
   .hero-stage {
-    padding-top: clamp(32px, 6vh, 54px);
+    padding-top: clamp(48px, 8vh, 72px);
   }
 
   h1 {
