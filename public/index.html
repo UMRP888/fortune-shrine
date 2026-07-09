@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Fortune Shrine</title>
-    <link rel="stylesheet" href="/styles.css?v=20260701-hero-stage-down" />
+    <link rel="stylesheet" href="/styles.css?v=20260709-trust-output-v2" />
   </head>
   <body>
     <main class="shrine-shell">
@@ -96,25 +96,25 @@
             <em>A small flame for the journey.</em>
             <span>5 USDC</span>
           </button>
-          <button type="button" class="offering-choice" data-offering="keeper" data-name="Keeper's Offering" data-meaning="A steady light through the night." data-price="15 USDC">
+          <button type="button" class="offering-choice" data-offering="wanderer" data-name="Wanderer's Offering" data-meaning="A quiet flame beyond the first gate." data-price="10 USDC">
             <span class="offering-symbol">II</span>
+            <strong>Wanderer's Offering</strong>
+            <small>Wanderer's flame</small>
+            <em>A quiet flame beyond the first gate.</em>
+            <span>10 USDC</span>
+          </button>
+          <button type="button" class="offering-choice" data-offering="keeper" data-name="Keeper's Offering" data-meaning="A steady light through the night." data-price="35 USDC">
+            <span class="offering-symbol">III</span>
             <strong>Keeper's Offering</strong>
             <small>Keeper's flame</small>
             <em>A steady light through the night.</em>
-            <span>15 USDC</span>
-          </button>
-          <button type="button" class="offering-choice" data-offering="sacred" data-name="Sacred Offering" data-meaning="A blessing carried forward." data-price="35 USDC">
-            <span class="offering-symbol">III</span>
-            <strong>Sacred Offering</strong>
-            <small>Sacred flame</small>
-            <em>A blessing carried forward.</em>
             <span>35 USDC</span>
           </button>
-          <button type="button" class="offering-choice" data-offering="eternal" data-name="Eternal Offering" data-meaning="A light for those who follow." data-price="88 USDC">
+          <button type="button" class="offering-choice" data-offering="sanctum" data-name="Sanctum Offering" data-meaning="A deeper light for the Shrine." data-price="88 USDC">
             <span class="offering-symbol">IV</span>
-            <strong>Eternal Offering</strong>
-            <small>Eternal flame</small>
-            <em>A light for those who follow.</em>
+            <strong>Sanctum Offering</strong>
+            <small>Sanctum flame</small>
+            <em>A deeper light for the Shrine.</em>
             <span>88 USDC</span>
           </button>
         </div>
@@ -136,6 +136,16 @@
           <p class="blessing-line" id="blessing"></p>
           <p class="echo-line" id="oracle"></p>
         </div>
+        <section class="blessing-artifact hidden" id="blessingArtifact" aria-label="Blessing Card">
+          <p class="artifact-kicker">Blessing Card</p>
+          <p class="artifact-statement" id="artifactStatement">A quiet blessing before risk.</p>
+          <div class="artifact-lines">
+            <span id="artifactMarketState">During uncertain market conditions</span>
+            <span id="artifactDate">2026.07.09</span>
+            <span id="artifactIdentity">Anonymous ritual</span>
+          </div>
+          <p class="artifact-signature">Fortune Shrine · Blessing Recorded</p>
+        </section>
         <button class="secondary-button hidden" id="continueButton" type="button">Continue Journey</button>
       </section>
 
@@ -154,21 +164,32 @@
           <span>Offering Mark</span>
           <strong id="paymentPrice">5 USDC</strong>
         </div>
+        <section class="trust-layer" aria-label="Payment trust notes">
+          <strong>ALL OFFERINGS ARE STANDARD USDC TRANSFERS ON SOLANA.</strong>
+          <p>No staking.</p>
+          <p>No token approvals.</p>
+          <p>No smart contract permissions.</p>
+          <p>No hidden access to your wallet.</p>
+          <p>Wallet never accessed.</p>
+          <p>Your wallet always remains fully in your control.</p>
+          <p>Payments are irreversible once sent on-chain.</p>
+          <small>We never request unlimited approvals or asset permissions.</small>
+        </section>
         <div class="offering-method" aria-label="Offering method">
           <div class="offering-qr">
             <img id="paymentQrImage" src="/assets/solana-wallet-recipient-qr.png" alt="Solana Pay QR code" />
-            <small id="paymentQrLabel">Scan recipient address</small>
+            <small id="paymentQrLabel">Scan Official Shrine Wallet</small>
           </div>
           <div class="payment-brief">
             <strong>Solana</strong>
             <strong>USDC only</strong>
           </div>
           <div class="payment-recipient">
-            <span>Recipient</span>
+            <span>Official Shrine Wallet</span>
             <code id="paymentRecipient">HMmUVQx6ToGQa8Fnd6aicHhpF1ti9QrzqNNC8187Y4s1</code>
           </div>
           <details class="offering-details">
-            <summary>Verification details</summary>
+            <summary>Payment Notes</summary>
             <div>
               <span>Accepted USDC Mint</span>
               <code id="paymentMint">EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v</code>
@@ -182,7 +203,8 @@
         </div>
         <div class="payment-actions">
           <button class="secondary-button" id="cancelPaymentButton" type="button">Step Back</button>
-          <button class="primary-button" id="walletPayButton" type="button">Pay With Wallet</button>
+          <button class="primary-button" id="walletPayButton" type="button">CONNECT WALLET &amp; SEND</button>
+          <p class="wallet-transfer-note">Standard transfer only — no approvals required</p>
           <button class="manual-confirm-button" id="completePaymentButton" type="button">I Have Sent It</button>
         </div>
       </section>

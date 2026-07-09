@@ -387,6 +387,11 @@ const ritualParticles = document.querySelector("#ritualParticles");
 const oracleCard = document.querySelector("#oracleCard");
 const continueButton = document.querySelector("#continueButton");
 const completion = document.querySelector("#completion");
+const blessingArtifact = document.querySelector("#blessingArtifact");
+const artifactStatement = document.querySelector("#artifactStatement");
+const artifactMarketState = document.querySelector("#artifactMarketState");
+const artifactDate = document.querySelector("#artifactDate");
+const artifactIdentity = document.querySelector("#artifactIdentity");
 
 let actionRevealTimer = null;
 let flameMotionTimer = null;
@@ -723,6 +728,7 @@ function savePendingPayment(update = {}) {
     walletHash: currentPaymentIntent.walletHash || null,
     blessingReleaseStarted: Boolean(currentPaymentIntent.blessingReleaseStarted),
     generatedBlessing: currentPaymentIntent.generatedBlessing || null,
+    generatedArtifact: currentPaymentIntent.generatedArtifact || null,
     memoryLogged: Boolean(currentPaymentIntent.memoryLogged),
     storedAt: currentPaymentIntent.storedAt || Date.now()
   };
@@ -1011,6 +1017,62 @@ function acknowledgeBlessing() {
   }, randomBetween(3600, 5600));
 }
 
+const artifactStatements = [
+  "A calm light during market turbulence.",
+  "A quiet blessing before risk.",
+  "Something was released into the market silence.",
+  "A small flame held steady before uncertainty.",
+  "A ritual pause before the next unknown."
+];
+
+function formatArtifactDate(dateValue = new Date()) {
+  const date = dateValue instanceof Date ? dateValue : new Date(dateValue);
+  if (Number.isNaN(date.getTime())) return formatArtifactDate(new Date());
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}.${month}.${day}`;
+}
+
+function createWeakIdentityMarker() {
+  const walletHash = currentPaymentIntent?.walletHash;
+  if (walletHash && walletHash.length >= 10) {
+    return `${walletHash.slice(0, 4)}...${walletHash.slice(-4)}`;
+  }
+
+  const source = currentPaymentIntent?.id || `ritual-${Date.now()}`;
+  const compact = source.replace(/[^a-z0-9]/gi, "").slice(0, 10);
+  return compact ? `Anonymous ritual ${compact}` : "Anonymous ritual";
+}
+
+function buildBlessingArtifact() {
+  if (currentPaymentIntent?.generatedArtifact) return currentPaymentIntent.generatedArtifact;
+
+  const artifact = {
+    statement: choice(artifactStatements),
+    marketState: "During uncertain market conditions",
+    date: formatArtifactDate(currentPaymentIntent?.verifiedAt || new Date()),
+    identity: createWeakIdentityMarker(),
+    signature: "Fortune Shrine · Blessing Recorded"
+  };
+
+  if (currentPaymentIntent) currentPaymentIntent.generatedArtifact = artifact;
+  return artifact;
+}
+
+function revealBlessingArtifact() {
+  if (!blessingArtifact) return;
+
+  const artifact = buildBlessingArtifact();
+  artifactStatement.textContent = artifact.statement;
+  artifactMarketState.textContent = artifact.marketState;
+  artifactDate.textContent = artifact.date;
+  artifactIdentity.textContent = artifact.identity;
+  blessingArtifact.classList.remove("hidden");
+  savePendingPayment({ generatedArtifact: artifact });
+}
+
 function revealOracle(storedReading = null) {
   const reading = storedReading || generateOracle();
   const recognitionLine = document.querySelector("#recognition");
@@ -1066,23 +1128,24 @@ function revealOracle(storedReading = null) {
 
   window.clearTimeout(actionRevealTimer);
   actionRevealTimer = window.setTimeout(() => {
+    revealBlessingArtifact();
     continueButton.classList.remove("hidden");
     followRitual(continueButton, "end", { delay: 700, duration: 1900 });
   }, 4300);
 }
 
-function resetPaymentAction({ clearStored = false } = {}) {
+function resetPaymentAction({ clearStored = false, preserveIntent = false } = {}) {
   walletPayButton.disabled = false;
-  walletPayButton.textContent = "Pay With Wallet";
+  walletPayButton.textContent = "CONNECT WALLET & SEND";
   completePaymentButton.disabled = false;
   completePaymentButton.textContent = "I Have Sent It";
   confirmOfferingButton.disabled = false;
   confirmOfferingButton.textContent = "Confirm Offering";
   paymentQrImage.src = "/assets/solana-wallet-recipient-qr.png";
   paymentQrImage.classList.remove("loading");
-  paymentQrLabel.textContent = "Scan recipient address";
+  paymentQrLabel.textContent = "Scan Official Shrine Wallet";
   paymentReference.textContent = "Created when the offering begins.";
-  currentPaymentIntent = null;
+  if (!preserveIntent) currentPaymentIntent = null;
   if (clearStored) clearPendingPayment();
   window.clearTimeout(paymentPollTimer);
 }
@@ -1098,6 +1161,7 @@ function returnToThreshold() {
   phaseLabel.textContent = "The Threshold";
   oracleCard.classList.add("hidden");
   oracleCard.classList.remove("revealing");
+  blessingArtifact.classList.add("hidden");
   for (const timer of revealLineTimers) window.clearTimeout(timer);
   revealLineTimers = [];
   for (const line of oracleCard.querySelectorAll(".blessing-text p")) {
@@ -1455,7 +1519,7 @@ function releaseBlessingAfterVerification() {
   window.setTimeout(() => {
     revealOracle(currentPaymentIntent?.generatedBlessing || null);
     blessingReleaseInProgress = false;
-    resetPaymentAction();
+    resetPaymentAction({ preserveIntent: true });
   }, 2300);
 }
 
@@ -1555,7 +1619,7 @@ continuePaymentButton.addEventListener("click", async () => {
     });
     paymentTitle.textContent = intent.offeringName;
     paymentMeaning.textContent = selectedOffering.dataset.meaning;
-    paymentInvocation.textContent = `May this flame accompany ${selectedOffering.dataset.offering === "traveler" ? "your steps through the unknown." : selectedOffering.dataset.offering === "keeper" ? "your keeping through the long night." : selectedOffering.dataset.offering === "sacred" ? "the blessing you carry forward." : "those who arrive after you."}`;
+    paymentInvocation.textContent = `May this flame accompany ${selectedOffering.dataset.offering === "traveler" ? "your steps through the unknown." : selectedOffering.dataset.offering === "wanderer" ? "your crossing beyond the first gate." : selectedOffering.dataset.offering === "keeper" ? "your keeping through the long night." : "the deeper silence of the Shrine."}`;
     paymentPrice.textContent = `${intent.amount} ${intent.token}`;
     paymentRecipient.textContent = intent.recipientAddress;
     paymentMint.textContent = intent.usdcMint;
@@ -1572,8 +1636,8 @@ continuePaymentButton.addEventListener("click", async () => {
 
     paymentQrImage.src = "/assets/solana-wallet-recipient-qr.png";
     paymentQrImage.classList.remove("loading");
-    paymentQrLabel.textContent = "Scan recipient address";
-    walletPayButton.textContent = "Pay With Wallet";
+    paymentQrLabel.textContent = "Scan Official Shrine Wallet";
+    walletPayButton.textContent = "CONNECT WALLET & SEND";
     savePendingPayment();
 
     paymentModal.classList.remove("hidden");
@@ -1600,7 +1664,7 @@ walletPayButton.addEventListener("click", async () => {
   window.clearTimeout(paymentPollTimer);
   walletPayButton.disabled = true;
   walletPayButton.textContent = "Opening Wallet...";
-  paymentQrLabel.textContent = "Wallet confirmation will carry the Offering Mark.";
+  paymentQrLabel.textContent = "Standard transfer only — no approvals required.";
 
   try {
     const signature = await sendWalletOffering(currentPaymentIntent);
@@ -1628,7 +1692,7 @@ walletPayButton.addEventListener("click", async () => {
     beginVerificationWait({ submitted: true });
   } catch (error) {
     walletPayButton.disabled = false;
-    walletPayButton.textContent = "Pay With Wallet";
+    walletPayButton.textContent = "CONNECT WALLET & SEND";
     paymentQrLabel.textContent = error?.message || "Wallet payment was not completed.";
   }
 });

@@ -37,9 +37,9 @@ const manualTransferScanLimit = 35;
 const manualTransferCreatedAtToleranceSeconds = 180;
 const offerings = new Map([
   ["traveler", { name: "Traveler's Offering", amount: "5" }],
-  ["keeper", { name: "Keeper's Offering", amount: "15" }],
-  ["sacred", { name: "Sacred Offering", amount: "35" }],
-  ["eternal", { name: "Eternal Offering", amount: "88" }]
+  ["wanderer", { name: "Wanderer's Offering", amount: "10" }],
+  ["keeper", { name: "Keeper's Offering", amount: "35" }],
+  ["sanctum", { name: "Sanctum Offering", amount: "88" }]
 ]);
 
 const types = new Map([
