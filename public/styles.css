@@ -1138,31 +1138,34 @@ h2 {
 .blessing-artifact {
   position: relative;
   display: flex;
-  width: min(92vw, 620px);
+  width: min(92vw, 540px);
   aspect-ratio: 1 / 1;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 32px auto 0;
-  border: 1px solid rgba(216, 157, 66, 0.74);
-  border-radius: 18px;
-  padding: clamp(24px, 4.5vw, 38px) clamp(18px, 4.2vw, 38px) clamp(18px, 3.8vw, 28px);
+  justify-content: flex-start;
+  margin: 24px auto 0;
+  border: 1px solid rgba(201, 137, 36, 0.7);
+  border-radius: 16px;
+  padding: clamp(22px, 4vw, 32px) clamp(16px, 4vw, 32px) clamp(15px, 3.4vw, 24px);
   overflow: hidden;
   color: rgba(255, 241, 204, 0.86);
   background:
-    radial-gradient(circle at 50% 29%, rgba(215, 142, 47, 0.14), transparent 42%),
-    radial-gradient(circle at 50% 78%, rgba(217, 157, 66, 0.1), transparent 30%),
+    radial-gradient(circle at 50% 30%, rgba(215, 142, 47, 0.12), transparent 43%),
+    radial-gradient(circle at 50% 72%, rgba(217, 157, 66, 0.08), transparent 29%),
+    radial-gradient(circle at 50% 50%, rgba(255, 220, 145, 0.035), transparent 56%),
     linear-gradient(180deg, rgba(4, 4, 4, 0.98), rgba(8, 6, 4, 0.96));
   box-shadow:
-    inset 0 0 0 8px rgba(0, 0, 0, 0.66),
-    inset 0 0 0 10px rgba(216, 157, 66, 0.18),
+    inset 0 0 0 6px rgba(0, 0, 0, 0.72),
+    inset 0 0 0 7px rgba(216, 157, 66, 0.26),
+    inset 0 0 0 11px rgba(0, 0, 0, 0.56),
+    inset 0 0 0 12px rgba(216, 157, 66, 0.18),
     inset 0 1px rgba(255, 244, 216, 0.06),
     0 34px 90px rgba(0, 0, 0, 0.44);
 }
 
 .blessing-artifact::before {
   position: absolute;
-  inset: 13px;
-  border: 1px solid rgba(216, 157, 66, 0.48);
+  inset: 15px;
+  border: 1px solid rgba(216, 157, 66, 0.56);
   border-radius: 12px;
   pointer-events: none;
   content: "";
@@ -1181,44 +1184,157 @@ h2 {
 
 .artifact-corner {
   position: absolute;
-  z-index: 1;
-  width: 34px;
-  height: 34px;
-  border-color: rgba(216, 157, 66, 0.78);
+  z-index: 2;
+  width: 62px;
+  height: 62px;
+  border-color: rgba(216, 157, 66, 0.82);
   pointer-events: none;
 }
 
 .artifact-corner.top-left {
-  top: 15px;
-  left: 15px;
-  border-top: 1px solid;
-  border-left: 1px solid;
-  border-radius: 14px 0 0 0;
+  top: 12px;
+  left: 12px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+  border-radius: 18px 0 0 0;
 }
 
 .artifact-corner.top-right {
-  top: 15px;
-  right: 15px;
-  border-top: 1px solid;
-  border-right: 1px solid;
-  border-radius: 0 14px 0 0;
+  top: 12px;
+  right: 12px;
+  border-top: 2px solid;
+  border-right: 2px solid;
+  border-radius: 0 18px 0 0;
 }
 
 .artifact-corner.bottom-left {
-  bottom: 15px;
-  left: 15px;
-  border-bottom: 1px solid;
-  border-left: 1px solid;
-  border-radius: 0 0 0 14px;
+  bottom: 12px;
+  left: 12px;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+  border-radius: 0 0 0 18px;
 }
 
 .artifact-corner.bottom-right {
-  right: 15px;
-  bottom: 15px;
-  border-right: 1px solid;
-  border-bottom: 1px solid;
-  border-radius: 0 0 14px 0;
+  right: 12px;
+  bottom: 12px;
+  border-right: 2px solid;
+  border-bottom: 2px solid;
+  border-radius: 0 0 18px 0;
 }
+
+.artifact-corner::before,
+.artifact-corner::after {
+  position: absolute;
+  width: 26px;
+  height: 1px;
+  background: rgba(216, 157, 66, 0.76);
+  content: "";
+}
+
+.artifact-corner.top-left::before,
+.artifact-corner.bottom-left::before {
+  left: 2px;
+  transform: rotate(45deg);
+  transform-origin: left center;
+}
+
+.artifact-corner.top-right::before,
+.artifact-corner.bottom-right::before {
+  right: 2px;
+  transform: rotate(-45deg);
+  transform-origin: right center;
+}
+
+.artifact-corner.top-left::before,
+.artifact-corner.top-right::before {
+  top: 18px;
+}
+
+.artifact-corner.bottom-left::before,
+.artifact-corner.bottom-right::before {
+  bottom: 18px;
+}
+
+.artifact-corner.top-left::after,
+.artifact-corner.bottom-left::after {
+  left: 23px;
+  transform: rotate(90deg);
+}
+
+.artifact-corner.top-right::after,
+.artifact-corner.bottom-right::after {
+  right: 23px;
+  transform: rotate(90deg);
+}
+
+.artifact-corner.top-left::after,
+.artifact-corner.top-right::after {
+  top: 8px;
+}
+
+.artifact-corner.bottom-left::after,
+.artifact-corner.bottom-right::after {
+  bottom: 8px;
+}
+
+.artifact-edge {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.artifact-edge.top,
+.artifact-edge.bottom {
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(216, 157, 66, 0.82);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.artifact-edge.top { top: 5px; }
+.artifact-edge.bottom { bottom: 5px; }
+
+.artifact-edge.left,
+.artifact-edge.right {
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border-top: 1px solid rgba(216, 157, 66, 0.82);
+  border-right: 1px solid rgba(216, 157, 66, 0.82);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.artifact-edge.left { left: 8px; }
+.artifact-edge.right { right: 8px; }
+
+.artifact-side-glyph {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 26px;
+  height: 48px;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.artifact-side-glyph.left { left: 4px; }
+.artifact-side-glyph.right { right: 4px; }
+
+.artifact-side-glyph::before,
+.artifact-side-glyph::after {
+  position: absolute;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(216, 157, 66, 0.82);
+  transform: translateX(-50%) rotate(45deg);
+  content: "";
+}
+
+.artifact-side-glyph::before { top: 4px; }
+.artifact-side-glyph::after { bottom: 4px; }
 
 .artifact-brand,
 .artifact-rule,
@@ -1238,22 +1354,24 @@ h2 {
 
 .artifact-brand {
   margin: 0;
-  color: rgba(216, 157, 66, 0.86);
+  color: rgba(213, 150, 52, 0.92);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.05rem, 4.1vw, 1.95rem);
+  font-size: clamp(1rem, 3.65vw, 1.65rem);
   font-weight: 700;
-  letter-spacing: clamp(0.18em, 1vw, 0.36em);
-  text-indent: clamp(0.18em, 1vw, 0.36em);
+  letter-spacing: clamp(0.18em, 0.92vw, 0.34em);
+  text-indent: clamp(0.18em, 0.92vw, 0.34em);
   text-transform: uppercase;
-  text-shadow: 0 0 18px rgba(231, 169, 71, 0.18);
+  text-shadow:
+    0 0 18px rgba(231, 169, 71, 0.22),
+    0 1px 0 rgba(255, 231, 170, 0.1);
 }
 
 .artifact-rule {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 360px;
-  margin: clamp(10px, 2vw, 16px) auto clamp(10px, 2.2vw, 18px);
+  max-width: 300px;
+  margin: clamp(8px, 1.65vw, 12px) auto clamp(8px, 1.8vw, 13px);
   color: rgba(241, 205, 129, 0.82);
 }
 
@@ -1271,19 +1389,35 @@ h2 {
 }
 
 .artifact-rule span {
-  width: 7px;
-  height: 7px;
+  position: relative;
+  width: 9px;
+  height: 9px;
   margin: 0 13px;
-  border-radius: 50%;
-  background: rgba(247, 209, 130, 0.92);
-  box-shadow: 0 0 16px rgba(247, 178, 71, 0.58);
+  background:
+    linear-gradient(45deg, transparent 41%, rgba(247, 209, 130, 0.95) 42% 58%, transparent 59%),
+    linear-gradient(-45deg, transparent 41%, rgba(247, 209, 130, 0.95) 42% 58%, transparent 59%);
+  box-shadow: 0 0 18px rgba(247, 178, 71, 0.62);
 }
 
+.artifact-rule span::before,
+.artifact-rule span::after {
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(247, 209, 130, 0.9);
+  content: "";
+}
+
+.artifact-rule span::before { left: -13px; }
+.artifact-rule span::after { right: -13px; }
+
 .artifact-kicker {
-  margin: 0 0 clamp(10px, 2vw, 16px);
+  margin: 0 0 clamp(8px, 1.7vw, 12px);
   color: rgba(255, 241, 209, 0.8);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(0.78rem, 2.25vw, 1.05rem);
+  font-size: clamp(0.74rem, 2vw, 0.92rem);
   font-weight: 800;
   letter-spacing: 0.16em;
   text-indent: 0.16em;
@@ -1291,26 +1425,37 @@ h2 {
 }
 
 .artifact-statement {
-  max-width: 480px;
-  margin: 0 auto clamp(8px, 1.6vw, 12px);
+  max-width: 430px;
+  margin: 0 auto clamp(7px, 1.3vw, 10px);
   padding-bottom: 0.12em;
-  color: #f3dba8;
+  color: #f7d992;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.18rem, 4.8vw, 2.16rem);
-  line-height: 1.18;
+  font-size: clamp(1.04rem, 4.05vw, 1.72rem);
+  line-height: 1.16;
   text-wrap: balance;
   text-shadow:
-    0 0 24px rgba(232, 163, 75, 0.12),
+    0 0 24px rgba(232, 163, 75, 0.18),
     0 2px 18px rgba(0, 0, 0, 0.64);
+}
+
+.artifact-statement::after,
+.artifact-boundary::after {
+  display: block;
+  width: min(180px, 38vw);
+  height: 1px;
+  margin: clamp(7px, 1.5vw, 10px) auto 0;
+  background: linear-gradient(90deg, transparent, rgba(211, 138, 38, 0.28), rgba(255, 214, 119, 0.9), rgba(211, 138, 38, 0.28), transparent);
+  box-shadow: 0 0 14px rgba(247, 178, 71, 0.52);
+  content: "";
 }
 
 .artifact-boundary {
   display: grid;
   gap: 0;
-  margin: clamp(8px, 1.8vw, 14px) auto;
+  margin: clamp(7px, 1.4vw, 11px) auto;
   color: #f3dba8;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.05rem, 4.2vw, 1.8rem);
+  font-size: clamp(0.98rem, 3.55vw, 1.46rem);
   line-height: 1.08;
 }
 
@@ -1322,52 +1467,69 @@ h2 {
 }
 
 .artifact-stillness {
-  max-width: 440px;
+  max-width: 380px;
   margin: 0 auto;
   color: rgba(243, 219, 168, 0.92);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(0.95rem, 3.4vw, 1.45rem);
+  font-size: clamp(0.86rem, 2.8vw, 1.18rem);
   line-height: 1.16;
   text-wrap: balance;
 }
 
 .artifact-flame {
   display: grid;
-  width: clamp(66px, 14vw, 92px);
-  height: clamp(58px, 12vw, 82px);
+  width: clamp(78px, 13.8vw, 98px);
+  height: clamp(64px, 11.5vw, 82px);
   place-items: end center;
-  margin: clamp(8px, 1.8vw, 14px) auto 4px;
-  background: radial-gradient(ellipse at 50% 86%, rgba(231, 157, 48, 0.42), transparent 62%);
+  margin: clamp(7px, 1.4vw, 10px) auto 3px;
+  background:
+    radial-gradient(ellipse at 50% 91%, rgba(255, 211, 91, 0.62), rgba(213, 125, 23, 0.2) 28%, transparent 64%),
+    linear-gradient(90deg, transparent 0 10%, rgba(231, 157, 48, 0.02), rgba(255, 211, 91, 0.5), rgba(231, 157, 48, 0.02), transparent 90%);
 }
 
 .artifact-flame span {
   position: relative;
-  width: clamp(31px, 6.2vw, 42px);
-  height: clamp(44px, 8.8vw, 60px);
-  border-radius: 48% 52% 50% 50%;
-  background: linear-gradient(180deg, #ffe38e 0%, #f3b33f 52%, #d97922 100%);
+  width: clamp(44px, 7.2vw, 58px);
+  height: clamp(54px, 8.8vw, 70px);
+  border-radius: 52% 48% 48% 50%;
+  background:
+    radial-gradient(circle at 50% 86%, #fff7b9 0 11%, transparent 12%),
+    linear-gradient(180deg, #ffe38e 0%, #f3b33f 52%, #d97922 100%);
   box-shadow:
     0 0 22px rgba(247, 180, 66, 0.46),
     0 0 64px rgba(247, 139, 38, 0.24);
   transform: rotate(3deg);
+  clip-path: polygon(50% 0%, 62% 27%, 77% 43%, 89% 69%, 74% 100%, 50% 84%, 26% 100%, 10% 69%, 24% 43%, 38% 27%);
 }
 
 .artifact-flame span::before {
   position: absolute;
-  right: 3px;
-  bottom: 0;
-  width: 52%;
-  height: 62%;
+  right: 18%;
+  bottom: 5%;
+  width: 38%;
+  height: 54%;
+  border-radius: 55% 45% 48% 48%;
+  background: linear-gradient(180deg, #fff6b8, #ffd35d 64%, #f09a24);
+  transform: rotate(-10deg);
+  content: "";
+}
+
+.artifact-flame span::after {
+  position: absolute;
+  left: 18%;
+  bottom: 3%;
+  width: 34%;
+  height: 46%;
   border-radius: 50% 50% 46% 48%;
-  background: #fff1a6;
-  transform: rotate(-14deg);
+  background: linear-gradient(180deg, rgba(255, 239, 164, 0.95), rgba(241, 151, 34, 0.9));
+  transform: rotate(14deg);
   content: "";
 }
 
 .artifact-domain {
   color: rgba(216, 157, 66, 0.9);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(0.55rem, 1.8vw, 0.82rem);
+  font-size: clamp(0.5rem, 1.5vw, 0.66rem);
   font-weight: 700;
   letter-spacing: 0.32em;
   text-indent: 0.32em;
@@ -1376,15 +1538,15 @@ h2 {
 
 .artifact-number {
   display: inline-flex;
-  min-height: clamp(28px, 5.4vw, 36px);
+  min-height: clamp(24px, 4.4vw, 30px);
   align-items: center;
   justify-content: center;
-  margin: clamp(6px, 1.3vw, 10px) auto clamp(5px, 1vw, 8px);
+  margin: clamp(5px, 1vw, 7px) auto clamp(4px, 0.8vw, 6px);
   border: 1px solid rgba(216, 157, 66, 0.66);
-  padding: 0 clamp(16px, 4vw, 26px);
+  padding: 0 clamp(13px, 3.3vw, 22px);
   color: rgba(216, 157, 66, 0.92);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(0.55rem, 1.9vw, 0.78rem);
+  font-size: clamp(0.48rem, 1.55vw, 0.64rem);
   font-weight: 700;
   letter-spacing: 0.2em;
   text-indent: 0.2em;
@@ -1404,7 +1566,7 @@ h2 {
 
 .artifact-signature {
   color: rgba(241, 222, 178, 0.56);
-  font-size: clamp(0.48rem, 1.5vw, 0.62rem);
+  font-size: clamp(0.44rem, 1.28vw, 0.54rem);
   font-weight: 700;
   letter-spacing: 0.12em;
 }

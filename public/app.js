@@ -1139,58 +1139,85 @@ function drawWrappedText(context, text, x, y, maxWidth, lineHeight, maxLines = 5
 
 function drawCardRule(context, y, width) {
   const center = width / 2;
-  const gradient = context.createLinearGradient(center - 230, y, center + 230, y);
+  const gradient = context.createLinearGradient(center - 250, y, center + 250, y);
   gradient.addColorStop(0, "rgba(191, 135, 46, 0)");
-  gradient.addColorStop(0.5, "rgba(242, 198, 115, 0.86)");
+  gradient.addColorStop(0.42, "rgba(179, 111, 24, 0.42)");
+  gradient.addColorStop(0.5, "rgba(255, 217, 122, 0.92)");
+  gradient.addColorStop(0.58, "rgba(179, 111, 24, 0.42)");
   gradient.addColorStop(1, "rgba(191, 135, 46, 0)");
   context.strokeStyle = gradient;
   context.lineWidth = 2;
   context.beginPath();
-  context.moveTo(center - 230, y);
-  context.lineTo(center + 230, y);
+  context.moveTo(center - 250, y);
+  context.lineTo(center + 250, y);
   context.stroke();
 
   context.fillStyle = "#f6d58a";
   context.beginPath();
-  context.arc(center, y, 5, 0, Math.PI * 2);
+  context.moveTo(center, y - 13);
+  context.lineTo(center + 5, y - 3);
+  context.lineTo(center + 17, y);
+  context.lineTo(center + 5, y + 3);
+  context.lineTo(center, y + 13);
+  context.lineTo(center - 5, y + 3);
+  context.lineTo(center - 17, y);
+  context.lineTo(center - 5, y - 3);
+  context.closePath();
+  context.fill();
+
+  context.beginPath();
+  context.arc(center - 32, y, 3, 0, Math.PI * 2);
+  context.arc(center + 32, y, 3, 0, Math.PI * 2);
   context.fill();
 }
 
 function drawCardFlame(context, x, y) {
-  const glow = context.createRadialGradient(x, y + 58, 3, x, y + 58, 150);
-  glow.addColorStop(0, "rgba(255, 216, 111, 0.72)");
-  glow.addColorStop(0.42, "rgba(205, 115, 28, 0.18)");
+  const glow = context.createRadialGradient(x, y + 56, 3, x, y + 56, 165);
+  glow.addColorStop(0, "rgba(255, 222, 112, 0.8)");
+  glow.addColorStop(0.35, "rgba(205, 115, 28, 0.22)");
   glow.addColorStop(1, "rgba(205, 115, 28, 0)");
   context.fillStyle = glow;
   context.fillRect(x - 160, y - 72, 320, 220);
 
+  const horizon = context.createLinearGradient(x - 190, y + 96, x + 190, y + 96);
+  horizon.addColorStop(0, "rgba(203, 113, 18, 0)");
+  horizon.addColorStop(0.5, "rgba(255, 209, 83, 0.86)");
+  horizon.addColorStop(1, "rgba(203, 113, 18, 0)");
+  context.strokeStyle = horizon;
+  context.lineWidth = 3;
+  context.beginPath();
+  context.moveTo(x - 190, y + 96);
+  context.lineTo(x + 190, y + 96);
+  context.stroke();
+
   context.fillStyle = "#f6c65a";
   context.beginPath();
-  context.moveTo(x, y - 66);
-  context.bezierCurveTo(x + 56, y - 5, x + 53, y + 72, x, y + 84);
-  context.bezierCurveTo(x - 66, y + 50, x - 32, y - 14, x, y - 66);
+  context.moveTo(x, y - 82);
+  context.bezierCurveTo(x + 48, y - 22, x + 66, y + 34, x + 24, y + 94);
+  context.bezierCurveTo(x + 2, y + 74, x - 24, y + 72, x - 48, y + 94);
+  context.bezierCurveTo(x - 76, y + 39, x - 36, y - 16, x, y - 82);
+  context.fill();
+
+  context.fillStyle = "#f0a22e";
+  context.beginPath();
+  context.moveTo(x - 18, y - 24);
+  context.bezierCurveTo(x - 58, y + 18, x - 45, y + 76, x - 9, y + 92);
+  context.bezierCurveTo(x - 17, y + 58, x + 6, y + 31, x - 18, y - 24);
   context.fill();
 
   context.fillStyle = "#fff0a6";
   context.beginPath();
-  context.moveTo(x, y - 12);
-  context.bezierCurveTo(x + 30, y + 30, x + 23, y + 78, x, y + 86);
-  context.bezierCurveTo(x - 29, y + 62, x - 14, y + 20, x, y - 12);
+  context.moveTo(x + 12, y - 30);
+  context.bezierCurveTo(x + 47, y + 14, x + 37, y + 78, x + 4, y + 96);
+  context.bezierCurveTo(x - 13, y + 58, x + 10, y + 20, x + 12, y - 30);
   context.fill();
-
-  context.strokeStyle = "rgba(247, 196, 92, 0.62)";
-  context.lineWidth = 2;
-  context.beginPath();
-  context.moveTo(x - 130, y + 96);
-  context.lineTo(x + 130, y + 96);
-  context.stroke();
 }
 
 function drawCardCorners(context, width, height) {
   context.strokeStyle = "rgba(216, 157, 66, 0.72)";
   context.lineWidth = 2;
-  const size = 78;
-  const inset = 54;
+  const size = 96;
+  const inset = 38;
 
   for (const [x, y, xSign, ySign] of [
     [inset, inset, 1, 1],
@@ -1209,6 +1236,33 @@ function drawCardCorners(context, width, height) {
     context.moveTo(x + xSign * 28, y + ySign * 28);
     context.lineTo(x + xSign * 44, y + ySign * 44);
     context.lineTo(x + xSign * 28, y + ySign * 60);
+    context.stroke();
+  }
+
+  context.strokeStyle = "rgba(216, 157, 66, 0.82)";
+  for (const [x, y] of [
+    [width / 2, 38],
+    [width / 2, height - 38],
+    [38, height / 2],
+    [width - 38, height / 2]
+  ]) {
+    context.beginPath();
+    context.moveTo(x, y - 13);
+    context.lineTo(x + 13, y);
+    context.lineTo(x, y + 13);
+    context.lineTo(x - 13, y);
+    context.closePath();
+    context.stroke();
+  }
+
+  for (const x of [30, width - 30]) {
+    const y = height / 2;
+    context.beginPath();
+    context.moveTo(x, y - 34);
+    context.lineTo(x + (x < width / 2 ? 16 : -16), y - 18);
+    context.lineTo(x, y);
+    context.lineTo(x + (x < width / 2 ? 16 : -16), y + 18);
+    context.lineTo(x, y + 34);
     context.stroke();
   }
 }
