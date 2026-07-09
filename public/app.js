@@ -1172,58 +1172,66 @@ function drawCardRule(context, y, width) {
 }
 
 function drawCardFlame(context, x, y) {
-  const glow = context.createRadialGradient(x, y + 56, 3, x, y + 56, 165);
-  glow.addColorStop(0, "rgba(255, 222, 112, 0.8)");
-  glow.addColorStop(0.35, "rgba(205, 115, 28, 0.22)");
+  const glow = context.createRadialGradient(x, y + 70, 3, x, y + 70, 155);
+  glow.addColorStop(0, "rgba(255, 222, 112, 0.74)");
+  glow.addColorStop(0.35, "rgba(205, 115, 28, 0.2)");
   glow.addColorStop(1, "rgba(205, 115, 28, 0)");
   context.fillStyle = glow;
-  context.fillRect(x - 160, y - 72, 320, 220);
+  context.fillRect(x - 150, y - 80, 300, 240);
 
-  const horizon = context.createLinearGradient(x - 190, y + 96, x + 190, y + 96);
+  const horizon = context.createLinearGradient(x - 180, y + 116, x + 180, y + 116);
   horizon.addColorStop(0, "rgba(203, 113, 18, 0)");
-  horizon.addColorStop(0.5, "rgba(255, 209, 83, 0.86)");
+  horizon.addColorStop(0.5, "rgba(255, 209, 83, 0.78)");
   horizon.addColorStop(1, "rgba(203, 113, 18, 0)");
   context.strokeStyle = horizon;
   context.lineWidth = 3;
   context.beginPath();
-  context.moveTo(x - 190, y + 96);
-  context.lineTo(x + 190, y + 96);
+  context.moveTo(x - 180, y + 116);
+  context.lineTo(x + 180, y + 116);
   context.stroke();
 
   context.fillStyle = "#f6c65a";
   context.beginPath();
-  context.moveTo(x, y - 82);
-  context.bezierCurveTo(x + 48, y - 22, x + 66, y + 34, x + 24, y + 94);
-  context.bezierCurveTo(x + 2, y + 74, x - 24, y + 72, x - 48, y + 94);
-  context.bezierCurveTo(x - 76, y + 39, x - 36, y - 16, x, y - 82);
+  context.moveTo(x, y - 104);
+  context.bezierCurveTo(x + 38, y - 38, x + 60, y + 40, x + 25, y + 112);
+  context.bezierCurveTo(x + 4, y + 90, x - 22, y + 88, x - 43, y + 112);
+  context.bezierCurveTo(x - 70, y + 42, x - 34, y - 24, x, y - 104);
   context.fill();
 
-  context.fillStyle = "#f0a22e";
+  context.fillStyle = "#080503";
   context.beginPath();
-  context.moveTo(x - 18, y - 24);
-  context.bezierCurveTo(x - 58, y + 18, x - 45, y + 76, x - 9, y + 92);
-  context.bezierCurveTo(x - 17, y + 58, x + 6, y + 31, x - 18, y - 24);
+  context.moveTo(x + 7, y - 32);
+  context.bezierCurveTo(x + 35, y + 18, x + 27, y + 88, x + 4, y + 105);
+  context.bezierCurveTo(x - 9, y + 61, x + 2, y + 4, x + 7, y - 32);
+  context.fill();
+
+  context.fillStyle = "#f4a22e";
+  context.beginPath();
+  context.moveTo(x - 20, y + 4);
+  context.bezierCurveTo(x - 48, y + 40, x - 35, y + 96, x - 6, y + 108);
+  context.bezierCurveTo(x - 15, y + 70, x + 1, y + 36, x - 20, y + 4);
   context.fill();
 
   context.fillStyle = "#fff0a6";
   context.beginPath();
-  context.moveTo(x + 12, y - 30);
-  context.bezierCurveTo(x + 47, y + 14, x + 37, y + 78, x + 4, y + 96);
-  context.bezierCurveTo(x - 13, y + 58, x + 10, y + 20, x + 12, y - 30);
+  context.moveTo(x + 12, y - 12);
+  context.bezierCurveTo(x + 32, y + 28, x + 27, y + 88, x + 2, y + 110);
+  context.bezierCurveTo(x - 10, y + 74, x + 7, y + 24, x + 12, y - 12);
   context.fill();
 }
 
 function drawCardCorners(context, width, height) {
-  context.strokeStyle = "rgba(216, 157, 66, 0.72)";
+  context.strokeStyle = "rgba(216, 157, 66, 0.68)";
   context.lineWidth = 2;
-  const size = 96;
-  const inset = 38;
+  const size = 84;
+  const insetX = 50;
+  const insetY = 50;
 
   for (const [x, y, xSign, ySign] of [
-    [inset, inset, 1, 1],
-    [width - inset, inset, -1, 1],
-    [inset, height - inset, 1, -1],
-    [width - inset, height - inset, -1, -1]
+    [insetX, insetY, 1, 1],
+    [width - insetX, insetY, -1, 1],
+    [insetX, height - insetY, 1, -1],
+    [width - insetX, height - insetY, -1, -1]
   ]) {
     context.beginPath();
     context.moveTo(x, y + ySign * size);
@@ -1233,36 +1241,36 @@ function drawCardCorners(context, width, height) {
     context.stroke();
 
     context.beginPath();
-    context.moveTo(x + xSign * 28, y + ySign * 28);
-    context.lineTo(x + xSign * 44, y + ySign * 44);
-    context.lineTo(x + xSign * 28, y + ySign * 60);
+    context.moveTo(x + xSign * 18, y + ySign * 26);
+    context.lineTo(x + xSign * 40, y + ySign * 48);
+    context.lineTo(x + xSign * 18, y + ySign * 70);
     context.stroke();
   }
 
-  context.strokeStyle = "rgba(216, 157, 66, 0.82)";
+  context.strokeStyle = "rgba(216, 157, 66, 0.78)";
   for (const [x, y] of [
-    [width / 2, 38],
-    [width / 2, height - 38],
-    [38, height / 2],
-    [width - 38, height / 2]
+    [width / 2, 42],
+    [width / 2, height - 42],
+    [42, height / 2],
+    [width - 42, height / 2]
   ]) {
     context.beginPath();
-    context.moveTo(x, y - 13);
-    context.lineTo(x + 13, y);
-    context.lineTo(x, y + 13);
-    context.lineTo(x - 13, y);
+    context.moveTo(x, y - 11);
+    context.lineTo(x + 11, y);
+    context.lineTo(x, y + 11);
+    context.lineTo(x - 11, y);
     context.closePath();
     context.stroke();
   }
 
-  for (const x of [30, width - 30]) {
+  for (const x of [40, width - 40]) {
     const y = height / 2;
     context.beginPath();
-    context.moveTo(x, y - 34);
-    context.lineTo(x + (x < width / 2 ? 16 : -16), y - 18);
+    context.moveTo(x, y - 31);
+    context.lineTo(x + (x < width / 2 ? 14 : -14), y - 16);
     context.lineTo(x, y);
-    context.lineTo(x + (x < width / 2 ? 16 : -16), y + 18);
-    context.lineTo(x, y + 34);
+    context.lineTo(x + (x < width / 2 ? 14 : -14), y + 16);
+    context.lineTo(x, y + 31);
     context.stroke();
   }
 }
@@ -1271,7 +1279,7 @@ function saveBlessingCardImage() {
   const artifact = buildBlessingArtifact(currentPaymentIntent?.generatedBlessing || null);
   const canvas = document.createElement("canvas");
   const width = 1080;
-  const height = 1080;
+  const height = 1440;
   canvas.width = width;
   canvas.height = height;
   const context = canvas.getContext("2d");
@@ -1280,7 +1288,7 @@ function saveBlessingCardImage() {
   context.fillStyle = "#030303";
   context.fillRect(0, 0, width, height);
 
-  const backgroundGlow = context.createRadialGradient(width / 2, 430, 50, width / 2, 430, 620);
+  const backgroundGlow = context.createRadialGradient(width / 2, 520, 50, width / 2, 520, 660);
   backgroundGlow.addColorStop(0, "rgba(184, 111, 34, 0.18)");
   backgroundGlow.addColorStop(0.45, "rgba(56, 30, 12, 0.1)");
   backgroundGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
@@ -1297,50 +1305,50 @@ function saveBlessingCardImage() {
 
   context.textAlign = "center";
   context.fillStyle = "#d8a84f";
-  context.font = "700 45px Georgia, serif";
+  context.font = "700 52px Georgia, serif";
   context.letterSpacing = "12px";
-  context.fillText("FORTUNE SHRINE", width / 2, 118);
+  context.fillText("FORTUNE SHRINE", width / 2, 132);
   context.letterSpacing = "0px";
 
-  drawCardRule(context, 166, width);
+  drawCardRule(context, 196, width);
 
   context.fillStyle = "#fff2c3";
-  context.font = "700 34px Georgia, serif";
-  context.fillText("THE SHRINE SAYS:", width / 2, 218);
+  context.font = "700 38px Georgia, serif";
+  context.fillText("THE SHRINE SAYS:", width / 2, 268);
 
-  drawCardRule(context, 256, width);
-
-  context.fillStyle = "#f3dba8";
-  context.font = "54px Georgia, serif";
-  drawWrappedText(context, artifact.statement, width / 2, 330, 830, 66, 3);
-
-  drawCardRule(context, 514, width);
+  drawCardRule(context, 310, width);
 
   context.fillStyle = "#f3dba8";
+  context.font = "58px Georgia, serif";
+  drawWrappedText(context, artifact.statement, width / 2, 405, 800, 70, 3);
+
+  drawCardRule(context, 610, width);
+
+  context.fillStyle = "#f3dba8";
+  context.font = "52px Georgia, serif";
+  context.fillText("No signals.", width / 2, 690);
+  context.fillText("No predictions.", width / 2, 754);
+
+  drawCardRule(context, 830, width);
+
   context.font = "46px Georgia, serif";
-  context.fillText("No signals.", width / 2, 580);
-  context.fillText("No predictions.", width / 2, 635);
+  drawWrappedText(context, "Only a moment of stillness before the unknown.", width / 2, 900, 760, 58, 2);
 
-  drawCardRule(context, 680, width);
-
-  context.font = "38px Georgia, serif";
-  drawWrappedText(context, "Only a moment of stillness before the unknown.", width / 2, 734, 760, 48, 2);
-
-  drawCardFlame(context, width / 2, 812);
+  drawCardFlame(context, width / 2, 1060);
 
   context.fillStyle = "#d8a84f";
-  context.font = "700 24px Georgia, serif";
-  context.fillText("FORTUNESHRINE.COM", width / 2, 914);
+  context.font = "700 26px Georgia, serif";
+  context.fillText("FORTUNESHRINE.COM", width / 2, 1232);
 
   context.strokeStyle = "rgba(216, 157, 66, 0.72)";
-  context.strokeRect(286, 940, 508, 48);
-  context.font = "700 22px Georgia, serif";
-  context.fillText(artifact.number.toUpperCase(), width / 2, 972);
+  context.strokeRect(286, 1266, 508, 50);
+  context.font = "700 23px Georgia, serif";
+  context.fillText(artifact.number.toUpperCase(), width / 2, 1299);
 
   context.fillStyle = "rgba(255, 236, 190, 0.78)";
-  context.font = "19px Georgia, serif";
-  context.fillText(`${artifact.date} · ${artifact.marketState}`, width / 2, 1018);
-  context.fillText(artifact.signature, width / 2, 1046);
+  context.font = "20px Georgia, serif";
+  context.fillText(`${artifact.date} · ${artifact.marketState}`, width / 2, 1350);
+  context.fillText(artifact.signature, width / 2, 1380);
 
   const link = document.createElement("a");
   link.download = `fortune-shrine-${artifact.number.replace(/[^0-9]/g, "")}.png`;
