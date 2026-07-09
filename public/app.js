@@ -1186,11 +1186,38 @@ function drawCardFlame(context, x, y) {
   context.stroke();
 }
 
+function drawCardCorners(context, width, height) {
+  context.strokeStyle = "rgba(216, 157, 66, 0.72)";
+  context.lineWidth = 2;
+  const size = 78;
+  const inset = 54;
+
+  for (const [x, y, xSign, ySign] of [
+    [inset, inset, 1, 1],
+    [width - inset, inset, -1, 1],
+    [inset, height - inset, 1, -1],
+    [width - inset, height - inset, -1, -1]
+  ]) {
+    context.beginPath();
+    context.moveTo(x, y + ySign * size);
+    context.lineTo(x, y + ySign * 20);
+    context.quadraticCurveTo(x, y, x + xSign * 20, y);
+    context.lineTo(x + xSign * size, y);
+    context.stroke();
+
+    context.beginPath();
+    context.moveTo(x + xSign * 28, y + ySign * 28);
+    context.lineTo(x + xSign * 44, y + ySign * 44);
+    context.lineTo(x + xSign * 28, y + ySign * 60);
+    context.stroke();
+  }
+}
+
 function saveBlessingCardImage() {
   const artifact = buildBlessingArtifact(currentPaymentIntent?.generatedBlessing || null);
   const canvas = document.createElement("canvas");
   const width = 1080;
-  const height = 1350;
+  const height = 1080;
   canvas.width = width;
   canvas.height = height;
   const context = canvas.getContext("2d");
@@ -1199,7 +1226,7 @@ function saveBlessingCardImage() {
   context.fillStyle = "#030303";
   context.fillRect(0, 0, width, height);
 
-  const backgroundGlow = context.createRadialGradient(width / 2, 420, 60, width / 2, 420, 720);
+  const backgroundGlow = context.createRadialGradient(width / 2, 430, 50, width / 2, 430, 620);
   backgroundGlow.addColorStop(0, "rgba(184, 111, 34, 0.18)");
   backgroundGlow.addColorStop(0.45, "rgba(56, 30, 12, 0.1)");
   backgroundGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
@@ -1212,53 +1239,54 @@ function saveBlessingCardImage() {
   context.strokeStyle = "rgba(216, 157, 66, 0.36)";
   context.lineWidth = 1;
   context.strokeRect(62, 62, width - 124, height - 124);
+  drawCardCorners(context, width, height);
 
   context.textAlign = "center";
   context.fillStyle = "#d8a84f";
   context.font = "700 45px Georgia, serif";
   context.letterSpacing = "12px";
-  context.fillText("FORTUNE SHRINE", width / 2, 138);
+  context.fillText("FORTUNE SHRINE", width / 2, 118);
   context.letterSpacing = "0px";
 
-  drawCardRule(context, 190, width);
+  drawCardRule(context, 166, width);
 
   context.fillStyle = "#fff2c3";
   context.font = "700 34px Georgia, serif";
-  context.fillText("THE SHRINE SAYS:", width / 2, 246);
+  context.fillText("THE SHRINE SAYS:", width / 2, 218);
 
-  drawCardRule(context, 290, width);
-
-  context.fillStyle = "#f3dba8";
-  context.font = "48px Georgia, serif";
-  const textBottom = drawWrappedText(context, artifact.statement, width / 2, 380, 800, 62, 4);
-
-  drawCardRule(context, textBottom + 44, width);
+  drawCardRule(context, 256, width);
 
   context.fillStyle = "#f3dba8";
-  context.font = "50px Georgia, serif";
-  context.fillText("No signals.", width / 2, textBottom + 128);
-  context.fillText("No predictions.", width / 2, textBottom + 194);
+  context.font = "54px Georgia, serif";
+  drawWrappedText(context, artifact.statement, width / 2, 330, 830, 66, 3);
 
-  drawCardRule(context, textBottom + 246, width);
+  drawCardRule(context, 514, width);
 
-  context.font = "48px Georgia, serif";
-  drawWrappedText(context, "Only a moment of stillness before the unknown.", width / 2, textBottom + 330, 720, 62, 3);
+  context.fillStyle = "#f3dba8";
+  context.font = "46px Georgia, serif";
+  context.fillText("No signals.", width / 2, 580);
+  context.fillText("No predictions.", width / 2, 635);
 
-  drawCardFlame(context, width / 2, 1010);
+  drawCardRule(context, 680, width);
+
+  context.font = "38px Georgia, serif";
+  drawWrappedText(context, "Only a moment of stillness before the unknown.", width / 2, 734, 760, 48, 2);
+
+  drawCardFlame(context, width / 2, 812);
 
   context.fillStyle = "#d8a84f";
-  context.font = "700 26px Georgia, serif";
-  context.fillText("FORTUNESHRINE.COM", width / 2, 1178);
+  context.font = "700 24px Georgia, serif";
+  context.fillText("FORTUNESHRINE.COM", width / 2, 914);
 
   context.strokeStyle = "rgba(216, 157, 66, 0.72)";
-  context.strokeRect(270, 1212, 540, 54);
-  context.font = "700 24px Georgia, serif";
-  context.fillText(artifact.number.toUpperCase(), width / 2, 1248);
+  context.strokeRect(286, 940, 508, 48);
+  context.font = "700 22px Georgia, serif";
+  context.fillText(artifact.number.toUpperCase(), width / 2, 972);
 
   context.fillStyle = "rgba(255, 236, 190, 0.78)";
-  context.font = "22px Georgia, serif";
-  context.fillText(`${artifact.date} · ${artifact.marketState}`, width / 2, 1290);
-  context.fillText(artifact.signature, width / 2, 1322);
+  context.font = "19px Georgia, serif";
+  context.fillText(`${artifact.date} · ${artifact.marketState}`, width / 2, 1018);
+  context.fillText(artifact.signature, width / 2, 1046);
 
   const link = document.createElement("a");
   link.download = `fortune-shrine-${artifact.number.replace(/[^0-9]/g, "")}.png`;

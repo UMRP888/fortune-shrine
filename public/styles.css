@@ -1137,11 +1137,15 @@ h2 {
 
 .blessing-artifact {
   position: relative;
-  width: min(100%, 560px);
-  margin: 42px auto 0;
+  display: flex;
+  width: min(92vw, 620px);
+  aspect-ratio: 1 / 1;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 32px auto 0;
   border: 1px solid rgba(216, 157, 66, 0.74);
-  border-radius: 24px;
-  padding: clamp(30px, 7vw, 54px) clamp(22px, 6vw, 46px) 32px;
+  border-radius: 18px;
+  padding: clamp(24px, 4.5vw, 38px) clamp(18px, 4.2vw, 38px) clamp(18px, 3.8vw, 28px);
   overflow: hidden;
   color: rgba(255, 241, 204, 0.86);
   background:
@@ -1157,9 +1161,9 @@ h2 {
 
 .blessing-artifact::before {
   position: absolute;
-  inset: 16px;
+  inset: 13px;
   border: 1px solid rgba(216, 157, 66, 0.48);
-  border-radius: 16px;
+  border-radius: 12px;
   pointer-events: none;
   content: "";
 }
@@ -1178,39 +1182,39 @@ h2 {
 .artifact-corner {
   position: absolute;
   z-index: 1;
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   border-color: rgba(216, 157, 66, 0.78);
   pointer-events: none;
 }
 
 .artifact-corner.top-left {
-  top: 18px;
-  left: 18px;
+  top: 15px;
+  left: 15px;
   border-top: 1px solid;
   border-left: 1px solid;
   border-radius: 14px 0 0 0;
 }
 
 .artifact-corner.top-right {
-  top: 18px;
-  right: 18px;
+  top: 15px;
+  right: 15px;
   border-top: 1px solid;
   border-right: 1px solid;
   border-radius: 0 14px 0 0;
 }
 
 .artifact-corner.bottom-left {
-  bottom: 18px;
-  left: 18px;
+  bottom: 15px;
+  left: 15px;
   border-bottom: 1px solid;
   border-left: 1px solid;
   border-radius: 0 0 0 14px;
 }
 
 .artifact-corner.bottom-right {
-  right: 18px;
-  bottom: 18px;
+  right: 15px;
+  bottom: 15px;
   border-right: 1px solid;
   border-bottom: 1px solid;
   border-radius: 0 0 14px 0;
@@ -1236,10 +1240,10 @@ h2 {
   margin: 0;
   color: rgba(216, 157, 66, 0.86);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.35rem, 4.5vw, 2.45rem);
+  font-size: clamp(1.05rem, 4.1vw, 1.95rem);
   font-weight: 700;
-  letter-spacing: clamp(0.22em, 1.3vw, 0.42em);
-  text-indent: clamp(0.22em, 1.3vw, 0.42em);
+  letter-spacing: clamp(0.18em, 1vw, 0.36em);
+  text-indent: clamp(0.18em, 1vw, 0.36em);
   text-transform: uppercase;
   text-shadow: 0 0 18px rgba(231, 169, 71, 0.18);
 }
@@ -1249,7 +1253,7 @@ h2 {
   align-items: center;
   justify-content: center;
   max-width: 360px;
-  margin: 22px auto 24px;
+  margin: clamp(10px, 2vw, 16px) auto clamp(10px, 2.2vw, 18px);
   color: rgba(241, 205, 129, 0.82);
 }
 
@@ -1267,19 +1271,19 @@ h2 {
 }
 
 .artifact-rule span {
-  width: 8px;
-  height: 8px;
-  margin: 0 16px;
+  width: 7px;
+  height: 7px;
+  margin: 0 13px;
   border-radius: 50%;
   background: rgba(247, 209, 130, 0.92);
   box-shadow: 0 0 16px rgba(247, 178, 71, 0.58);
 }
 
 .artifact-kicker {
-  margin: 0 0 22px;
+  margin: 0 0 clamp(10px, 2vw, 16px);
   color: rgba(255, 241, 209, 0.8);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1rem, 3vw, 1.35rem);
+  font-size: clamp(0.78rem, 2.25vw, 1.05rem);
   font-weight: 800;
   letter-spacing: 0.16em;
   text-indent: 0.16em;
@@ -1287,12 +1291,13 @@ h2 {
 }
 
 .artifact-statement {
-  max-width: 460px;
-  margin: 0 auto 26px;
+  max-width: 480px;
+  margin: 0 auto clamp(8px, 1.6vw, 12px);
+  padding-bottom: 0.12em;
   color: #f3dba8;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.7rem, 5.8vw, 3.05rem);
-  line-height: 1.14;
+  font-size: clamp(1.18rem, 4.8vw, 2.16rem);
+  line-height: 1.18;
   text-wrap: balance;
   text-shadow:
     0 0 24px rgba(232, 163, 75, 0.12),
@@ -1301,11 +1306,11 @@ h2 {
 
 .artifact-boundary {
   display: grid;
-  gap: 2px;
-  margin: 28px auto;
+  gap: 0;
+  margin: clamp(8px, 1.8vw, 14px) auto;
   color: #f3dba8;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.45rem, 5vw, 2.4rem);
+  font-size: clamp(1.05rem, 4.2vw, 1.8rem);
   line-height: 1.08;
 }
 
@@ -1317,28 +1322,28 @@ h2 {
 }
 
 .artifact-stillness {
-  max-width: 430px;
+  max-width: 440px;
   margin: 0 auto;
   color: rgba(243, 219, 168, 0.92);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.28rem, 4.6vw, 2.2rem);
-  line-height: 1.22;
+  font-size: clamp(0.95rem, 3.4vw, 1.45rem);
+  line-height: 1.16;
   text-wrap: balance;
 }
 
 .artifact-flame {
   display: grid;
-  width: 120px;
-  height: 118px;
+  width: clamp(66px, 14vw, 92px);
+  height: clamp(58px, 12vw, 82px);
   place-items: end center;
-  margin: 24px auto 10px;
+  margin: clamp(8px, 1.8vw, 14px) auto 4px;
   background: radial-gradient(ellipse at 50% 86%, rgba(231, 157, 48, 0.42), transparent 62%);
 }
 
 .artifact-flame span {
   position: relative;
-  width: 54px;
-  height: 78px;
+  width: clamp(31px, 6.2vw, 42px);
+  height: clamp(44px, 8.8vw, 60px);
   border-radius: 48% 52% 50% 50%;
   background: linear-gradient(180deg, #ffe38e 0%, #f3b33f 52%, #d97922 100%);
   box-shadow:
@@ -1349,10 +1354,10 @@ h2 {
 
 .artifact-flame span::before {
   position: absolute;
-  right: 4px;
+  right: 3px;
   bottom: 0;
-  width: 28px;
-  height: 48px;
+  width: 52%;
+  height: 62%;
   border-radius: 50% 50% 46% 48%;
   background: #fff1a6;
   transform: rotate(-14deg);
@@ -1362,7 +1367,7 @@ h2 {
 .artifact-domain {
   color: rgba(216, 157, 66, 0.9);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(0.78rem, 2.4vw, 1rem);
+  font-size: clamp(0.55rem, 1.8vw, 0.82rem);
   font-weight: 700;
   letter-spacing: 0.32em;
   text-indent: 0.32em;
@@ -1371,15 +1376,15 @@ h2 {
 
 .artifact-number {
   display: inline-flex;
-  min-height: 40px;
+  min-height: clamp(28px, 5.4vw, 36px);
   align-items: center;
   justify-content: center;
-  margin: 18px auto 14px;
+  margin: clamp(6px, 1.3vw, 10px) auto clamp(5px, 1vw, 8px);
   border: 1px solid rgba(216, 157, 66, 0.66);
-  padding: 0 28px;
+  padding: 0 clamp(16px, 4vw, 26px);
   color: rgba(216, 157, 66, 0.92);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(0.74rem, 2.2vw, 0.98rem);
+  font-size: clamp(0.55rem, 1.9vw, 0.78rem);
   font-weight: 700;
   letter-spacing: 0.2em;
   text-indent: 0.2em;
@@ -1387,18 +1392,19 @@ h2 {
 }
 
 .artifact-lines {
-  display: grid;
-  gap: 4px;
-  margin: 0 auto 14px;
+  display: none;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  margin: 0 auto clamp(4px, 1vw, 8px);
   color: rgba(235, 222, 198, 0.5);
-  font-size: 0.62rem;
+  font-size: clamp(0.48rem, 1.45vw, 0.58rem);
   letter-spacing: 0.08em;
   line-height: 1.45;
 }
 
 .artifact-signature {
   color: rgba(241, 222, 178, 0.56);
-  font-size: 0.64rem;
+  font-size: clamp(0.48rem, 1.5vw, 0.62rem);
   font-weight: 700;
   letter-spacing: 0.12em;
 }
