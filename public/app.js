@@ -392,6 +392,9 @@ const artifactStatement = document.querySelector("#artifactStatement");
 const artifactMarketState = document.querySelector("#artifactMarketState");
 const artifactDate = document.querySelector("#artifactDate");
 const artifactIdentity = document.querySelector("#artifactIdentity");
+const artifactNumber = document.querySelector("#artifactNumber");
+const receiveArtifactButton = document.querySelector("#receiveArtifactButton");
+const saveArtifactButton = document.querySelector("#saveArtifactButton");
 
 let actionRevealTimer = null;
 let flameMotionTimer = null;
@@ -1025,6 +1028,18 @@ const artifactStatements = [
   "A ritual pause before the next unknown."
 ];
 
+function stableNumberFromText(value) {
+  const text = String(value || `ritual-${Date.now()}`);
+  let hash = 2166136261;
+
+  for (let index = 0; index < text.length; index += 1) {
+    hash ^= text.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+
+  return String(Math.abs(hash) % 1000000).padStart(6, "0");
+}
+
 function formatArtifactDate(dateValue = new Date()) {
   const date = dateValue instanceof Date ? dateValue : new Date(dateValue);
   if (Number.isNaN(date.getTime())) return formatArtifactDate(new Date());
@@ -1046,14 +1061,21 @@ function createWeakIdentityMarker() {
   return compact ? `Anonymous ritual ${compact}` : "Anonymous ritual";
 }
 
-function buildBlessingArtifact() {
-  if (currentPaymentIntent?.generatedArtifact) return currentPaymentIntent.generatedArtifact;
+function buildBlessingArtifact(reading = null) {
+  const source = currentPaymentIntent?.reference || currentPaymentIntent?.id || `${Date.now()}-${Math.random()}`;
+  if (currentPaymentIntent?.generatedArtifact) {
+    const existing = currentPaymentIntent.generatedArtifact;
+    if (!existing.number) existing.number = `Blessing Card · ${stableNumberFromText(source)}`;
+    if (reading?.blessing && !existing.statement) existing.statement = reading.blessing;
+    return existing;
+  }
 
   const artifact = {
-    statement: choice(artifactStatements),
+    statement: reading?.blessing || choice(artifactStatements),
     marketState: "During uncertain market conditions",
     date: formatArtifactDate(currentPaymentIntent?.verifiedAt || new Date()),
     identity: createWeakIdentityMarker(),
+    number: `Blessing Card · ${stableNumberFromText(source)}`,
     signature: "Fortune Shrine · Blessing Recorded"
   };
 
@@ -1061,16 +1083,187 @@ function buildBlessingArtifact() {
   return artifact;
 }
 
-function revealBlessingArtifact() {
-  if (!blessingArtifact) return;
+function renderBlessingArtifact(artifact) {
+  if (!artifact) return;
 
-  const artifact = buildBlessingArtifact();
   artifactStatement.textContent = artifact.statement;
   artifactMarketState.textContent = artifact.marketState;
   artifactDate.textContent = artifact.date;
   artifactIdentity.textContent = artifact.identity;
+  artifactNumber.textContent = artifact.number;
+}
+
+function revealBlessingArtifact(reading = null) {
+  if (!blessingArtifact) return;
+
+  const artifact = buildBlessingArtifact(reading);
+  renderBlessingArtifact(artifact);
   blessingArtifact.classList.remove("hidden");
+  saveArtifactButton.classList.remove("hidden");
   savePendingPayment({ generatedArtifact: artifact });
+}
+
+function drawWrappedText(context, text, x, y, maxWidth, lineHeight, maxLines = 5) {
+  const words = String(text || "").split(/\s+/).filter(Boolean);
+  const lines = [];
+  let line = "";
+
+  for (let wordIndex = 0; wordIndex < words.length; wordIndex += 1) {
+    const word = words[wordIndex];
+    const testLine = line ? `${line} ${word}` : word;
+    if (context.measureText(testLine).width > maxWidth && line) {
+      lines.push(line);
+      line = word;
+      if (lines.length === maxLines - 1) {
+        const remaining = words.slice(wordIndex).join(" ");
+        let finalLine = remaining;
+        while (finalLine && context.measureText(`${finalLine}...`).width > maxWidth) {
+          finalLine = finalLine.split(/\s+/).slice(0, -1).join(" ");
+        }
+        line = finalLine ? `${finalLine}...` : `${word.slice(0, 18)}...`;
+        break;
+      }
+    } else {
+      line = testLine;
+    }
+  }
+
+  if (line && lines.length < maxLines) lines.push(line);
+
+  for (let index = 0; index < lines.length; index += 1) {
+    context.fillText(lines[index], x, y + index * lineHeight);
+  }
+
+  return y + lines.length * lineHeight;
+}
+
+function drawCardRule(context, y, width) {
+  const center = width / 2;
+  const gradient = context.createLinearGradient(center - 230, y, center + 230, y);
+  gradient.addColorStop(0, "rgba(191, 135, 46, 0)");
+  gradient.addColorStop(0.5, "rgba(242, 198, 115, 0.86)");
+  gradient.addColorStop(1, "rgba(191, 135, 46, 0)");
+  context.strokeStyle = gradient;
+  context.lineWidth = 2;
+  context.beginPath();
+  context.moveTo(center - 230, y);
+  context.lineTo(center + 230, y);
+  context.stroke();
+
+  context.fillStyle = "#f6d58a";
+  context.beginPath();
+  context.arc(center, y, 5, 0, Math.PI * 2);
+  context.fill();
+}
+
+function drawCardFlame(context, x, y) {
+  const glow = context.createRadialGradient(x, y + 58, 3, x, y + 58, 150);
+  glow.addColorStop(0, "rgba(255, 216, 111, 0.72)");
+  glow.addColorStop(0.42, "rgba(205, 115, 28, 0.18)");
+  glow.addColorStop(1, "rgba(205, 115, 28, 0)");
+  context.fillStyle = glow;
+  context.fillRect(x - 160, y - 72, 320, 220);
+
+  context.fillStyle = "#f6c65a";
+  context.beginPath();
+  context.moveTo(x, y - 66);
+  context.bezierCurveTo(x + 56, y - 5, x + 53, y + 72, x, y + 84);
+  context.bezierCurveTo(x - 66, y + 50, x - 32, y - 14, x, y - 66);
+  context.fill();
+
+  context.fillStyle = "#fff0a6";
+  context.beginPath();
+  context.moveTo(x, y - 12);
+  context.bezierCurveTo(x + 30, y + 30, x + 23, y + 78, x, y + 86);
+  context.bezierCurveTo(x - 29, y + 62, x - 14, y + 20, x, y - 12);
+  context.fill();
+
+  context.strokeStyle = "rgba(247, 196, 92, 0.62)";
+  context.lineWidth = 2;
+  context.beginPath();
+  context.moveTo(x - 130, y + 96);
+  context.lineTo(x + 130, y + 96);
+  context.stroke();
+}
+
+function saveBlessingCardImage() {
+  const artifact = buildBlessingArtifact(currentPaymentIntent?.generatedBlessing || null);
+  const canvas = document.createElement("canvas");
+  const width = 1080;
+  const height = 1350;
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext("2d");
+  if (!context) return;
+
+  context.fillStyle = "#030303";
+  context.fillRect(0, 0, width, height);
+
+  const backgroundGlow = context.createRadialGradient(width / 2, 420, 60, width / 2, 420, 720);
+  backgroundGlow.addColorStop(0, "rgba(184, 111, 34, 0.18)");
+  backgroundGlow.addColorStop(0.45, "rgba(56, 30, 12, 0.1)");
+  backgroundGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
+  context.fillStyle = backgroundGlow;
+  context.fillRect(0, 0, width, height);
+
+  context.strokeStyle = "rgba(216, 157, 66, 0.82)";
+  context.lineWidth = 3;
+  context.strokeRect(38, 38, width - 76, height - 76);
+  context.strokeStyle = "rgba(216, 157, 66, 0.36)";
+  context.lineWidth = 1;
+  context.strokeRect(62, 62, width - 124, height - 124);
+
+  context.textAlign = "center";
+  context.fillStyle = "#d8a84f";
+  context.font = "700 45px Georgia, serif";
+  context.letterSpacing = "12px";
+  context.fillText("FORTUNE SHRINE", width / 2, 138);
+  context.letterSpacing = "0px";
+
+  drawCardRule(context, 190, width);
+
+  context.fillStyle = "#fff2c3";
+  context.font = "700 34px Georgia, serif";
+  context.fillText("THE SHRINE SAYS:", width / 2, 246);
+
+  drawCardRule(context, 290, width);
+
+  context.fillStyle = "#f3dba8";
+  context.font = "48px Georgia, serif";
+  const textBottom = drawWrappedText(context, artifact.statement, width / 2, 380, 800, 62, 4);
+
+  drawCardRule(context, textBottom + 44, width);
+
+  context.fillStyle = "#f3dba8";
+  context.font = "50px Georgia, serif";
+  context.fillText("No signals.", width / 2, textBottom + 128);
+  context.fillText("No predictions.", width / 2, textBottom + 194);
+
+  drawCardRule(context, textBottom + 246, width);
+
+  context.font = "48px Georgia, serif";
+  drawWrappedText(context, "Only a moment of stillness before the unknown.", width / 2, textBottom + 330, 720, 62, 3);
+
+  drawCardFlame(context, width / 2, 1010);
+
+  context.fillStyle = "#d8a84f";
+  context.font = "700 26px Georgia, serif";
+  context.fillText("FORTUNESHRINE.COM", width / 2, 1178);
+
+  context.strokeStyle = "rgba(216, 157, 66, 0.72)";
+  context.strokeRect(270, 1212, 540, 54);
+  context.font = "700 24px Georgia, serif";
+  context.fillText(artifact.number.toUpperCase(), width / 2, 1248);
+
+  context.fillStyle = "rgba(255, 236, 190, 0.78)";
+  context.font = "22px Georgia, serif";
+  context.fillText(`${artifact.date} · ${artifact.marketState}`, width / 2, 1290);
+  context.fillText(artifact.signature, width / 2, 1322);
+
+  const link = document.createElement("a");
+  link.download = `fortune-shrine-${artifact.number.replace(/[^0-9]/g, "")}.png`;
+  link.href = canvas.toDataURL("image/png");
+  link.click();
 }
 
 function revealOracle(storedReading = null) {
@@ -1083,6 +1276,9 @@ function revealOracle(storedReading = null) {
   for (const timer of revealLineTimers) window.clearTimeout(timer);
   revealLineTimers = [];
   oracleCard.classList.remove("revealing");
+  blessingArtifact.classList.add("hidden");
+  receiveArtifactButton.classList.add("hidden");
+  saveArtifactButton.classList.add("hidden");
   for (const line of [recognitionLine, blessingLine, oracleLine]) {
     line.classList.remove("line-emerging", "line-visible");
   }
@@ -1128,9 +1324,10 @@ function revealOracle(storedReading = null) {
 
   window.clearTimeout(actionRevealTimer);
   actionRevealTimer = window.setTimeout(() => {
-    revealBlessingArtifact();
+    buildBlessingArtifact(reading);
+    receiveArtifactButton.classList.remove("hidden");
     continueButton.classList.remove("hidden");
-    followRitual(continueButton, "end", { delay: 700, duration: 1900 });
+    followRitual(receiveArtifactButton, "end", { delay: 700, duration: 1900 });
   }, 4300);
 }
 
@@ -1162,6 +1359,8 @@ function returnToThreshold() {
   oracleCard.classList.add("hidden");
   oracleCard.classList.remove("revealing");
   blessingArtifact.classList.add("hidden");
+  receiveArtifactButton.classList.add("hidden");
+  saveArtifactButton.classList.add("hidden");
   for (const timer of revealLineTimers) window.clearTimeout(timer);
   revealLineTimers = [];
   for (const line of oracleCard.querySelectorAll(".blessing-text p")) {
@@ -1582,6 +1781,16 @@ offeringButton.addEventListener("click", () => {
     offeringButton.classList.remove("activating");
     offeringButton.disabled = false;
   }, 900);
+});
+
+receiveArtifactButton.addEventListener("click", () => {
+  revealBlessingArtifact(currentPaymentIntent?.generatedBlessing || null);
+  receiveArtifactButton.classList.add("hidden");
+  followRitual(blessingArtifact, "center", { delay: 160, duration: 1600 });
+});
+
+saveArtifactButton.addEventListener("click", () => {
+  saveBlessingCardImage();
 });
 
 continueButton.addEventListener("click", () => {

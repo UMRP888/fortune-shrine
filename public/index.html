@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Fortune Shrine</title>
-    <link rel="stylesheet" href="/styles.css?v=20260709-trust-output-v2" />
+    <link rel="stylesheet" href="/styles.css?v=20260709-blessing-card-v1" />
   </head>
   <body>
     <main class="shrine-shell">
@@ -136,16 +136,34 @@
           <p class="blessing-line" id="blessing"></p>
           <p class="echo-line" id="oracle"></p>
         </div>
+        <button class="primary-button artifact-receive-button hidden" id="receiveArtifactButton" type="button">Receive Blessing Card</button>
         <section class="blessing-artifact hidden" id="blessingArtifact" aria-label="Blessing Card">
-          <p class="artifact-kicker">Blessing Card</p>
+          <span class="artifact-corner top-left" aria-hidden="true"></span>
+          <span class="artifact-corner top-right" aria-hidden="true"></span>
+          <span class="artifact-corner bottom-left" aria-hidden="true"></span>
+          <span class="artifact-corner bottom-right" aria-hidden="true"></span>
+          <p class="artifact-brand">Fortune Shrine</p>
+          <div class="artifact-rule" aria-hidden="true"><span></span></div>
+          <p class="artifact-kicker">The Shrine Says:</p>
           <p class="artifact-statement" id="artifactStatement">A quiet blessing before risk.</p>
+          <div class="artifact-boundary">
+            <p>No signals.</p>
+            <p>No predictions.</p>
+          </div>
+          <p class="artifact-stillness">Only a moment of stillness before the unknown.</p>
+          <div class="artifact-flame" aria-hidden="true">
+            <span></span>
+          </div>
+          <p class="artifact-domain">FortuneShrine.com</p>
+          <div class="artifact-number" id="artifactNumber">Blessing Card · 000000</div>
           <div class="artifact-lines">
-            <span id="artifactMarketState">During uncertain market conditions</span>
             <span id="artifactDate">2026.07.09</span>
+            <span id="artifactMarketState">During uncertain market conditions</span>
             <span id="artifactIdentity">Anonymous ritual</span>
           </div>
           <p class="artifact-signature">Fortune Shrine · Blessing Recorded</p>
         </section>
+        <button class="secondary-button artifact-save-button hidden" id="saveArtifactButton" type="button">Save Card</button>
         <button class="secondary-button hidden" id="continueButton" type="button">Continue Journey</button>
       </section>
 
