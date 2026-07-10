@@ -7,6 +7,7 @@ This file is for a future Codex session or collaborator who has no memory of the
 Read this first, then read:
 
 - `docs/FORTUNE_SHRINE_CANON.md`
+- `docs/TRUST_PAYMENT_OUTPUT_CANON_V2.md`
 - `docs/ENGINEERING_CHARTER_V1.md`
 - `docs/DISTRIBUTION_PLAN_1.md`
 - `AGENTS.md`
@@ -219,6 +220,24 @@ Current launch priority:
 
 Do not spend too much time polishing borders, spacing, or inscription effects.
 
+## Trust, Payment, and Output Canon
+
+The current permanent reference for website trust language, offering tiers, wallet/payment wording, and Blessing Card output direction is:
+
+```text
+docs/TRUST_PAYMENT_OUTPUT_CANON_V2.md
+```
+
+Important: this is a canon, not an automatic implementation request.
+
+Do not change payment logic, payment architecture, or output generation unless the user explicitly asks to execute it.
+
+Recommended future sequence:
+
+1. Trust + Payment wording layer first.
+2. Minimal shareable Blessing Card second.
+3. NFT / SBT ritual record only in a later version, if ever.
+
 Highest-value next work:
 
 1. Launch the current working shrine.
@@ -226,6 +245,70 @@ Highest-value next work:
 3. Confirm payment succeeds, blessing appears, and no Chinese text leaks into the public flow.
 4. Watch the first real payment sessions.
 5. Then build a small propagation plan around shareable blessings, not product ads.
+
+## First Flame Invitation Operating Mode
+
+Long-term early-user operating mode approved on 2026-07-10:
+
+```text
+First Flame Invitation
+```
+
+This is a manual invitation path for early users, testers, and real community feedback.
+
+It is not a public free trial.
+It is not a discount system.
+It is not a hidden Offering tier.
+It must not replace or weaken the four official Offering levels.
+
+Human workflow:
+
+1. A person replies, comments, or DMs on X / Telegram / Discord.
+2. The founder manually sends a one-time invitation code or invitation link.
+3. The invitee enters the Shrine and receives one free Blessing Card experience.
+4. The invitation is recorded manually at first, using a simple list such as:
+
+```text
+FLAME-001 -> @username -> sent
+FLAME-002 -> @username -> sent
+FLAME-003 -> @username -> sent
+```
+
+Product language:
+
+- call it `First Flame Invitation`
+- optionally call the free experience `Guest Blessing`
+- do not call it `free trial`
+- do not put loud free language on the public homepage
+
+Operating constraints:
+
+- each invitation should be one-use or tightly limited
+- invitation unlocks one Blessing Card experience
+- no prediction, signal, trading advice, or financial promise
+- no change to payment logic unless explicitly requested
+- no Run HUD / Queue / Discovery change unless explicitly requested
+
+Current implementation note:
+
+- `server.mjs` accepts `POST /api/invitations/claim`
+- default accepted codes are `FLAME-001` through `FLAME-200`
+- production can override the accepted set with `FIRST_FLAME_INVITATION_CODES`
+- each code is one-use per running server process
+- the browser also remembers used invitation codes locally
+- invitation events are marked as `INVITATION`, not USDC payment
+- the public page accepts either manual code entry or `?invite=FLAME-001`
+
+Positioning:
+
+```text
+Paid Offering = formal ritual
+Invitation = invited first flame
+```
+
+This mode is useful for early growth because it lowers the first-use barrier,
+creates real feedback, and encourages shareable Blessing Cards while preserving
+the Shrine's ritual atmosphere.
 
 ## Current Launch Status
 

@@ -30,6 +30,17 @@ button {
   display: none !important;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .shrine-shell {
   position: relative;
   min-height: 100vh;
@@ -795,6 +806,74 @@ h2 {
     radial-gradient(circle at 50% 0%, rgba(242, 162, 58, 0.1), transparent 38%),
     rgba(0, 0, 0, 0.24);
   box-shadow: 0 0 18px rgba(217, 184, 111, 0.08), 0 12px 34px rgba(0, 0, 0, 0.24);
+}
+
+.invitation-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(132px, 0.5fr) auto;
+  align-items: center;
+  gap: 10px;
+  max-width: 760px;
+  margin: 18px auto 0;
+  padding: 12px;
+  border: 1px solid rgba(241, 222, 178, 0.1);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(242, 162, 58, 0.045), transparent 42%),
+    rgba(0, 0, 0, 0.18);
+}
+
+.invitation-panel span {
+  display: block;
+  color: rgba(241, 222, 178, 0.66);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.98rem;
+  letter-spacing: 0.06em;
+}
+
+.invitation-panel p {
+  margin: 4px 0 0;
+  color: rgba(235, 222, 198, 0.42);
+  font-size: 0.78rem;
+}
+
+.invitation-panel input {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid rgba(241, 222, 178, 0.14);
+  border-radius: 6px;
+  padding: 0 12px;
+  color: rgba(255, 248, 231, 0.78);
+  font: 700 0.78rem/1 Inter, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.26);
+  outline: none;
+}
+
+.invitation-panel input:focus {
+  border-color: rgba(241, 222, 178, 0.32);
+  box-shadow: 0 0 0 1px rgba(242, 162, 58, 0.12);
+}
+
+.invitation-panel .secondary-button {
+  min-height: 40px;
+  padding: 0 14px;
+  color: rgba(245, 237, 220, 0.7);
+}
+
+.invitation-message {
+  grid-column: 1 / -1;
+  min-height: 1em;
+  text-align: center;
+}
+
+.invitation-message.is-error {
+  color: rgba(245, 190, 150, 0.72);
+}
+
+.invitation-message.is-success {
+  color: rgba(241, 222, 178, 0.68);
 }
 
 .payment-modal {
@@ -1979,6 +2058,18 @@ h2 {
 
   .offering-page #continuePaymentButton {
     width: min(100%, 310px);
+  }
+
+  .invitation-panel {
+    grid-template-columns: 1fr;
+    max-width: 330px;
+    margin-top: 16px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .invitation-panel .secondary-button {
+    width: 100%;
   }
 
   .payment-card {

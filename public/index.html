@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Fortune Shrine</title>
-    <link rel="stylesheet" href="/styles.css?v=20260710-blessing-card-template-v1" />
+    <link rel="stylesheet" href="/styles.css?v=20260710-first-flame-invitation-v1" />
   </head>
   <body>
     <main class="shrine-shell">
@@ -120,6 +120,17 @@
         </div>
 
         <button class="primary-button" id="continuePaymentButton" type="button">Offer to the Flame</button>
+
+        <form class="invitation-panel" id="invitationForm" aria-label="First Flame Invitation">
+          <div>
+            <span>First Flame Invitation</span>
+            <p>An invited first flame may enter once.</p>
+          </div>
+          <label class="sr-only" for="invitationCode">Invitation code</label>
+          <input id="invitationCode" name="invitationCode" type="text" inputmode="text" autocomplete="off" placeholder="FLAME-001" />
+          <button class="secondary-button" id="invitationButton" type="submit">Enter With Invitation</button>
+          <p class="invitation-message" id="invitationMessage" aria-live="polite"></p>
+        </form>
       </section>
 
       <section class="ritual-status hidden" id="ritualStatus" aria-live="polite">
@@ -232,6 +243,6 @@
       </section>
     </div>
 
-    <script src="/app.js?v=20260710-blessing-card-template-v1" type="module"></script>
+    <script src="/app.js?v=20260710-first-flame-invitation-v1" type="module"></script>
   </body>
 </html>

@@ -33,6 +33,7 @@ const recipientUsdcTokenAccounts = [
 ].map((account) => account?.trim()).filter(Boolean).filter((account, index, accounts) => accounts.indexOf(account) === index);
 const paymentIntents = new Map();
 const usedSignatures = new Set();
+const usedInvitationCodes = new Map();
 const manualTransferScanLimit = 35;
 const manualTransferCreatedAtToleranceSeconds = 180;
 const offerings = new Map([
@@ -41,6 +42,12 @@ const offerings = new Map([
   ["keeper", { name: "Keeper's Offering", amount: "35" }],
   ["sanctum", { name: "Sanctum Offering", amount: "88" }]
 ]);
+const configuredInvitationCodes = new Set(
+  (process.env.FIRST_FLAME_INVITATION_CODES || "")
+    .split(",")
+    .map((code) => normalizeInvitationCode(code))
+    .filter(Boolean)
+);
 
 const types = new Map([
   [".html", "text/html; charset=utf-8"],
@@ -59,6 +66,28 @@ function sendJson(response, status, body) {
     "Cache-Control": "no-store"
   });
   response.end(JSON.stringify(body));
+}
+
+function normalizeInvitationCode(value) {
+  return String(value || "")
+    .trim()
+    .toUpperCase()
+    .replace(/\s+/g, "")
+    .replace(/^FIRST-FLAME-/, "FLAME-");
+}
+
+function isDefaultInvitationCode(code) {
+  const match = normalizeInvitationCode(code).match(/^FLAME-(\d{3})$/);
+  if (!match) return false;
+  const number = Number(match[1]);
+  return number >= 1 && number <= 200;
+}
+
+function isValidInvitationCode(code) {
+  const normalized = normalizeInvitationCode(code);
+  if (!normalized) return false;
+  if (configuredInvitationCodes.size) return configuredInvitationCodes.has(normalized);
+  return isDefaultInvitationCode(normalized);
 }
 
 async function readJson(request) {
@@ -196,6 +225,61 @@ function paymentIntentPayload(intent) {
     solanaPayUrl: intent.solanaPayUrl,
     status: intent.status
   };
+}
+
+function invitationIntentPayload(intent) {
+  return {
+    id: intent.id,
+    offeringId: intent.offeringId,
+    offeringName: intent.offeringName,
+    amount: intent.amount,
+    token: intent.token,
+    chain: intent.chain,
+    recipientAddress: null,
+    usdcMint: null,
+    reference: intent.reference,
+    solanaPayUrl: null,
+    status: intent.status,
+    paymentStatus: intent.status,
+    verifiedAt: intent.verifiedAt,
+    verifiedBy: intent.verifiedBy,
+    receivedAmount: intent.receivedAmount,
+    walletHash: null,
+    invitation: true,
+    invitationCode: intent.invitationCode
+  };
+}
+
+function createInvitationIntent(offeringId, invitationCode) {
+  const offering = offerings.get(offeringId);
+  if (!offering) return null;
+
+  const code = normalizeInvitationCode(invitationCode);
+  const reference = `first-flame-${code.toLowerCase()}-${crypto.randomUUID()}`;
+  const intent = {
+    id: crypto.randomUUID(),
+    offeringId,
+    offeringName: offering.name,
+    amount: "0",
+    token: "INVITATION",
+    chain: "shrine",
+    reference,
+    status: "verified",
+    createdAt: new Date().toISOString(),
+    verifiedAt: new Date().toISOString(),
+    verifiedBy: "first-flame-invitation",
+    receivedAmount: "0",
+    invitation: true,
+    invitationCode: code
+  };
+
+  paymentIntents.set(intent.id, intent);
+  usedInvitationCodes.set(code, {
+    intentId: intent.id,
+    offeringId,
+    usedAt: intent.verifiedAt
+  });
+  return intent;
 }
 
 function createSolanaPayUrl({ amount, reference, offeringName }) {
@@ -622,6 +706,37 @@ const server = http.createServer(async (request, response) => {
       }
 
       sendJson(response, 404, { error: "Distribution route not found." });
+      return;
+    }
+
+    if (request.method === "POST" && url.pathname === "/api/invitations/claim") {
+      const body = await readJson(request);
+      const code = normalizeInvitationCode(body.code);
+      const offeringId = String(body.offeringId || "traveler").trim().toLowerCase();
+
+      if (!isValidInvitationCode(code)) {
+        sendJson(response, 400, { error: "This invitation is not recognized." });
+        return;
+      }
+
+      if (usedInvitationCodes.has(code)) {
+        sendJson(response, 409, { error: "This invitation has already been received." });
+        return;
+      }
+
+      const intent = createInvitationIntent(offeringId, code);
+      if (!intent) {
+        sendJson(response, 400, { error: "Unknown offering." });
+        return;
+      }
+
+      console.log("[first-flame-invitation]", {
+        id: intent.id,
+        offeringId: intent.offeringId,
+        invitationCode: code
+      });
+
+      sendJson(response, 201, invitationIntentPayload(intent));
       return;
     }
 

@@ -337,6 +337,7 @@ const frequencyWeights = [
 
 const RECENT_ORACLE_STORAGE_KEY = "fortune-shrine-recent-oracle-v1";
 const PENDING_PAYMENT_STORAGE_KEY = "fortune-shrine-pending-payment-v1";
+const USED_INVITATION_STORAGE_KEY = "fortune-shrine-used-invitations-v1";
 const PENDING_PAYMENT_MAX_AGE_MS = 35 * 60 * 1000;
 const BLESSING_CORPUS_URL = "/assets/blessing-corpus-v1.md";
 const trackedPaymentSuccesses = new Set();
@@ -396,6 +397,10 @@ const artifactIdentity = document.querySelector("#artifactIdentity");
 const artifactNumber = document.querySelector("#artifactNumber");
 const receiveArtifactButton = document.querySelector("#receiveArtifactButton");
 const saveArtifactButton = document.querySelector("#saveArtifactButton");
+const invitationForm = document.querySelector("#invitationForm");
+const invitationCode = document.querySelector("#invitationCode");
+const invitationButton = document.querySelector("#invitationButton");
+const invitationMessage = document.querySelector("#invitationMessage");
 
 let actionRevealTimer = null;
 let flameMotionTimer = null;
@@ -734,6 +739,8 @@ function savePendingPayment(update = {}) {
     generatedBlessing: currentPaymentIntent.generatedBlessing || null,
     generatedArtifact: currentPaymentIntent.generatedArtifact || null,
     memoryLogged: Boolean(currentPaymentIntent.memoryLogged),
+    invitation: Boolean(currentPaymentIntent.invitation),
+    invitationCode: currentPaymentIntent.invitationCode || null,
     storedAt: currentPaymentIntent.storedAt || Date.now()
   };
 
@@ -750,6 +757,62 @@ function clearPendingPayment() {
   } catch {
     // Local storage may be unavailable.
   }
+}
+
+function normalizeInvitationCode(value) {
+  return String(value || "")
+    .trim()
+    .toUpperCase()
+    .replace(/\s+/g, "")
+    .replace(/^FIRST-FLAME-/, "FLAME-");
+}
+
+function loadUsedInvitationCodes() {
+  try {
+    const stored = window.localStorage.getItem(USED_INVITATION_STORAGE_KEY);
+    const parsed = stored ? JSON.parse(stored) : [];
+    return Array.isArray(parsed) ? parsed.map(normalizeInvitationCode).filter(Boolean) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveUsedInvitationCode(code) {
+  try {
+    const normalized = normalizeInvitationCode(code);
+    const usedCodes = loadUsedInvitationCodes();
+    if (!normalized || usedCodes.includes(normalized)) return;
+    window.localStorage.setItem(USED_INVITATION_STORAGE_KEY, JSON.stringify([normalized, ...usedCodes].slice(0, 80)));
+  } catch {
+    // Invitation memory is protective only; the Shrine can still respond.
+  }
+}
+
+function invitationWasUsedHere(code) {
+  return loadUsedInvitationCodes().includes(normalizeInvitationCode(code));
+}
+
+function setInvitationMessage(message = "", state = "") {
+  if (!invitationMessage) return;
+  invitationMessage.textContent = message;
+  invitationMessage.classList.toggle("is-error", state === "error");
+  invitationMessage.classList.toggle("is-success", state === "success");
+}
+
+function invitationCodeFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  return normalizeInvitationCode(params.get("invite") || params.get("invitation"));
+}
+
+async function claimInvitation(code, offeringId) {
+  const response = await fetch("/api/invitations/claim", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code, offeringId })
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(payload.error || "The invitation could not be received.");
+  return payload;
 }
 
 function rememberRecent(history, key, value, maxItems) {
@@ -1931,25 +1994,28 @@ function releaseBlessingAfterVerification() {
   const paymentEventKey = currentPaymentIntent?.id || "manual-verification";
   if (!trackedPaymentSuccesses.has(paymentEventKey)) {
     trackedPaymentSuccesses.add(paymentEventKey);
-    trackShrineEvent("Payment Success", {
+    const isInvitation = Boolean(currentPaymentIntent?.invitation);
+    trackShrineEvent(isInvitation ? "Invitation Redeemed" : "Payment Success", {
       payment_intent_id: currentPaymentIntent?.id || null,
       offering: currentPaymentIntent?.offeringId || null,
       amount: currentPaymentIntent?.receivedAmount || currentPaymentIntent?.amount || null,
-      token: currentPaymentIntent?.token || null
+      token: currentPaymentIntent?.token || null,
+      invitation_code: isInvitation ? currentPaymentIntent?.invitationCode || null : null
     });
   }
   window.clearTimeout(paymentPollTimer);
   confirmOfferingButton.classList.add("hidden");
   returnFromVerificationButton.classList.add("hidden");
   savePendingPayment({ paymentStatus: "verified" });
-  phaseLabel.textContent = "The offering is received.";
-  ritualStatus.querySelector(".eyebrow").textContent = "The offering is received.";
-  ritualStatus.querySelector("h2").textContent = "The Eternal Flame grows brighter.";
+  const isInvitation = Boolean(currentPaymentIntent?.invitation);
+  phaseLabel.textContent = isInvitation ? "The invitation is received." : "The offering is received.";
+  ritualStatus.querySelector(".eyebrow").textContent = isInvitation ? "First Flame Invitation" : "The offering is received.";
+  ritualStatus.querySelector("h2").textContent = isInvitation ? "The first flame has been lit." : "The Eternal Flame grows brighter.";
   ritualMessage.textContent = "The Shrine keeps silence.";
 
   window.setTimeout(() => {
     acknowledgeBlessing();
-    ritualMessage.textContent = "The flame has heard the offering.";
+    ritualMessage.textContent = isInvitation ? "The flame has received the invitation." : "The flame has heard the offering.";
     doorOfUnknown.classList.add("open");
   }, 700);
 
@@ -1984,6 +2050,91 @@ function pollPaymentIntent() {
     .catch(() => {
       paymentPollTimer = window.setTimeout(pollPaymentIntent, 1400);
     });
+}
+
+async function redeemFirstFlameInvitation() {
+  selectedOffering = offeringGrid.querySelector(".offering-choice.active") || selectedOffering;
+  const code = normalizeInvitationCode(invitationCode?.value);
+
+  if (!code) {
+    setInvitationMessage("Enter the invitation code you received.", "error");
+    invitationCode?.focus();
+    return;
+  }
+
+  if (!/^FLAME-\d{3}$/.test(code)) {
+    setInvitationMessage("This invitation should look like FLAME-001.", "error");
+    invitationCode?.focus();
+    return;
+  }
+
+  if (invitationWasUsedHere(code)) {
+    setInvitationMessage("This invitation has already been received on this device.", "error");
+    return;
+  }
+
+  invitationButton.disabled = true;
+  invitationButton.textContent = "Receiving...";
+  setInvitationMessage("The Shrine is receiving the invitation.", "success");
+
+  try {
+    const intent = await claimInvitation(code, selectedOffering.dataset.offering);
+    currentPaymentIntent = {
+      ...intent,
+      offeringId: selectedOffering.dataset.offering,
+      offeringName: intent.offeringName || selectedOffering.dataset.name,
+      amount: intent.amount || "0",
+      token: intent.token || "INVITATION",
+      chain: intent.chain || "shrine",
+      reference: intent.reference || `first-flame-${code.toLowerCase()}`,
+      paymentStatus: "verified",
+      status: "verified",
+      receivedAmount: intent.receivedAmount || "0",
+      verifiedAt: intent.verifiedAt || new Date().toISOString(),
+      verifiedBy: intent.verifiedBy || "first-flame-invitation",
+      invitation: true,
+      invitationCode: code,
+      storedAt: Date.now()
+    };
+
+    saveUsedInvitationCode(code);
+    savePendingPayment({ paymentStatus: "verified" });
+    trackShrineEvent("Invitation Started", {
+      offering: selectedOffering.dataset.offering,
+      invitation_code: code
+    });
+
+    paymentModal.classList.add("hidden");
+    offeringPage.classList.add("hidden");
+    ritualStatus.classList.remove("hidden");
+    confirmOfferingButton.classList.add("hidden");
+    returnFromVerificationButton.classList.add("hidden");
+    phaseLabel.textContent = "First Flame Invitation";
+    ritualStatus.querySelector(".eyebrow").textContent = "First Flame Invitation";
+    ritualStatus.querySelector("h2").textContent = "The invitation is received.";
+    ritualMessage.textContent = "The Shrine keeps silence.";
+    awakenAmbientPresence();
+    followRitual(ritualStatus, "center", { delay: 180, duration: 1600 });
+    releaseBlessingAfterVerification();
+  } catch (error) {
+    setInvitationMessage(error?.message || "The invitation could not be received.", "error");
+  } finally {
+    invitationButton.disabled = false;
+    invitationButton.textContent = "Enter With Invitation";
+  }
+}
+
+function initializeInvitationFromUrl() {
+  const code = invitationCodeFromUrl();
+  if (!code || !invitationCode) return false;
+
+  invitationCode.value = code;
+  setInvitationMessage("Invitation recognized. Choose a flame, then enter with invitation.", "success");
+  phaseLabel.textContent = "First Flame Invitation";
+  heroStage.classList.add("compact");
+  offeringPage.classList.remove("hidden");
+  followRitual(offeringPage, "start", { delay: 220, duration: 1500 });
+  return true;
 }
 
 offeringButton.addEventListener("click", () => {
@@ -2043,6 +2194,11 @@ offeringGrid.addEventListener("click", (event) => {
     option.classList.toggle("active", option === button);
   }
   selectedOffering = button;
+});
+
+invitationForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  redeemFirstFlameInvitation();
 });
 
 continuePaymentButton.addEventListener("click", async () => {
@@ -2188,5 +2344,7 @@ setAmbientToggleLabel();
 scheduleLivingFlame();
 scheduleEmber();
 recoverBlessingFromUrl().then((recoveredFromUrl) => {
-  if (!recoveredFromUrl) recoverPendingPayment();
+  if (recoveredFromUrl) return;
+  if (recoverPendingPayment()) return;
+  initializeInvitationFromUrl();
 });
