@@ -269,9 +269,9 @@ Human workflow:
 4. The invitation is recorded manually at first, using a simple list such as:
 
 ```text
-FLAME-001 -> @username -> sent
-FLAME-002 -> @username -> sent
-FLAME-003 -> @username -> sent
+SHRINE-7KQ2-LIGHT -> @username -> sent
+EMBER-4X9M-STILL -> @username -> sent
+FLAME-Q8R2-HOLLOW -> @username -> sent
 ```
 
 Product language:
@@ -292,12 +292,14 @@ Operating constraints:
 Current implementation note:
 
 - `server.mjs` accepts `POST /api/invitations/claim`
-- default accepted codes are `FLAME-001` through `FLAME-200`
-- production can override the accepted set with `FIRST_FLAME_INVITATION_CODES`
+- accepted codes must be configured through `FIRST_FLAME_INVITATION_CODES`
+- there are no default numeric invitation codes
+- invitation codes should be random and hard to guess
+- if `FIRST_FLAME_INVITATION_CODES` is unset, no invitation code works
 - each code is one-use per running server process
 - the browser also remembers used invitation codes locally
 - invitation events are marked as `INVITATION`, not USDC payment
-- the public page accepts either manual code entry or `?invite=FLAME-001`
+- the public page accepts either manual code entry or `?invite=SHRINE-7KQ2-LIGHT`
 
 Positioning:
 

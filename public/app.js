@@ -2062,8 +2062,8 @@ async function redeemFirstFlameInvitation() {
     return;
   }
 
-  if (!/^FLAME-\d{3}$/.test(code)) {
-    setInvitationMessage("This invitation should look like FLAME-001.", "error");
+  if (!/^[A-Z0-9-]{8,40}$/.test(code)) {
+    setInvitationMessage("Enter the full invitation code you received.", "error");
     invitationCode?.focus();
     return;
   }

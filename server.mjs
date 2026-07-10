@@ -76,18 +76,10 @@ function normalizeInvitationCode(value) {
     .replace(/^FIRST-FLAME-/, "FLAME-");
 }
 
-function isDefaultInvitationCode(code) {
-  const match = normalizeInvitationCode(code).match(/^FLAME-(\d{3})$/);
-  if (!match) return false;
-  const number = Number(match[1]);
-  return number >= 1 && number <= 200;
-}
-
 function isValidInvitationCode(code) {
   const normalized = normalizeInvitationCode(code);
   if (!normalized) return false;
-  if (configuredInvitationCodes.size) return configuredInvitationCodes.has(normalized);
-  return isDefaultInvitationCode(normalized);
+  return configuredInvitationCodes.has(normalized);
 }
 
 async function readJson(request) {
