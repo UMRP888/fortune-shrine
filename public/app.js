@@ -1092,6 +1092,12 @@ const artifactStatements = [
   "A ritual pause before the next unknown."
 ];
 
+const primaryArtifactStatement = `The market does not challenge
+my knowledge.
+
+It reveals my attachment
+to being right.`;
+
 function stableNumberFromText(value) {
   const text = String(value || `ritual-${Date.now()}`);
   let hash = 2166136261;
@@ -1101,7 +1107,7 @@ function stableNumberFromText(value) {
     hash = Math.imul(hash, 16777619);
   }
 
-  return String(Math.abs(hash) % 1000000).padStart(6, "0");
+  return String(Math.abs(hash) % 10000000).padStart(7, "0");
 }
 
 function formatArtifactDate(dateValue = new Date()) {
@@ -1127,25 +1133,27 @@ function createWeakIdentityMarker() {
 
 function buildBlessingArtifact(reading = null) {
   const source = currentPaymentIntent?.reference || currentPaymentIntent?.id || `${Date.now()}-${Math.random()}`;
+  const artifactDigits = currentPaymentIntent ? stableNumberFromText(source) : "0000951";
   if (currentPaymentIntent?.generatedArtifact) {
     const existing = currentPaymentIntent.generatedArtifact;
-    if (!existing.number) existing.number = `Genesis Blessing · ${stableNumberFromText(source)}`;
+    if (!existing.number) existing.number = `Genesis Blessing · ${artifactDigits}`;
     existing.number = existing.number.replace("Blessing Card", "Genesis Blessing");
-    if (reading?.blessing && !existing.statement) existing.statement = reading.blessing;
-    if (reading?.oracle && !existing.echo) existing.echo = reading.oracle;
-    if (!existing.echo) existing.echo = "Even the quietest flame can survive.";
-    existing.signature = "The first artifact of Fortune Shrine";
+    const number = existing.number.match(/\d+/)?.[0] || artifactDigits;
+    existing.number = `Genesis Blessing · ${String(number).padStart(7, "0").slice(-7)}`;
+    existing.statement = primaryArtifactStatement;
+    existing.echo = "";
+    existing.signature = "✦ The first artifact of Fortune Shrine ✦";
     return existing;
   }
 
   const artifact = {
-    statement: reading?.blessing || choice(artifactStatements),
-    echo: reading?.oracle || "Even the quietest flame can survive.",
+    statement: primaryArtifactStatement,
+    echo: "",
     marketState: "During uncertain market conditions",
     date: formatArtifactDate(currentPaymentIntent?.verifiedAt || new Date()),
     identity: createWeakIdentityMarker(),
-    number: `Genesis Blessing · ${stableNumberFromText(source)}`,
-    signature: "The first artifact of Fortune Shrine"
+    number: `Genesis Blessing · ${artifactDigits}`,
+    signature: "✦ The first artifact of Fortune Shrine ✦"
   };
 
   if (currentPaymentIntent) currentPaymentIntent.generatedArtifact = artifact;
@@ -1511,55 +1519,237 @@ function drawCardNumberPlate(context, x, y, width, height, text) {
   context.letterSpacing = "0px";
 }
 
+function drawTrackedText(context, text, x, y, tracking = 0) {
+  const value = String(text || "");
+  if (!tracking) {
+    context.fillText(value, x, y);
+    return;
+  }
+
+  const widths = [...value].map((character) => context.measureText(character).width);
+  const totalWidth = widths.reduce((sum, width) => sum + width, 0) + tracking * Math.max(0, value.length - 1);
+  let cursor = x - totalWidth / 2;
+
+  [...value].forEach((character, index) => {
+    context.fillText(character, cursor + widths[index] / 2, y);
+    cursor += widths[index] + tracking;
+  });
+}
+
+function drawArtifactDivider(context, y, width, span = 760) {
+  const center = width / 2;
+  context.save();
+  context.strokeStyle = "rgba(212, 175, 55, 0.62)";
+  context.lineWidth = 2;
+  context.beginPath();
+  context.moveTo(center - span / 2, y);
+  context.lineTo(center - 72, y);
+  context.moveTo(center + 72, y);
+  context.lineTo(center + span / 2, y);
+  context.stroke();
+
+  context.fillStyle = "#f5d77a";
+  context.shadowColor = "rgba(245, 215, 122, 0.6)";
+  context.shadowBlur = 22;
+  context.beginPath();
+  context.arc(center, y, 6, 0, Math.PI * 2);
+  context.fill();
+  context.restore();
+}
+
+function drawArtifactStar(context, x, y, radius = 36) {
+  context.save();
+  context.translate(x, y);
+  context.strokeStyle = "#d4af37";
+  context.fillStyle = "#f5d77a";
+  context.lineWidth = 2.2;
+  context.shadowColor = "rgba(245, 215, 122, 0.35)";
+  context.shadowBlur = 16;
+
+  for (const rotation of [0, Math.PI / 4]) {
+    context.rotate(rotation);
+    context.beginPath();
+    context.moveTo(0, -radius);
+    context.lineTo(7, -7);
+    context.lineTo(radius, 0);
+    context.lineTo(7, 7);
+    context.lineTo(0, radius);
+    context.lineTo(-7, 7);
+    context.lineTo(-radius, 0);
+    context.lineTo(-7, -7);
+    context.closePath();
+    context.stroke();
+    context.rotate(-rotation);
+  }
+
+  context.beginPath();
+  context.arc(0, 0, 4, 0, Math.PI * 2);
+  context.fill();
+  context.restore();
+}
+
+function drawSquareArtifactFrame(context, size) {
+  const outer = 96;
+  const inner = 138;
+  const gold = "#d4af37";
+
+  context.save();
+  context.strokeStyle = gold;
+  context.lineWidth = 3;
+  context.strokeRect(outer, outer, size - outer * 2, size - outer * 2);
+
+  context.globalAlpha = 0.76;
+  context.lineWidth = 2;
+  context.strokeRect(inner, inner, size - inner * 2, size - inner * 2);
+  context.globalAlpha = 1;
+
+  const diamondSize = 34;
+  for (const [x, y] of [[size / 2, outer], [size / 2, size - outer]]) {
+    context.beginPath();
+    context.moveTo(x, y - diamondSize);
+    context.lineTo(x + diamondSize, y);
+    context.lineTo(x, y + diamondSize);
+    context.lineTo(x - diamondSize, y);
+    context.closePath();
+    context.stroke();
+  }
+
+  for (const [x, y, direction] of [[outer, size / 2, 1], [size - outer, size / 2, -1]]) {
+    for (const offset of [-28, 28]) {
+      context.beginPath();
+      context.moveTo(x, y + offset - 38);
+      context.lineTo(x + direction * 38, y + offset);
+      context.lineTo(x, y + offset + 38);
+      context.lineTo(x - direction * 38, y + offset);
+      context.closePath();
+      context.stroke();
+    }
+  }
+
+  for (const [x, y, sx, sy] of [
+    [outer, outer, 1, 1],
+    [size - outer, outer, -1, 1],
+    [outer, size - outer, 1, -1],
+    [size - outer, size - outer, -1, -1]
+  ]) {
+    context.beginPath();
+    context.moveTo(x + sx * 18, y);
+    context.lineTo(x + sx * 86, y);
+    context.moveTo(x, y + sy * 18);
+    context.lineTo(x, y + sy * 86);
+    context.moveTo(x + sx * 34, y + sy * 34);
+    context.lineTo(x + sx * 86, y + sy * 86);
+    context.stroke();
+  }
+
+  context.restore();
+}
+
+function drawArtifactMainText(context, text, x, startY) {
+  const lines = String(text || "").split("\n");
+  let y = startY;
+
+  for (const line of lines) {
+    if (!line.trim()) {
+      y += 88;
+      continue;
+    }
+
+    context.fillText(line, x, y);
+    y += 128;
+  }
+}
+
+function drawSquareArtifactNumberPlate(context, x, y, width, height, text) {
+  context.save();
+  context.strokeStyle = "#d4af37";
+  context.fillStyle = "#d4af37";
+  context.lineWidth = 3;
+  context.strokeRect(x, y, width, height);
+
+  const cy = y + height / 2;
+  for (const [dx, direction] of [[x - 44, -1], [x + width + 44, 1]]) {
+    context.beginPath();
+    context.moveTo(dx, cy - 42);
+    context.lineTo(dx + direction * 42, cy);
+    context.lineTo(dx, cy + 42);
+    context.lineTo(dx - direction * 42, cy);
+    context.closePath();
+    context.stroke();
+  }
+
+  context.font = "500 52px Georgia, 'Times New Roman', serif";
+  drawTrackedText(context, text.toUpperCase(), x + width / 2, y + 72, 10);
+  context.restore();
+}
+
 async function saveBlessingCardImage() {
   const artifact = buildBlessingArtifact(currentPaymentIntent?.generatedBlessing || null);
   const canvas = document.createElement("canvas");
-  const width = 1176;
-  const height = 1338;
+  const width = 3000;
+  const height = 3000;
   canvas.width = width;
   canvas.height = height;
   const context = canvas.getContext("2d");
   if (!context) return;
-  let templateImage = null;
+  let flameImage = null;
 
   try {
-    templateImage = await loadCardImage("/assets/blessing-card-template-reference-v1.png");
+    flameImage = await loadCardImage("/assets/blessing-card-flame-reference-v1.png");
   } catch {
-    templateImage = null;
+    flameImage = null;
   }
 
   context.textAlign = "center";
-  if (templateImage) {
-    context.drawImage(templateImage, 0, 0, width, height);
+  context.textBaseline = "alphabetic";
+  context.fillStyle = "#050505";
+  context.fillRect(0, 0, width, height);
+  drawSquareArtifactFrame(context, width);
+
+  context.fillStyle = "#d4af37";
+  context.font = "400 108px Georgia, 'Times New Roman', serif";
+  drawTrackedText(context, "FORTUNE SHRINE", width / 2, 342, 40);
+
+  drawArtifactDivider(context, 465, width, 720);
+  drawArtifactStar(context, width / 2, 465, 34);
+
+  context.fillStyle = "#f5d77a";
+  context.font = "500 82px Georgia, 'Times New Roman', serif";
+  drawTrackedText(context, "THE SHRINE SAYS:", width / 2, 625, 12);
+  drawArtifactDivider(context, 715, width, 840);
+
+  context.fillStyle = "#f5d77a";
+  context.font = "400 106px Georgia, 'Times New Roman', serif";
+  drawArtifactMainText(context, artifact.statement, width / 2, 930);
+
+  drawArtifactDivider(context, 1622, width, 620);
+
+  if (flameImage) {
+    context.save();
+    context.shadowColor = "rgba(245, 215, 122, 0.52)";
+    context.shadowBlur = 70;
+    context.drawImage(flameImage, width / 2 - 250, 1860, 500, 253);
+    context.restore();
   } else {
-    context.fillStyle = "#030303";
-    context.fillRect(0, 0, width, height);
-    drawCardFrame(context, width, height);
+    drawCardFlame(context, width / 2, 1875);
   }
 
-  context.fillStyle = "#f9d77e";
-  drawFittedTextBlock(context, artifact.statement, width / 2, 420, 780, 3, {
-    maxFontSize: 58,
-    minFontSize: 44,
-    lineHeightRatio: 1.3
-  });
+  context.fillStyle = "#d4af37";
+  context.font = "500 50px Georgia, 'Times New Roman', serif";
+  drawTrackedText(context, "FORTUNESHRINE.COM", width / 2, 2255, 18);
 
-  drawCardRule(context, 565, width, 205);
+  drawSquareArtifactNumberPlate(
+    context,
+    width / 2 - 670,
+    2360,
+    1340,
+    116,
+    artifact.number.replace("Blessing Card", "Genesis Blessing")
+  );
 
-  context.fillStyle = "#f6d68d";
-  drawFittedTextBlock(context, artifact.echo || "Even the quietest flame can survive.", width / 2, 715, 720, 3, {
-    maxFontSize: 54,
-    minFontSize: 42,
-    lineHeightRatio: 1.36
-  });
-
-  drawCardRule(context, 812, width, 225);
-
-  context.fillStyle = "rgba(216, 157, 66, 0.94)";
-  context.font = "500 29px Georgia, serif";
-  context.letterSpacing = "8px";
-  context.fillText(artifact.number.replace("Blessing Card", "Genesis Blessing").toUpperCase(), width / 2, 1195);
-  context.letterSpacing = "0px";
+  context.fillStyle = "#f5d77a";
+  context.font = "400 46px Georgia, 'Times New Roman', serif";
+  drawTrackedText(context, "✦ The first artifact of Fortune Shrine ✦", width / 2, 2598, 2);
 
   const link = document.createElement("a");
   link.download = `fortune-shrine-${artifact.number.replace(/[^0-9]/g, "")}.png`;

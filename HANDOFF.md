@@ -1,6 +1,6 @@
 # Fortune Shrine Handoff
 
-Last updated: 2026-06-24
+Last updated: 2026-07-11
 
 This file is for a future Codex session or collaborator who has no memory of the previous conversation.
 
@@ -300,6 +300,18 @@ Current implementation note:
 - the browser also remembers used invitation codes locally
 - invitation events are marked as `INVITATION`, not USDC payment
 - the public page accepts either manual code entry or `?invite=SHRINE-7KQ2-LIGHT`
+
+Future automation note:
+
+- keep the current manual Railway variable flow until the user explicitly asks to automate it
+- later build a small founder-only invitation admin surface
+- the admin surface should generate hard-to-guess random codes in batches
+- it should show unused, sent, claimed, and expired states
+- it should record `code -> username/contact -> sent/claimed`
+- it should make adding new invitation codes a one-click founder action
+- it should persist usage in a durable store, not only server memory
+- it should preserve the same ritual positioning: invitation, not public free trial
+- do not add this automation to Run HUD, Queue, or Discovery unless explicitly requested
 
 Positioning:
 

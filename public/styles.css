@@ -1215,185 +1215,200 @@ h2 {
 }
 
 .blessing-artifact {
+  --artifact-black: #050505;
+  --artifact-gold: #d4af37;
+  --artifact-soft-gold: #f5d77a;
   position: relative;
   display: block;
-  width: min(88vw, 520px);
-  aspect-ratio: 1176 / 1338;
+  width: min(88vw, 620px);
+  aspect-ratio: 1 / 1;
   margin: 24px auto 0;
   border: 0;
   border-radius: 0;
   padding: 0;
   overflow: hidden;
-  color: rgba(255, 241, 204, 0.86);
+  color: var(--artifact-gold);
   text-align: center;
-  background: #000 url("/assets/blessing-card-template-reference-v1.png") center / 100% 100% no-repeat;
-  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.44);
+  background: var(--artifact-black);
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.5);
 }
 
 .blessing-artifact::before {
-  content: none;
+  position: absolute;
+  inset: 3.3%;
+  border: 1px solid var(--artifact-gold);
+  border-radius: 2px;
+  pointer-events: none;
+  content: "";
 }
 
 .blessing-artifact::after {
   position: absolute;
-  inset: 0;
+  inset: 4.6%;
+  border: 1px solid rgba(212, 175, 55, 0.76);
   pointer-events: none;
-  background:
-    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent),
-    radial-gradient(circle at 50% 55%, transparent 0 56%, rgba(0, 0, 0, 0.24) 100%);
-  opacity: 0.36;
   content: "";
 }
 
 .artifact-corner {
-  display: none;
+  position: absolute;
+  z-index: 2;
+  width: 11%;
+  height: 11%;
+  color: var(--artifact-gold);
+  pointer-events: none;
 }
 
 .artifact-corner.top-left {
-  top: 20px;
-  left: 18px;
+  top: 3.3%;
+  left: 3.3%;
   border-top: 1px solid;
   border-left: 1px solid;
-  border-radius: 22px 0 0 0;
 }
 
 .artifact-corner.top-right {
-  top: 20px;
-  right: 18px;
+  top: 3.3%;
+  right: 3.3%;
   border-top: 1px solid;
   border-right: 1px solid;
-  border-radius: 0 22px 0 0;
 }
 
 .artifact-corner.bottom-left {
-  bottom: 20px;
-  left: 18px;
+  bottom: 3.3%;
+  left: 3.3%;
   border-bottom: 1px solid;
   border-left: 1px solid;
-  border-radius: 0 0 0 22px;
 }
 
 .artifact-corner.bottom-right {
-  right: 18px;
-  bottom: 20px;
+  right: 3.3%;
+  bottom: 3.3%;
   border-right: 1px solid;
   border-bottom: 1px solid;
-  border-radius: 0 0 22px 0;
 }
 
 .artifact-corner::before,
 .artifact-corner::after {
   position: absolute;
-  width: 30px;
+  width: 56%;
   height: 1px;
-  background: rgba(216, 157, 66, 0.64);
+  background: var(--artifact-gold);
   content: "";
 }
 
 .artifact-corner.top-left::before,
 .artifact-corner.bottom-left::before {
-  left: 6px;
+  left: 9%;
   transform: rotate(45deg);
   transform-origin: left center;
 }
 
 .artifact-corner.top-right::before,
 .artifact-corner.bottom-right::before {
-  right: 6px;
+  right: 9%;
   transform: rotate(-45deg);
   transform-origin: right center;
 }
 
 .artifact-corner.top-left::before,
 .artifact-corner.top-right::before {
-  top: 18px;
+  top: 42%;
 }
 
 .artifact-corner.bottom-left::before,
 .artifact-corner.bottom-right::before {
-  bottom: 18px;
+  bottom: 42%;
 }
 
 .artifact-corner.top-left::after,
 .artifact-corner.bottom-left::after {
-  left: 28px;
+  left: 27%;
   transform: rotate(90deg);
 }
 
 .artifact-corner.top-right::after,
 .artifact-corner.bottom-right::after {
-  right: 28px;
+  right: 27%;
   transform: rotate(90deg);
 }
 
 .artifact-corner.top-left::after,
 .artifact-corner.top-right::after {
-  top: 8px;
+  top: 19%;
 }
 
 .artifact-corner.bottom-left::after,
 .artifact-corner.bottom-right::after {
-  bottom: 8px;
+  bottom: 19%;
 }
 
 .artifact-edge {
-  display: none;
+  position: absolute;
+  z-index: 2;
+  color: var(--artifact-gold);
+  pointer-events: none;
 }
 
 .artifact-edge.top,
 .artifact-edge.bottom {
   left: 50%;
-  width: 16px;
-  height: 16px;
-  border: 1px solid rgba(216, 157, 66, 0.72);
+  width: 2.9%;
+  height: 2.9%;
+  border: 1px solid var(--artifact-gold);
   transform: translateX(-50%) rotate(45deg);
 }
 
-.artifact-edge.top { top: 16px; }
-.artifact-edge.bottom { bottom: 16px; }
+.artifact-edge.top { top: 2.35%; }
+.artifact-edge.bottom { bottom: 2.35%; }
 
 .artifact-edge.left,
 .artifact-edge.right {
   top: 50%;
-  width: 12px;
-  height: 12px;
-  border-top: 1px solid rgba(216, 157, 66, 0.72);
-  border-right: 1px solid rgba(216, 157, 66, 0.72);
+  width: 2.25%;
+  height: 2.25%;
+  border-top: 1px solid var(--artifact-gold);
+  border-right: 1px solid var(--artifact-gold);
   transform: translateY(-50%) rotate(45deg);
 }
 
-.artifact-edge.left { left: 19px; }
-.artifact-edge.right { right: 19px; }
+.artifact-edge.left { left: 3.1%; }
+.artifact-edge.right { right: 3.1%; }
 
 .artifact-side-glyph {
-  display: none;
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 2.8%;
+  height: 7.2%;
+  pointer-events: none;
+  transform: translateY(-50%);
 }
 
-.artifact-side-glyph.left { left: 29px; }
-.artifact-side-glyph.right { right: 29px; }
+.artifact-side-glyph.left { left: 3.9%; }
+.artifact-side-glyph.right { right: 3.9%; }
 
 .artifact-side-glyph::before,
 .artifact-side-glyph::after {
   position: absolute;
   left: 50%;
-  width: 13px;
-  height: 13px;
-  border: 1px solid rgba(216, 157, 66, 0.72);
+  width: 82%;
+  height: 34%;
+  border: 1px solid var(--artifact-gold);
   transform: translateX(-50%) rotate(45deg);
   content: "";
 }
 
-.artifact-side-glyph::before { top: 4px; }
-.artifact-side-glyph::after { bottom: 4px; }
+.artifact-side-glyph::before { top: 2%; }
+.artifact-side-glyph::after { bottom: 2%; }
 
 .artifact-brand,
 .artifact-rule,
 .artifact-kicker,
 .artifact-flame,
 .artifact-domain,
-.artifact-signature,
-.artifact-lines {
-  display: none;
+.artifact-signature {
+  position: absolute;
+  z-index: 3;
 }
 
 .artifact-statement,
@@ -1406,34 +1421,31 @@ h2 {
 }
 
 .artifact-brand {
-  position: absolute;
-  top: 6.6%;
+  top: 8.4%;
   right: 7%;
   left: 7%;
   margin: 0;
-  color: rgba(213, 150, 52, 0.92);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.08rem, 3.2vw, 1.52rem);
+  color: var(--artifact-gold);
+  font-family: "Cinzel", "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(1rem, 3.35vw, 1.62rem);
   font-weight: 400;
-  letter-spacing: clamp(0.24em, 1.05vw, 0.43em);
-  text-indent: clamp(0.24em, 1.05vw, 0.43em);
+  letter-spacing: clamp(0.22em, 0.8vw, 0.34em);
+  text-indent: clamp(0.22em, 0.8vw, 0.34em);
   text-transform: uppercase;
-  text-shadow:
-    0 0 18px rgba(231, 169, 71, 0.22),
-    0 1px 0 rgba(255, 231, 170, 0.1);
+  text-shadow: 0 0 16px rgba(245, 215, 122, 0.16);
+  white-space: nowrap;
 }
 
 .artifact-rule {
-  position: absolute;
-  top: 12.8%;
-  right: 28%;
-  left: 28%;
+  top: 15.9%;
+  right: 34%;
+  left: 34%;
   display: flex;
   align-items: center;
   justify-content: center;
   max-width: none;
   margin: 0;
-  color: rgba(241, 205, 129, 0.82);
+  color: var(--artifact-soft-gold);
 }
 
 .artifact-rule::before,
@@ -1441,95 +1453,105 @@ h2 {
   display: block;
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(216, 157, 66, 0.68));
+  background: var(--artifact-gold);
+  opacity: 0.64;
   content: "";
 }
 
 .artifact-rule::after {
-  background: linear-gradient(90deg, rgba(216, 157, 66, 0.68), transparent);
+  background: var(--artifact-gold);
 }
 
 .artifact-rule span {
   position: relative;
-  width: 14px;
-  height: 14px;
-  margin: 0 13px;
-  background:
-    linear-gradient(45deg, transparent 41%, rgba(247, 209, 130, 0.95) 42% 58%, transparent 59%),
-    linear-gradient(-45deg, transparent 41%, rgba(247, 209, 130, 0.95) 42% 58%, transparent 59%);
-  box-shadow: 0 0 18px rgba(247, 178, 71, 0.62);
+  width: 0.82em;
+  height: 0.82em;
+  margin: 0 0.6em;
 }
 
 .artifact-rule span::before,
 .artifact-rule span::after {
   position: absolute;
   top: 50%;
-  width: 4px;
-  height: 4px;
+  width: 0.18em;
+  height: 0.18em;
   border-radius: 50%;
-  background: rgba(247, 209, 130, 0.9);
+  background: var(--artifact-soft-gold);
   content: "";
 }
 
-.artifact-rule span::before { left: -13px; }
-.artifact-rule span::after { right: -13px; }
+.artifact-rule span::before { left: -0.58em; }
+.artifact-rule span::after { right: -0.58em; }
+
+.artifact-rule span {
+  color: transparent;
+}
+
+.artifact-rule span {
+  background:
+    linear-gradient(45deg, transparent 42%, var(--artifact-soft-gold) 43% 57%, transparent 58%),
+    linear-gradient(-45deg, transparent 42%, var(--artifact-soft-gold) 43% 57%, transparent 58%);
+  box-shadow: 0 0 14px rgba(245, 215, 122, 0.38);
+}
 
 .artifact-kicker {
-  position: absolute;
-  top: 17%;
+  top: 20%;
   right: 7%;
   left: 7%;
   margin: 0;
-  color: rgba(255, 241, 209, 0.8);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(0.86rem, 2.25vw, 1.08rem);
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-indent: 0.2em;
+  color: var(--artifact-soft-gold);
+  font-family: "Cinzel", "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(0.72rem, 2.15vw, 1.02rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
   text-transform: uppercase;
+  text-shadow: 0 0 14px rgba(245, 215, 122, 0.2);
 }
 
 .artifact-statement {
   position: absolute;
-  top: 30.2%;
-  right: 13%;
-  left: 13%;
+  top: 31%;
+  right: 12%;
+  left: 12%;
   max-width: none;
   margin: 0 auto;
-  padding-bottom: 0.12em;
-  color: #f7d992;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.3rem, 4.85vw, 2.15rem);
+  padding: 0;
+  color: var(--artifact-soft-gold);
+  font-family: "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.08rem, 3.6vw, 1.72rem);
   font-weight: 400;
   line-height: 1.28;
+  white-space: pre-line;
   text-wrap: balance;
   text-shadow:
-    0 0 24px rgba(232, 163, 75, 0.18),
-    0 2px 18px rgba(0, 0, 0, 0.64);
+    0 0 20px rgba(245, 215, 122, 0.2),
+    0 2px 18px rgba(0, 0, 0, 0.7);
 }
 
 .artifact-statement::after,
 .artifact-boundary::after {
   display: block;
-  width: min(180px, 38vw);
+  width: min(170px, 30vw);
   height: 1px;
-  margin: clamp(12px, 2.4vw, 18px) auto 0;
-  background: linear-gradient(90deg, transparent, rgba(211, 138, 38, 0.28), rgba(255, 214, 119, 0.9), rgba(211, 138, 38, 0.28), transparent);
-  box-shadow: 0 0 14px rgba(247, 178, 71, 0.52);
+  margin: clamp(12px, 2.2vw, 18px) auto 0;
+  background: var(--artifact-gold);
+  box-shadow: 0 0 12px rgba(245, 215, 122, 0.4);
+  opacity: 0.68;
   content: "";
 }
 
 .artifact-boundary {
   position: absolute;
-  top: 51.6%;
+  top: 53%;
   right: 14%;
   left: 14%;
-  display: grid;
+  display: none;
   gap: 0;
   max-width: none;
   margin: 0 auto;
-  color: #f7d992;
-  font-family: Georgia, "Times New Roman", serif;
+  color: var(--artifact-soft-gold);
+  font-family: "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
   font-size: clamp(1.22rem, 4.55vw, 2.05rem);
   font-weight: 400;
   line-height: 1.32;
@@ -1546,30 +1568,58 @@ h2 {
 .artifact-stillness {
   max-width: 390px;
   margin: 0 auto;
-  color: rgba(243, 219, 168, 0.92);
-  font-family: Georgia, "Times New Roman", serif;
+  color: var(--artifact-soft-gold);
+  font-family: "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
   font-size: clamp(0.9rem, 3.08vw, 1.3rem);
   line-height: 1.16;
   text-wrap: balance;
 }
 
+.artifact-flame {
+  right: 37.1%;
+  bottom: 18.35%;
+  left: 37.1%;
+  aspect-ratio: 365 / 185;
+  background: url("/assets/blessing-card-flame-reference-v1.png") center / contain no-repeat;
+  filter: drop-shadow(0 0 18px rgba(245, 215, 122, 0.5));
+}
+
+.artifact-flame span {
+  display: none;
+}
+
+.artifact-domain {
+  right: 16%;
+  bottom: 14.65%;
+  left: 16%;
+  margin: 0;
+  color: var(--artifact-gold);
+  font-family: "Cinzel", "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(0.5rem, 1.55vw, 0.72rem);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-indent: 0.32em;
+  text-transform: uppercase;
+}
+
 .artifact-number {
   position: absolute;
-  bottom: 8.55%;
+  bottom: 8.4%;
   left: 50%;
   display: inline-flex;
-  min-height: clamp(24px, 4.4vw, 34px);
+  width: 56%;
+  min-height: clamp(24px, 4.7vw, 38px);
   align-items: center;
   justify-content: center;
   margin: 0;
-  border: 0;
-  padding: 0;
-  color: rgba(216, 157, 66, 0.92);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(0.58rem, 1.75vw, 0.78rem);
+  border: 1px solid var(--artifact-gold);
+  padding: 0 1em;
+  color: var(--artifact-gold);
+  font-family: "Cinzel", "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(0.48rem, 1.46vw, 0.72rem);
   font-weight: 500;
-  letter-spacing: 0.24em;
-  text-indent: 0.24em;
+  letter-spacing: 0.18em;
+  text-indent: 0.18em;
   text-transform: uppercase;
   transform: translateX(-50%);
   white-space: nowrap;
@@ -1577,7 +1627,21 @@ h2 {
 
 .artifact-number::before,
 .artifact-number::after {
-  content: none;
+  position: absolute;
+  top: 50%;
+  width: 4.4%;
+  height: 42%;
+  border: 1px solid var(--artifact-gold);
+  content: "";
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.artifact-number::before {
+  left: -3.1%;
+}
+
+.artifact-number::after {
+  right: -3.1%;
 }
 
 .artifact-lines {
@@ -1585,21 +1649,22 @@ h2 {
   grid-template-columns: 1fr;
   gap: 1px;
   margin: 0 auto clamp(4px, 1vw, 8px);
-  color: rgba(235, 222, 198, 0.5);
+  color: var(--artifact-soft-gold);
   font-size: clamp(0.48rem, 1.45vw, 0.58rem);
   letter-spacing: 0.08em;
   line-height: 1.45;
 }
 
 .artifact-signature {
-  position: absolute;
   right: 0;
-  bottom: 3.8%;
+  bottom: 4.85%;
   left: 0;
-  color: rgba(241, 222, 178, 0.74);
-  font-size: clamp(0.54rem, 1.6vw, 0.72rem);
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  margin: 0;
+  color: var(--artifact-soft-gold);
+  font-family: "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(0.48rem, 1.42vw, 0.7rem);
+  font-weight: 400;
+  letter-spacing: 0.055em;
   line-height: 1.3;
 }
 
