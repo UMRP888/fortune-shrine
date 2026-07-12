@@ -83,9 +83,9 @@ button {
 }
 
 .flame-presence {
-  --presence-aura-opacity: 0.18;
-  --presence-core-opacity: 0.2;
-  --presence-floor-opacity: 0.14;
+  --presence-aura-opacity: 0.26;
+  --presence-core-opacity: 0.28;
+  --presence-floor-opacity: 0.2;
   --presence-scale: 1;
   position: absolute;
   z-index: 1;
@@ -563,7 +563,7 @@ h2 {
   margin: 0 auto 38px;
   color: rgba(255, 250, 240, 0.84);
   font-family: Baskerville, Georgia, "Times New Roman", serif;
-  font-size: clamp(1.45rem, 2.55vw, 2.45rem);
+  font-size: clamp(1.55rem, 2.85vw, 2.75rem);
   font-weight: 400;
   letter-spacing: -0.018em;
   line-height: 1.32;
@@ -580,8 +580,8 @@ h2 {
 
 .hero-invocation span:nth-child(5) {
   margin-top: 0.78em;
-  color: rgba(245, 215, 122, 0.88);
-  font-size: 0.94em;
+  color: rgba(245, 215, 122, 0.94);
+  font-size: 0.96em;
   letter-spacing: 0.01em;
   text-shadow:
     0 0 20px rgba(245, 215, 122, 0.16),
@@ -609,8 +609,8 @@ h2 {
 
 .hero-boundary {
   margin: 14px auto 0;
-  color: rgba(235, 222, 198, 0.46);
-  font-size: 0.72rem;
+  color: rgba(235, 222, 198, 0.6);
+  font-size: 0.76rem;
   letter-spacing: 0.08em;
 }
 
@@ -1849,17 +1849,17 @@ h2 {
 
 .shrine-shell::after {
   z-index: 1;
-  opacity: 0.16;
+  opacity: 0.22;
   background-image:
     repeating-linear-gradient(0deg, transparent 0 3px, rgba(255, 255, 255, 0.012) 4px),
-    radial-gradient(circle at 50% 68%, rgba(238, 142, 47, 0.16), transparent 24%);
+    radial-gradient(circle at 50% 68%, rgba(238, 142, 47, 0.24), transparent 26%);
   mix-blend-mode: soft-light;
 }
 
 .hero-intro {
   position: relative;
   z-index: 3;
-  max-width: 680px;
+  max-width: 980px;
   margin: 0 auto;
 }
 
