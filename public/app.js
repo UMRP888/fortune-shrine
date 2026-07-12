@@ -1093,9 +1093,9 @@ const artifactStatements = [
 ];
 
 const primaryArtifactStatement = `The market does not challenge
-my knowledge.
+my knowledge.`;
 
-It reveals my attachment
+const primaryArtifactEcho = `It reveals my attachment
 to being right.`;
 
 function stableNumberFromText(value) {
@@ -1141,14 +1141,14 @@ function buildBlessingArtifact(reading = null) {
     const number = existing.number.match(/\d+/)?.[0] || artifactDigits;
     existing.number = `Genesis Blessing · ${String(number).padStart(7, "0").slice(-7)}`;
     existing.statement = primaryArtifactStatement;
-    existing.echo = "";
+    existing.echo = primaryArtifactEcho;
     existing.signature = "✦ The first artifact of Fortune Shrine ✦";
     return existing;
   }
 
   const artifact = {
     statement: primaryArtifactStatement,
-    echo: "",
+    echo: primaryArtifactEcho,
     marketState: "During uncertain market conditions",
     date: formatArtifactDate(currentPaymentIntent?.verifiedAt || new Date()),
     identity: createWeakIdentityMarker(),
@@ -1164,7 +1164,7 @@ function renderBlessingArtifact(artifact) {
   if (!artifact) return;
 
   artifactStatement.textContent = artifact.statement;
-  if (artifactEcho) artifactEcho.textContent = artifact.echo || "Even the quietest flame can survive.";
+  if (artifactEcho) artifactEcho.textContent = artifact.echo || "";
   artifactMarketState.textContent = artifact.marketState;
   artifactDate.textContent = artifact.date;
   artifactIdentity.textContent = artifact.identity;
@@ -1216,6 +1216,15 @@ function drawWrappedText(context, text, x, y, maxWidth, lineHeight, maxLines = 5
 }
 
 function createWrappedLines(context, text, maxWidth, maxLines) {
+  const explicitLines = String(text || "")
+    .split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  if (explicitLines.length > 1) {
+    return explicitLines.slice(0, maxLines);
+  }
+
   const words = String(text || "").trim().split(/\s+/).filter(Boolean);
   const lines = [];
   let line = "";
@@ -1686,70 +1695,60 @@ function drawSquareArtifactNumberPlate(context, x, y, width, height, text) {
 async function saveBlessingCardImage() {
   const artifact = buildBlessingArtifact(currentPaymentIntent?.generatedBlessing || null);
   const canvas = document.createElement("canvas");
-  const width = 3000;
-  const height = 3000;
+  const width = 2352;
+  const height = 2676;
   canvas.width = width;
   canvas.height = height;
   const context = canvas.getContext("2d");
   if (!context) return;
-  let flameImage = null;
+  let templateImage = null;
 
   try {
-    flameImage = await loadCardImage("/assets/blessing-card-flame-reference-v1.png");
+    templateImage = await loadCardImage("/assets/blessing-card-template-reference-v1.png");
   } catch {
-    flameImage = null;
+    templateImage = null;
   }
 
   context.textAlign = "center";
   context.textBaseline = "alphabetic";
-  context.fillStyle = "#050505";
-  context.fillRect(0, 0, width, height);
-  drawSquareArtifactFrame(context, width);
 
-  context.fillStyle = "#d4af37";
-  context.font = "400 108px Georgia, 'Times New Roman', serif";
-  drawTrackedText(context, "FORTUNE SHRINE", width / 2, 342, 40);
-
-  drawArtifactDivider(context, 465, width, 720);
-  drawArtifactStar(context, width / 2, 465, 34);
-
-  context.fillStyle = "#f5d77a";
-  context.font = "500 82px Georgia, 'Times New Roman', serif";
-  drawTrackedText(context, "THE SHRINE SAYS:", width / 2, 625, 12);
-  drawArtifactDivider(context, 715, width, 840);
-
-  context.fillStyle = "#f5d77a";
-  context.font = "400 106px Georgia, 'Times New Roman', serif";
-  drawArtifactMainText(context, artifact.statement, width / 2, 930);
-
-  drawArtifactDivider(context, 1622, width, 620);
-
-  if (flameImage) {
-    context.save();
-    context.shadowColor = "rgba(245, 215, 122, 0.52)";
-    context.shadowBlur = 70;
-    context.drawImage(flameImage, width / 2 - 250, 1860, 500, 253);
-    context.restore();
+  if (templateImage) {
+    context.drawImage(templateImage, 0, 0, width, height);
   } else {
-    drawCardFlame(context, width / 2, 1875);
+    context.fillStyle = "#050505";
+    context.fillRect(0, 0, width, height);
+    drawCardFrame(context, width, height);
   }
 
-  context.fillStyle = "#d4af37";
-  context.font = "500 50px Georgia, 'Times New Roman', serif";
-  drawTrackedText(context, "FORTUNESHRINE.COM", width / 2, 2255, 18);
-
-  drawSquareArtifactNumberPlate(
-    context,
-    width / 2 - 670,
-    2360,
-    1340,
-    116,
-    artifact.number.replace("Blessing Card", "Genesis Blessing")
-  );
-
   context.fillStyle = "#f5d77a";
-  context.font = "400 46px Georgia, 'Times New Roman', serif";
-  drawTrackedText(context, "✦ The first artifact of Fortune Shrine ✦", width / 2, 2598, 2);
+  context.shadowColor = "rgba(245, 215, 122, 0.34)";
+  context.shadowBlur = 24;
+  const artifactFont = "Baskerville, Georgia, 'Times New Roman', serif";
+  context.font = `400 96px ${artifactFont}`;
+  drawFittedTextBlock(context, artifact.statement, width / 2, 810, 1660, 2, {
+    maxFontSize: 96,
+    minFontSize: 74,
+    lineHeightRatio: 1.44,
+    family: artifactFont
+  });
+
+  drawCardRule(context, 1154, width, 270);
+
+  context.font = `400 92px ${artifactFont}`;
+  drawFittedTextBlock(context, artifact.echo || "", width / 2, 1418, 1600, 2, {
+    maxFontSize: 92,
+    minFontSize: 70,
+    lineHeightRatio: 1.46,
+    family: artifactFont
+  });
+
+  drawCardRule(context, 1708, width, 270);
+
+  context.shadowBlur = 10;
+  context.fillStyle = "#d4af37";
+  context.font = "500 40px Baskerville, Georgia, 'Times New Roman', serif";
+  drawTrackedText(context, artifact.number.replace("Blessing Card", "Genesis Blessing").toUpperCase(), width / 2, 2398, 9);
+  context.shadowBlur = 0;
 
   const link = document.createElement("a");
   link.download = `fortune-shrine-${artifact.number.replace(/[^0-9]/g, "")}.png`;
